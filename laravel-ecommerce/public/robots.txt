@@ -1,0 +1,33 @@
+User-agent: *
+Allow: /
+
+# Disallow admin areas
+Disallow: /admin/
+Disallow: /filament/
+
+# Disallow user areas
+Disallow: /mon-compte
+Disallow: /mes-commandes
+Disallow: /profil
+
+# Disallow cart and checkout
+Disallow: /panier
+Disallow: /commande
+
+# Disallow authentication pages
+Disallow: /connexion
+Disallow: /inscription
+
+# Allow important SEO pages
+Allow: /produits
+Allow: /categories
+Allow: /marques
+Allow: /produit/
+Allow: /categorie/
+Allow: /marque/
+
+# Sitemap location
+Sitemap: http://localhost:8000/sitemap.xml
+
+# Crawl delay (1 second)
+Crawl-delay: 1
