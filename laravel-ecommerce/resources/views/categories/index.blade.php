@@ -17,8 +17,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
                         </svg>
                     </div>
-                    <h1 class="text-4xl md:text-5xl font-heading text-white mb-4">@t('Categories')</h1>
-                    <p class="text-xl text-gray-200 max-w-2xl mx-auto font-light">@t('Discover our carefully curated perfume collections organized by style, occasion, and fragrance family')</p>
+                    <h1 class="text-4xl md:text-5xl font-roboto-black text-white mb-4 tracking-wide">@t('Fragrance Categories')</h1>
+                    <p class="text-xl text-gray-200 max-w-2xl mx-auto font-roboto-light">@t('Discover our carefully curated perfume collections organized by style, occasion, and fragrance family')</p>
 
                     <!-- Stats -->
                     <div class="flex justify-center items-center mt-8 space-x-8">
@@ -38,53 +38,70 @@
 
         <!-- Categories Grid -->
         @if($categories->count() > 0)
+            @php
+                $gradientBackgrounds = [
+                    'linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%)',
+                    'linear-gradient(135deg, #f9f7f4 0%, #e8ddd3 100%)',
+                    'linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%)',
+                    'linear-gradient(135deg, #fefefe 0%, #f0f0f0 100%)',
+                    'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)',
+                    'linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%)',
+                ];
+
+                $categoryImages = [
+                    'https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=400&h=300&fit=crop&crop=center',
+                    'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&h=300&fit=crop&crop=center',
+                    'https://images.unsplash.com/photo-1541643600914-78b084683601?w=400&h=300&fit=crop&crop=center',
+                    'https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=400&h=300&fit=crop&crop=center',
+                    'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=400&h=300&fit=crop&crop=center',
+                    'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=400&h=300&fit=crop&crop=center',
+                ];
+            @endphp
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-8">
                 @foreach($categories as $category)
-                    <div class="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 hover:border-secondary">
-                        <a href="{{ route('categories.show', $category->slug) }}" class="block">
-                            @if($category->image)
-                                <div class="h-48 bg-cover bg-center relative" style="background-image: url('{{ $category->image }}')">
-                                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                                    <div class="absolute bottom-4 left-4 text-white">
-                                        <h3 class="text-lg font-semibold">{{ $category->name }}</h3>
-                                    </div>
-                                    <div class="absolute top-4 right-4 bg-secondary/90 backdrop-blur-sm rounded-full px-3 py-1">
-                                        <span class="text-xs font-semibold text-primary">{{ $category->products_count ?? 0 }}</span>
-                                    </div>
-                                </div>
-                            @else
-                                <div class="h-48 bg-gradient-to-br from-primary via-gray-800 to-secondary relative overflow-hidden">
-                                    <!-- Decorative elements -->
-                                    <div class="absolute inset-0 opacity-20">
-                                        <div class="absolute top-4 right-4 w-16 h-16 border border-white/30 rounded-full"></div>
-                                        <div class="absolute bottom-8 left-8 w-8 h-8 bg-secondary/40 rounded-full"></div>
-                                        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 border border-white/20 rounded-full"></div>
-                                    </div>
-
-                                    <div class="relative h-full flex flex-col justify-center items-center text-white p-6">
-                                        <div class="w-16 h-16 bg-secondary/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                                            <svg class="w-8 h-8 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
-                                            </svg>
-                                        </div>
-                                        <h3 class="text-lg font-semibold text-center">{{ $category->name }}</h3>
-                                        <div class="absolute top-4 right-4 bg-secondary/90 backdrop-blur-sm rounded-full px-3 py-1">
-                                            <span class="text-xs font-semibold text-primary">{{ $category->products_count ?? 0 }}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endif
-
-                            <div class="p-6">
-                                @if($category->description)
-                                    <p class="text-sm text-gray-600 mb-4 line-clamp-2">{{ Str::limit($category->description, 100) }}</p>
+                    @php
+                        $gradientBg = $gradientBackgrounds[($loop->index) % count($gradientBackgrounds)];
+                        $categoryImageUrl = $categoryImages[($loop->index) % count($categoryImages)];
+                    @endphp
+                    <div class="group relative flex flex-col bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100 hover:border-secondary/30 transform hover:-translate-y-2">
+                        <a href="{{ route('categories.show', $category->slug) }}" class="block flex flex-col h-full">
+                            <!-- Image Container -->
+                            <div class="relative h-56 overflow-hidden rounded-t-3xl" style="background: {{ $gradientBg }};">
+                                @if($category->image)
+                                    <img src="{{ $category->image }}"
+                                         alt="{{ $category->name }}"
+                                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                                @else
+                                    <img src="{{ $categoryImageUrl }}"
+                                         alt="{{ $category->name }}"
+                                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                                 @endif
 
-                                <div class="flex items-center justify-between">
-                                    <span class="text-sm text-gray-500">
+                                <!-- Gradient Overlay -->
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-300"></div>
+
+                                <!-- Product Count Badge -->
+                                <div class="absolute top-4 right-4 bg-secondary/95 backdrop-blur-sm rounded-full px-3 py-1.5 shadow-lg">
+                                    <span class="text-xs font-roboto-medium text-black">{{ $category->products_count ?? 0 }}</span>
+                                </div>
+
+                                <!-- Category Name Overlay -->
+                                <div class="absolute bottom-4 left-4 right-4">
+                                    <h3 class="text-lg font-roboto-bold text-white mb-1 group-hover:text-secondary transition-colors duration-300">{{ $category->name }}</h3>
+                                </div>
+                            </div>
+
+                            <!-- Content -->
+                            <div class="flex-grow p-5 flex flex-col">
+                                @if($category->description)
+                                    <p class="text-sm text-gray-600 mb-4 line-clamp-2 font-roboto-light flex-grow">{{ Str::limit($category->description, 100) }}</p>
+                                @endif
+
+                                <div class="flex items-center justify-between mt-auto">
+                                    <span class="text-sm text-gray-500 font-roboto-light">
                                         {{ $category->products_count ?? 0 }} @t('products')
                                     </span>
-                                    <span class="text-sm text-secondary hover:text-secondary font-semibold group-hover:translate-x-1 transition-transform inline-flex items-center">
+                                    <span class="text-sm text-secondary hover:text-secondary font-roboto-medium group-hover:translate-x-1 transition-transform inline-flex items-center">
                                         @t('View Products')
                                         <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -94,15 +111,15 @@
 
                                 @if($category->children && $category->children->count() > 0)
                                     <div class="mt-4 pt-4 border-t border-gray-100">
-                                        <p class="text-xs text-gray-500 mb-2 font-light">@t('Subcategories'):</p>
+                                        <p class="text-xs text-gray-500 mb-2 font-roboto-light">@t('Subcategories'):</p>
                                         <div class="flex flex-wrap gap-2">
                                             @foreach($category->children->take(3) as $child)
-                                                <span class="inline-block px-3 py-1 bg-gray-50 hover:bg-secondary/10 text-xs text-gray-700 rounded-full border transition-colors">
+                                                <span class="inline-block px-3 py-1 bg-gray-50 hover:bg-secondary/10 text-xs text-gray-700 rounded-full border transition-colors font-roboto-light">
                                                     {{ $child->name }}
                                                 </span>
                                             @endforeach
                                             @if($category->children->count() > 3)
-                                                <span class="inline-block px-3 py-1 bg-secondary/10 text-xs text-secondary font-semibold rounded-full">
+                                                <span class="inline-block px-3 py-1 bg-secondary/10 text-xs text-secondary font-roboto-medium rounded-full">
                                                     +{{ $category->children->count() - 3 }}
                                                 </span>
                                             @endif

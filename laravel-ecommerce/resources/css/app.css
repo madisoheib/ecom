@@ -37,17 +37,42 @@
   }
 }
 
-/* Custom component styles */
+/* Roboto Font Base Styles */
+@layer base {
+  body {
+    font-family: 'Roboto', system-ui, sans-serif;
+    font-weight: 300;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Roboto', system-ui, sans-serif;
+  }
+}
+
+/* Custom component styles with Roboto font weights */
 @layer components {
   .btn-black-gold {
-    @apply bg-black text-yellow-400 border-2 border-yellow-400 px-4 py-2 font-semibold transition-all duration-300 hover:bg-yellow-400 hover:text-black;
+    @apply bg-black text-yellow-400 border-2 border-yellow-400 px-4 py-2 font-medium transition-all duration-300 hover:bg-yellow-400 hover:text-black;
+    font-family: 'Roboto', system-ui, sans-serif;
+    font-weight: 500;
   }
 
   .btn-gold-black {
-    @apply bg-yellow-400 text-black border-2 border-black px-4 py-2 font-semibold transition-all duration-300 hover:bg-black hover:text-yellow-400;
+    @apply bg-yellow-400 text-black border-2 border-black px-4 py-2 font-medium transition-all duration-300 hover:bg-black hover:text-yellow-400;
+    font-family: 'Roboto', system-ui, sans-serif;
+    font-weight: 500;
   }
 
   .card-elegant {
     @apply bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md hover:border-yellow-400 transition-all duration-300;
   }
+
+  /* Roboto Font Weight Utilities */
+  .font-roboto-thin { font-family: 'Roboto', sans-serif; font-weight: 100; }
+  .font-roboto-extralight { font-family: 'Roboto', sans-serif; font-weight: 200; }
+  .font-roboto-light { font-family: 'Roboto', sans-serif; font-weight: 300; }
+  .font-roboto-regular { font-family: 'Roboto', sans-serif; font-weight: 400; }
+  .font-roboto-medium { font-family: 'Roboto', sans-serif; font-weight: 500; }
+  .font-roboto-bold { font-family: 'Roboto', sans-serif; font-weight: 700; }
+  .font-roboto-black { font-family: 'Roboto', sans-serif; font-weight: 900; }
 }

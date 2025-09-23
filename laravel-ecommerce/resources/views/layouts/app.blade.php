@@ -22,8 +22,11 @@
             theme: {
                 extend: {
                     fontFamily: {
-                        'sans': ['Lato', 'system-ui', 'sans-serif'],
-                        'arabic': ['Noto Sans Arabic', 'system-ui', 'sans-serif'],
+                        'sans': ['Roboto', 'system-ui', 'sans-serif'],
+                        'body': ['Roboto', 'system-ui', 'sans-serif'],
+                        'heading': ['Roboto', 'system-ui', 'sans-serif'],
+                        'display': ['Roboto', 'system-ui', 'sans-serif'],
+                        'arabic': ['Tajawal', 'system-ui', 'sans-serif'],
                     },
                     colors: {
                         'custom-bg': '#f8f9fa',
@@ -73,10 +76,11 @@
     <!-- Inter font for shadcn -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     
-    <!-- Google Fonts -->
+    <!-- Google Fonts - Roboto Family -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&family=Noto+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800;900&display=swap" rel="stylesheet">
     
     <!-- Heroicons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/heroicons@2.0.18/24/outline/style.css">
@@ -84,23 +88,63 @@
     <style>
         [x-cloak] { display: none !important; }
         .rtl { direction: rtl; }
-        .arabic { font-family: 'Noto Sans Arabic', system-ui, sans-serif; }
+        .arabic { font-family: 'Tajawal', system-ui, sans-serif; }
+
+        /* Arabic font hierarchy using Tajawal - High specificity */
+        html[lang="ar"] * { font-family: 'Tajawal', system-ui, sans-serif !important; }
+        html[lang="ar"] body {
+            font-family: 'Tajawal', system-ui, sans-serif !important;
+            font-weight: 400;
+            background-color: #fafafa !important; /* Debug: Light background for Arabic */
+        }
+        html[lang="ar"] h1, html[lang="ar"] h2, html[lang="ar"] h3, html[lang="ar"] h4, html[lang="ar"] h5, html[lang="ar"] h6 { font-family: 'Tajawal', system-ui, sans-serif !important; }
+        html[lang="ar"] .font-display { font-family: 'Tajawal', sans-serif !important; font-weight: 900; }
+        html[lang="ar"] .font-heading { font-family: 'Tajawal', sans-serif !important; font-weight: 700; }
+        html[lang="ar"] .font-subheading { font-family: 'Tajawal', sans-serif !important; font-weight: 500; }
+        html[lang="ar"] .font-body { font-family: 'Tajawal', sans-serif !important; font-weight: 400; }
+        html[lang="ar"] .font-light { font-family: 'Tajawal', sans-serif !important; font-weight: 300; }
+        html[lang="ar"] .font-thin { font-family: 'Tajawal', sans-serif !important; font-weight: 200; }
+        html[lang="ar"] .font-extralight { font-family: 'Tajawal', sans-serif !important; font-weight: 200; }
 
         /* Fix for RTL spacing utilities */
         .rtl .space-x-reverse > :not([hidden]) ~ :not([hidden]) {
             --tw-space-x-reverse: 1;
         }
 
-        /* Lato font for English and French */
-        body { font-family: 'Lato', system-ui, sans-serif; font-weight: 400; }
+        /* Typography for luxury perfume brand using Roboto Light */
+        body { font-family: 'Roboto', 'system-ui', sans-serif; font-weight: 300; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Roboto', 'system-ui', sans-serif; }
 
-        /* Font weight hierarchy */
-        .font-display { font-weight: 900; } /* For hero titles */
-        .font-heading { font-weight: 700; } /* For section headings */
-        .font-subheading { font-weight: 600; } /* For subheadings */
-        .font-body { font-weight: 400; } /* For body text */
-        .font-light { font-weight: 300; } /* For descriptions */
-        .font-thin { font-weight: 100; } /* For subtle text */
+        /* Default to Roboto Light for English and French */
+        html[lang="en"] body, html[lang="fr"] body { font-family: 'Roboto', system-ui, sans-serif; font-weight: 300; }
+        html[lang="en"] *, html[lang="fr"] * { font-family: 'Roboto', system-ui, sans-serif; }
+
+        /* Font weight hierarchy for luxury design using Roboto */
+        .font-display { font-family: 'Roboto', sans-serif; font-weight: 900; } /* For hero titles */
+        .font-heading { font-family: 'Roboto', sans-serif; font-weight: 700; } /* For section headings */
+        .font-subheading { font-family: 'Roboto', sans-serif; font-weight: 500; } /* For subheadings */
+        .font-body { font-family: 'Roboto', sans-serif; font-weight: 400; } /* For body text */
+        .font-light { font-family: 'Roboto', sans-serif; font-weight: 300; } /* For descriptions */
+        .font-thin { font-family: 'Roboto', sans-serif; font-weight: 100; } /* For subtle text */
+        .font-extralight { font-family: 'Roboto', sans-serif; font-weight: 200; } /* For extra light text */
+
+        /* Roboto utility classes for consistent naming */
+        .font-roboto-thin { font-family: 'Roboto', sans-serif; font-weight: 100; }
+        .font-roboto-extralight { font-family: 'Roboto', sans-serif; font-weight: 200; }
+        .font-roboto-light { font-family: 'Roboto', sans-serif; font-weight: 300; }
+        .font-roboto-regular { font-family: 'Roboto', sans-serif; font-weight: 400; }
+        .font-roboto-medium { font-family: 'Roboto', sans-serif; font-weight: 500; }
+        .font-roboto-bold { font-family: 'Roboto', sans-serif; font-weight: 700; }
+        .font-roboto-black { font-family: 'Roboto', sans-serif; font-weight: 900; }
+
+        /* Arabic Roboto classes for consistent naming - High specificity */
+        html[lang="ar"] .font-roboto-thin { font-family: 'Tajawal', sans-serif !important; font-weight: 200; }
+        html[lang="ar"] .font-roboto-extralight { font-family: 'Tajawal', sans-serif !important; font-weight: 200; }
+        html[lang="ar"] .font-roboto-light { font-family: 'Tajawal', sans-serif !important; font-weight: 300; }
+        html[lang="ar"] .font-roboto-regular { font-family: 'Tajawal', sans-serif !important; font-weight: 400; }
+        html[lang="ar"] .font-roboto-medium { font-family: 'Tajawal', sans-serif !important; font-weight: 500; }
+        html[lang="ar"] .font-roboto-bold { font-family: 'Tajawal', sans-serif !important; font-weight: 700; }
+        html[lang="ar"] .font-roboto-black { font-family: 'Tajawal', sans-serif !important; font-weight: 900; }
 
         /* Modern typography styles */
         * {
@@ -110,7 +154,8 @@
         }
 
         button, input, textarea, select {
-            font-family: 'Lato', system-ui, sans-serif;
+            font-family: 'Roboto', 'system-ui', sans-serif;
+            font-weight: 400;
             -webkit-appearance: none;
             -moz-appearance: none;
             appearance: none;

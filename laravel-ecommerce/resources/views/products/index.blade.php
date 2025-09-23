@@ -4,17 +4,18 @@
 <div class="min-h-screen" style="background-color: #f8f9fa;">
     <div class="container mx-auto px-4 py-8">
         <!-- Header -->
-        <div class="mb-8">
-            <h1 class="text-3xl font-heading text-gray-900 mb-4">@t('Products')</h1>
-            <p class="text-gray-600 font-light">@t('Discover our complete product collection')</p>
+        <div class="mb-12 text-center">
+            <h1 class="text-5xl font-roboto-black text-black mb-4 tracking-wide">@t('Premium Fragrance Collection')</h1>
+            <div class="w-24 h-1 bg-gradient-to-r from-transparent via-secondary to-transparent mx-auto mb-6"></div>
+            <p class="text-gray-600 font-roboto-light text-lg max-w-2xl mx-auto">@t('Discover our exquisite collection of luxury perfumes, carefully curated for the most discerning fragrance enthusiasts')</p>
         </div>
 
         <div class="flex flex-col lg:flex-row gap-8">
             <!-- Filters Sidebar -->
             <div class="lg:w-1/4">
                 <form method="GET" action="{{ route('products.index') }}" id="filters-form">
-                <div class="bg-white p-6" style="border-radius: 16px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);">
-                    <h3 class="font-subheading text-gray-900 mb-4">@t('Filters')</h3>
+                <div class="bg-white p-6 border-2 border-gray-100 hover:border-secondary/30 transition-all duration-300" style="border-radius: 16px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);">
+                    <h3 class="font-roboto-bold text-2xl text-black mb-6 pb-3 border-b border-secondary/20">@t('Refine Your Search')</h3>
                     
                     <!-- Search -->
                     <div class="mb-6">
@@ -23,7 +24,7 @@
                                name="search"
                                value="{{ request('search') }}"
                                placeholder="@t('Search products...')"
-                               class="w-full px-3 py-2 border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200"
+                               class="w-full px-4 py-3 border-2 border-gray-200 focus:ring-2 focus:ring-secondary focus:border-secondary transition-all duration-300 font-body"
                                style="border-radius: 8px;"
                                onchange="document.getElementById('filters-form').submit()">
                     </div>
@@ -32,7 +33,7 @@
                     <div class="mb-6">
                         <label class="block text-sm font-subheading text-gray-700 mb-2">@t('Categories')</label>
                         <select name="category"
-                                class="w-full px-3 py-2 border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200"
+                                class="w-full px-4 py-3 border-2 border-gray-200 focus:ring-2 focus:ring-secondary focus:border-secondary transition-all duration-300 font-body"
                                 style="border-radius: 8px;"
                                 onchange="document.getElementById('filters-form').submit()">
                             <option value="">@t('All Categories')</option>
@@ -48,7 +49,7 @@
                     <div class="mb-6">
                         <label class="block text-sm font-subheading text-gray-700 mb-2">@t('Brands')</label>
                         <select name="brand"
-                                class="w-full px-3 py-2 border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200"
+                                class="w-full px-4 py-3 border-2 border-gray-200 focus:ring-2 focus:ring-secondary focus:border-secondary transition-all duration-300 font-body"
                                 style="border-radius: 8px;"
                                 onchange="document.getElementById('filters-form').submit()">
                             <option value="">@t('All Brands')</option>
@@ -68,21 +69,21 @@
                                    name="price_min"
                                    value="{{ request('price_min') }}"
                                    placeholder="@t('Min')"
-                                   class="w-1/2 px-3 py-2 border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200"
+                                   class="w-1/2 px-4 py-3 border-2 border-gray-200 focus:ring-2 focus:ring-secondary focus:border-secondary transition-all duration-300 font-body"
                                    style="border-radius: 8px;"
                                    onchange="document.getElementById('filters-form').submit()">
                             <input type="number"
                                    name="price_max"
                                    value="{{ request('price_max') }}"
                                    placeholder="@t('Max')"
-                                   class="w-1/2 px-3 py-2 border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200"
+                                   class="w-1/2 px-4 py-3 border-2 border-gray-200 focus:ring-2 focus:ring-secondary focus:border-secondary transition-all duration-300 font-body"
                                    style="border-radius: 8px;"
                                    onchange="document.getElementById('filters-form').submit()">
                         </div>
                     </div>
 
                     <button type="submit"
-                            class="w-full bg-primary hover:bg-primary-700 text-white font-subheading py-3 px-4 transition-all duration-200 hover:scale-105 hover:shadow-lg"
+                            class="w-full bg-primary hover:bg-primary-700 text-white font-subheading py-3 px-4 transition-all duration-300 font-body hover:scale-105 hover:shadow-lg"
                             style="border-radius: 12px;">
                         @t('Apply Filters')
                     </button>
@@ -103,7 +104,7 @@
                         @endforeach
 
                         <select name="sort"
-                                class="px-3 py-2 border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200"
+                                class="px-4 py-3 border-2 border-gray-200 focus:ring-2 focus:ring-secondary focus:border-secondary transition-all duration-300 font-body"
                                 style="border-radius: 8px;"
                                 onchange="this.form.submit()">
                             <option value="name" {{ request('sort') === 'name' ? 'selected' : '' }}>@t('Sort by Name')</option>

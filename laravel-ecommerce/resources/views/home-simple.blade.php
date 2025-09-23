@@ -2,50 +2,80 @@
 
 @section('content')
 <div class="min-h-screen bg-white">
-    <!-- Hero Slider Section -->
-    @if($sliders && $sliders->count() > 0)
-        <section class="relative overflow-hidden">
-            <div id="heroSlider" class="relative w-full h-[400px] sm:h-[500px] md:h-screen md:max-h-[600px]">
-                @foreach($sliders as $index => $slider)
-                    <div class="slider-item absolute inset-0 transition-opacity duration-1000 {{ $index === 0 ? 'opacity-100' : 'opacity-0' }}"
-                         style="background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);">
-                        <div class="relative w-full h-full flex items-center">
-                            @if($slider->image_path || $slider->image_url)
-                                <div class="absolute inset-0">
-                                    <img src="{{ $slider->image_path ?? $slider->image_url }}"
-                                         alt="{{ $slider->title }}"
-                                         class="w-full h-full object-cover sm:object-center brightness-110 contrast-95">
-                                    <div class="absolute inset-0 bg-gradient-to-r from-white/60 sm:from-white/40 to-white/20 sm:to-white/10"></div>
-                                </div>
-                            @endif
+    <!-- Modern Creative Hero Slider -->
+    <section class="relative py-8">
+        <div class="container mx-auto px-4">
+            <div id="modernSlider" class="relative h-[500px] rounded-3xl overflow-hidden shadow-2xl">
+                @php
+                $beautySlides = [
+                    [
+                        'image' => 'https://images.unsplash.com/photo-1596755389378-c31d21fd1273?w=1400&h=500&fit=crop&auto=format&q=90',
+                        'title' => 'Discover Beauty Excellence',
+                        'subtitle' => 'Premium Skincare & Cosmetics',
+                        'description' => 'Transform your daily routine with our carefully curated collection of luxury beauty products.',
+                        'button_text' => 'Shop Beauty',
+                        'gradient' => 'from-black/60 via-black/40 to-transparent'
+                    ],
+                    [
+                        'image' => 'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=1400&h=500&fit=crop&auto=format&q=90',
+                        'title' => 'Radiant Skin Solutions',
+                        'subtitle' => 'Advanced Skincare Technology',
+                        'description' => 'Experience the power of science-backed formulations for healthy, glowing skin.',
+                        'button_text' => 'Explore Skincare',
+                        'gradient' => 'from-blue-900/60 via-blue-800/40 to-transparent'
+                    ],
+                    [
+                        'image' => 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=1400&h=500&fit=crop&auto=format&q=90',
+                        'title' => 'Luxury Beauty Collection',
+                        'subtitle' => 'Curated for You',
+                        'description' => 'Indulge in premium beauty essentials from the world\'s most trusted brands.',
+                        'button_text' => 'View Collection',
+                        'gradient' => 'from-purple-900/60 via-purple-800/40 to-transparent'
+                    ]
+                ];
+                @endphp
 
-                            <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                                <div class="max-w-4xl mx-auto sm:mx-0 {{ $loop->even ? 'sm:ml-auto sm:mr-0' : 'sm:ml-0 sm:mr-auto' }}">
-                                    <div class="bg-white/95 backdrop-blur-md rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-12 shadow-xl sm:shadow-2xl">
-                                        @if($slider->title)
-                                            <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-display mb-4 sm:mb-6 leading-tight animate-fade-in text-gray-900">
-                                                {{ $slider->title }}
-                                            </h1>
-                                        @endif
+                @foreach($beautySlides as $index => $slide)
+                    <div class="slide-item absolute inset-0 transition-all duration-700 ease-in-out {{ $index === 0 ? 'opacity-100 scale-100' : 'opacity-0 scale-105' }}"
+                         data-slide="{{ $index }}">
+                        <div class="relative w-full h-full">
+                            <!-- Background Image -->
+                            <img src="{{ $slide['image'] }}"
+                                 alt="{{ $slide['title'] }}"
+                                 class="w-full h-full object-cover">
 
-                                        @if($slider->subtitle)
-                                            <p class="text-base sm:text-lg md:text-xl lg:text-2xl mb-3 sm:mb-4 text-gray-700 animate-fade-in-delay-1">
-                                                {{ $slider->subtitle }}
-                                            </p>
-                                        @endif
+                            <!-- Gradient Overlay -->
+                            <div class="absolute inset-0 bg-gradient-to-r {{ $slide['gradient'] }}"></div>
 
-                                        @if($slider->description)
-                                            <p class="text-sm sm:text-base md:text-lg mb-6 sm:mb-8 text-gray-600 max-w-2xl animate-fade-in-delay-2">
-                                                {{ $slider->description }}
-                                            </p>
-                                        @endif
+                            <!-- Content -->
+                            <div class="absolute inset-0 flex items-center">
+                                <div class="container mx-auto px-8 relative z-10">
+                                    <div class="max-w-2xl">
+                                        <!-- Animated Content Card -->
+                                        <div class="backdrop-blur-sm bg-white/10 rounded-2xl p-8 border border-white/20 shadow-2xl transform transition-all duration-700 hover:scale-105">
+                                            <div class="space-y-6">
+                                                <!-- Title -->
+                                                <h1 class="text-4xl md:text-6xl font-roboto-black text-white leading-tight">
+                                                    {{ $slide['title'] }}
+                                                </h1>
 
-                                        @if($slider->button_text && $slider->button_url)
-                                            <a href="{{ $slider->button_url }}"
-                                               class="inline-block bg-primary text-white px-6 sm:px-8 md:px-10 py-3 sm:py-4 font-light text-sm sm:text-base hover:bg-primary-700 transition-all duration-300 rounded-full animate-fade-in-delay-3">
-                                                {{ $slider->button_text }}
-                                            </a>
-                                        @endif
+                                                <!-- Description -->
+                                                <p class="text-lg md:text-xl text-white/90 font-roboto-light leading-relaxed">
+                                                    {{ $slide['description'] }}
+                                                </p>
+
+                                                <!-- Button -->
+                                                <div>
+                                                    <a href="{{ route('products.index') }}"
+                                                       class="inline-flex items-center px-8 py-4 border-2 border-white text-white font-roboto-light text-lg rounded-xl hover:bg-white hover:text-black transition-all duration-300 transform hover:-translate-y-1">
+                                                        {{ $slide['button_text'] }}
+                                                        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                                                        </svg>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -53,54 +83,40 @@
                     </div>
                 @endforeach
 
-                @if($sliders->count() > 1)
-                    <!-- Minimal Dots Indicator -->
-                    <div class="absolute bottom-4 sm:bottom-6 md:bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-2 sm:space-x-3 md:space-x-4 z-20">
-                        @foreach($sliders as $index => $slider)
-                            <button class="slider-dot w-2 h-2 rounded-full transition-all duration-500 {{ $index === 0 ? 'bg-white w-6 sm:w-8' : 'bg-white/50' }}"
-                                    data-slide="{{ $index }}"></button>
-                        @endforeach
-                    </div>
-                @endif
-            </div>
-        </section>
+                <!-- Modern Navigation -->
+                <button id="prevSlide" class="absolute left-6 top-1/2 transform -translate-y-1/2 bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white p-4 rounded-2xl transition-all duration-300 z-30 shadow-xl hover:shadow-2xl hover:scale-110">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                    </svg>
+                </button>
+                <button id="nextSlide" class="absolute right-6 top-1/2 transform -translate-y-1/2 bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white p-4 rounded-2xl transition-all duration-300 z-30 shadow-xl hover:shadow-2xl hover:scale-110">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </button>
 
-        <!-- Water-like curved bottom transition -->
-        <div class="relative w-full -mt-1 overflow-hidden">
-            <svg class="w-full h-16 sm:h-24 md:h-32" preserveAspectRatio="none" viewBox="0 0 1200 150" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                    <linearGradient id="sliderGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                        <stop offset="0%" style="stop-color:#f5f5f5;stop-opacity:1" />
-                        <stop offset="100%" style="stop-color:#ffffff;stop-opacity:1" />
-                    </linearGradient>
-                </defs>
-                <path fill="url(#sliderGradient)" d="M0,0 L0,80 Q200,120 400,80 T800,80 Q1000,120 1200,80 L1200,0 Z">
-                    <animate attributeName="d"
-                             values="M0,0 L0,80 Q200,120 400,80 T800,80 Q1000,120 1200,80 L1200,0 Z;
-                                     M0,0 L0,100 Q200,60 400,100 T800,100 Q1000,60 1200,100 L1200,0 Z;
-                                     M0,0 L0,80 Q200,120 400,80 T800,80 Q1000,120 1200,80 L1200,0 Z"
-                             dur="8s"
-                             repeatCount="indefinite"/>
-                </path>
-            </svg>
-        </div>
-    @else
-        <!-- Fallback Hero Section -->
-        <section class="text-white py-20 bg-primary">
-            <div class="container mx-auto px-4 text-center">
-                <h1 class="text-4xl md:text-6xl font-display mb-6">
-                    @t('Welcome to Our Store')
-                </h1>
-                <p class="text-xl md:text-2xl mb-8 opacity-90">
-                    @t('Discover amazing products at unbeatable prices')
-                </p>
-                <a href="{{ route('products.index') }}"
-                   class="bg-secondary hover:bg-secondary text-primary px-8 py-3 font-subheading rounded-lg transition-colors">
-                    @t('Shop Now')
-                </a>
+                <!-- Modern Dots Indicator -->
+                <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-3 z-30">
+                    @foreach($beautySlides as $index => $slide)
+                        <button class="slider-dot w-4 h-4 rounded-full transition-all duration-300 {{ $index === 0 ? 'bg-secondary shadow-lg' : 'bg-white/50 hover:bg-white/70' }} hover:scale-125"
+                                data-slide="{{ $index }}"></button>
+                    @endforeach
+                </div>
+
+                <!-- Floating Elements -->
+                <div class="absolute top-8 right-8 z-20">
+                    <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-4 border border-white/20">
+                        <div class="flex items-center space-x-2 text-white">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                            <span class="text-sm font-medium">Premium Quality</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </section>
-    @endif
+        </div>
+    </section>
 
     <!-- Categories Grid - Enhanced Visibility -->
     @if($categories && $categories->count() > 0)
@@ -108,15 +124,36 @@
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <h2 class="text-2xl sm:text-3xl md:text-4xl font-heading text-gray-900 text-center mb-2 sm:mb-4">@t('Shop by Category')</h2>
             <p class="text-sm sm:text-base md:text-lg text-gray-600 text-center mb-8 sm:mb-12 md:mb-16">@t('Discover our exclusive fragrance collections')</p>
+            @php
+                $gradientBackgrounds = [
+                    'linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%)',
+                    'linear-gradient(135deg, #f9f7f4 0%, #e8ddd3 100%)',
+                    'linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%)',
+                    'linear-gradient(135deg, #fefefe 0%, #f0f0f0 100%)',
+                    'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)',
+                    'linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%)',
+                ];
+
+                $categoryImages = [
+                    'https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=400&h=300&fit=crop&crop=center',
+                    'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&h=300&fit=crop&crop=center',
+                    'https://images.unsplash.com/photo-1541643600914-78b084683601?w=400&h=300&fit=crop&crop=center',
+                    'https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=400&h=300&fit=crop&crop=center',
+                    'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=400&h=300&fit=crop&crop=center',
+                    'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=400&h=300&fit=crop&crop=center',
+                ];
+            @endphp
             <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6 md:gap-8 max-w-7xl mx-auto">
                 @foreach($categories as $index => $category)
-                <a href="{{ route('categories.show', $category->slug) }}"
-                   class="group relative p-4 sm:p-6 md:p-8 bg-white border sm:border-2 border-gray-100 rounded-2xl sm:rounded-3xl hover:border-primary hover:shadow-xl sm:hover:shadow-2xl transition-all duration-300 text-center transform hover:-translate-y-1 sm:hover:-translate-y-2 hover:scale-105">
-                    <div class="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 bg-gradient-to-br from-primary to-secondary rounded-xl sm:rounded-2xl flex items-center justify-center mx-auto mb-3 sm:mb-4 md:mb-6 group-hover:rotate-6 transition-all duration-300 shadow-lg sm:shadow-xl">
-                        @php
-                            $iconClasses = 'w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 text-white';
-                            $iconIndex = $index % 8;
-                        @endphp
+                <div class="group text-center">
+                    <a href="{{ route('categories.show', $category->slug) }}" class="block">
+                        <!-- Simple Icon Container -->
+                        <div class="flex justify-center mb-4">
+                            <div class="w-16 h-16 sm:w-20 sm:h-20 bg-white border-2 border-gray-200 rounded-full flex items-center justify-center group-hover:scale-110 transition-all duration-300 group-hover:border-black">
+                                @php
+                                    $iconClasses = 'w-8 h-8 sm:w-10 sm:h-10 text-gray-700 group-hover:text-black transition-colors duration-300';
+                                    $iconIndex = $index % 8;
+                                @endphp
 
                         @if($iconIndex == 0)
                             <!-- Perfume Bottle -->
@@ -166,17 +203,21 @@
                             <!-- Circle Pattern -->
                             <svg class="{{ $iconClasses }}" viewBox="0 0 24 24" fill="currentColor">
                                 <circle cx="12" cy="12" r="8"/>
-                                <circle cx="12" cy="12" r="4" fill="rgba(255,255,255,0.3)"/>
+                                <circle cx="12" cy="12" r="4" fill="rgba(0,0,0,0.3)"/>
                             </svg>
                         @endif
+                            </div>
                         </div>
-                        <h3 class="text-sm sm:text-base md:text-lg font-heading text-gray-900 group-hover:text-primary transition-colors duration-300">
+
+                        <!-- Category Name -->
+                        <h3 class="text-sm sm:text-base font-roboto-medium text-gray-900 group-hover:text-black transition-colors duration-300 mb-1">
                             {{ $category->name }}
                         </h3>
-                        <p class="text-xs sm:text-sm text-gray-500 mt-2 group-hover:text-gray-700 transition-colors">
+                        <p class="text-xs sm:text-sm text-gray-500 font-roboto-light group-hover:text-gray-700 transition-colors">
                             @t('Explore Collection')
                         </p>
                     </a>
+                </div>
                     @endforeach
                 </div>
             </div>
@@ -194,9 +235,9 @@
             </div>
 
             <div class="max-w-7xl mx-auto">
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 justify-items-center">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
                     @foreach($featuredProducts as $product)
-                        @include('partials.product-card-modern', ['product' => $product])
+                        @include('partials.product-card', ['product' => $product])
                     @endforeach
                 </div>
             </div>
@@ -261,9 +302,9 @@
             </div>
 
             <div class="max-w-7xl mx-auto">
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 justify-items-center">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
                     @foreach($recentProducts->take(8) as $product)
-                        @include('partials.product-card-modern', ['product' => $product])
+                        @include('partials.product-card', ['product' => $product])
                     @endforeach
                 </div>
             </div>
@@ -450,36 +491,37 @@ function showNotification(message, type = 'info', productName = '') {
 }
 </script>
 
-@if($sliders && $sliders->count() > 1)
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    const slides = document.querySelectorAll('.slider-item');
+    const slides = document.querySelectorAll('.slide-item');
     const dots = document.querySelectorAll('.slider-dot');
+    const prevBtn = document.getElementById('prevSlide');
+    const nextBtn = document.getElementById('nextSlide');
     let currentSlide = 0;
     let autoSlideInterval;
 
     function showSlide(index) {
-        // Hide all slides
-        slides.forEach(slide => {
-            slide.style.opacity = '0';
+        // Hide all slides with modern animation
+        slides.forEach((slide, i) => {
+            if (i === index) {
+                slide.classList.remove('opacity-0', 'scale-105');
+                slide.classList.add('opacity-100', 'scale-100');
+            } else {
+                slide.classList.remove('opacity-100', 'scale-100');
+                slide.classList.add('opacity-0', 'scale-105');
+            }
         });
 
         // Update dots
-        dots.forEach(dot => {
-            dot.classList.remove('bg-secondary');
-            dot.classList.add('bg-white', 'bg-opacity-50');
+        dots.forEach((dot, i) => {
+            if (i === index) {
+                dot.classList.remove('bg-white/50');
+                dot.classList.add('bg-secondary', 'shadow-lg');
+            } else {
+                dot.classList.remove('bg-secondary', 'shadow-lg');
+                dot.classList.add('bg-white/50');
+            }
         });
-
-        // Show current slide
-        if (slides[index]) {
-            slides[index].style.opacity = '1';
-        }
-
-        // Highlight current dot
-        if (dots[index]) {
-            dots[index].classList.remove('bg-white', 'bg-opacity-50');
-            dots[index].classList.add('bg-secondary');
-        }
 
         currentSlide = index;
     }
@@ -495,14 +537,29 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function startAutoSlide() {
-        autoSlideInterval = setInterval(nextSlide, 5000); // Auto advance every 5 seconds
+        autoSlideInterval = setInterval(nextSlide, 6000); // Auto advance every 6 seconds
     }
 
     function stopAutoSlide() {
         clearInterval(autoSlideInterval);
     }
 
-    // Removed arrow button listeners for cleaner interface
+    // Event listeners
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            stopAutoSlide();
+            nextSlide();
+            startAutoSlide();
+        });
+    }
+
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+            stopAutoSlide();
+            prevSlide();
+            startAutoSlide();
+        });
+    }
 
     // Dot navigation
     dots.forEach((dot, index) => {
@@ -514,7 +571,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Pause auto-slide on hover
-    const slider = document.getElementById('heroSlider');
+    const slider = document.getElementById('modernSlider');
     if (slider) {
         slider.addEventListener('mouseenter', stopAutoSlide);
         slider.addEventListener('mouseleave', startAutoSlide);
@@ -543,12 +600,12 @@ document.addEventListener('DOMContentLoaded', function() {
     if (slider) {
         slider.addEventListener('touchstart', (e) => {
             touchStartX = e.changedTouches[0].screenX;
-        });
+        }, { passive: true });
 
         slider.addEventListener('touchend', (e) => {
             touchEndX = e.changedTouches[0].screenX;
             handleSwipe();
-        });
+        }, { passive: true });
     }
 
     function handleSwipe() {
@@ -569,7 +626,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 </script>
-@endif
 
 <style>
 /* Fade-in animations for slider content */

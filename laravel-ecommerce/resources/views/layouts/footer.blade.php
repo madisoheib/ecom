@@ -5,12 +5,12 @@
             <div>
                 <div class="flex items-center space-x-2 mb-4">
                     <div class="w-8 h-8 bg-secondary rounded-lg flex items-center justify-center">
-                        <span class="text-black font-heading text-lg">E</span>
+                        <span class="text-black font-roboto-bold text-lg">R</span>
                     </div>
-                    <span class="text-xl font-heading">@t('E-Commerce')</span>
+                    <span class="text-xl font-roboto-bold">Riha Original</span>
                 </div>
-                <p class="text-gray-300 mb-4">
-                    @t('Your trusted online shopping destination with quality products and excellent service.')
+                <p class="text-gray-300 mb-4 font-roboto-light">
+                    @t('Your trusted premium beauty destination with luxury skincare and cosmetic products.')
                 </p>
                 <div class="flex space-x-4">
                     <a href="#" class="text-gray-300 hover:text-secondary transition-colors">
@@ -38,7 +38,7 @@
             
             <!-- Quick Links -->
             <div>
-                <h3 class="text-lg font-subheading mb-4">@t('Quick Links')</h3>
+                <h3 class="text-lg font-roboto-medium mb-4">@t('Quick Links')</h3>
                 <ul class="space-y-2">
                     <li><a href="{{ route('home') }}" class="text-gray-300 hover:text-secondary transition-colors">@t('Home')</a></li>
                     <li><a href="{{ route('products.index') }}" class="text-gray-300 hover:text-secondary transition-colors">@t('Products')</a></li>
@@ -51,7 +51,7 @@
             
             <!-- Customer Service -->
             <div>
-                <h3 class="text-lg font-subheading mb-4">@t('Customer Service')</h3>
+                <h3 class="text-lg font-roboto-medium mb-4">@t('Customer Service')</h3>
                 <ul class="space-y-2">
                     <li><a href="#" class="text-gray-300 hover:text-secondary transition-colors">@t('Help Center')</a></li>
                     <li><a href="#" class="text-gray-300 hover:text-secondary transition-colors">@t('Shipping Info')</a></li>
@@ -64,7 +64,7 @@
             
             <!-- Contact Info -->
             <div>
-                <h3 class="text-lg font-subheading mb-4">@t('Contact Info')</h3>
+                <h3 class="text-lg font-roboto-medium mb-4">@t('Contact Info')</h3>
                 <div class="space-y-4">
                     <div class="flex items-start space-x-3">
                         <svg class="w-5 h-5 text-secondary mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -96,21 +96,21 @@
         
         <!-- Bottom Bar -->
         <div class="border-t border-gray-700 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-            <div class="text-gray-300 text-sm mb-4 md:mb-0">
-                &copy; {{ date('Y') }} @t('E-Commerce'). @t('All rights reserved.')
+            <div class="text-gray-300 text-sm mb-4 md:mb-0 font-roboto-light">
+                &copy; {{ date('Y') }} Riha Original. @t('All rights reserved.')
             </div>
             
             <div class="flex items-center space-x-6">
-                <span class="text-gray-300 text-sm">@t('Payment Methods')</span>
+                <span class="text-gray-300 text-sm font-roboto-light">@t('Payment Methods')</span>
                 <div class="flex space-x-2">
                     <div class="w-8 h-6 bg-secondary rounded flex items-center justify-center">
-                        <span class="text-xs text-black font-subheading">VISA</span>
+                        <span class="text-xs text-black font-roboto-medium">VISA</span>
                     </div>
                     <div class="w-8 h-6 bg-secondary rounded flex items-center justify-center">
-                        <span class="text-xs text-black font-subheading">MC</span>
+                        <span class="text-xs text-black font-roboto-medium">MC</span>
                     </div>
                     <div class="w-8 h-6 bg-secondary rounded flex items-center justify-center">
-                        <span class="text-xs text-black font-subheading">PP</span>
+                        <span class="text-xs text-black font-roboto-medium">PP</span>
                     </div>
                 </div>
             </div>

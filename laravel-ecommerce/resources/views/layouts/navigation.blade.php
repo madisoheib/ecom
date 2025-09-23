@@ -56,14 +56,11 @@
         <div class="flex justify-between items-center h-16 sm:h-18">
             <!-- Logo -->
             <div class="flex items-center">
-                <a href="{{ route('home') }}" class="flex items-center space-x-2 sm:space-x-3 group">
-                    <div class="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center transition-all duration-300 group-hover:scale-105 bg-black rounded-xl border-2 border-secondary">
-                        <span class="text-secondary font-bold text-lg sm:text-xl">E</span>
-                    </div>
-                    <div class="flex flex-col">
-                        <span class="text-lg sm:text-2xl font-heading text-gray-900 leading-none">@t('E-Commerce')</span>
-                        <span class="text-xs text-gray-500 font-body tracking-wide hidden sm:block">Premium Store</span>
-                    </div>
+                <a href="{{ route('home') }}" class="flex items-center group">
+                    <img src="{{ asset('logo.svg') }}"
+                         alt="Riha Original"
+                         class="h-12 sm:h-16 w-auto transition-all duration-300 group-hover:scale-105"
+                         style="max-width: 180px;">
                 </a>
             </div>
 
