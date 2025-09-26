@@ -1,0 +1,1002 @@
+[
+  {
+    "name": "PARFUMS HOMME",
+    "slug": "parfums-homme",
+    "url": "https://pafen-dz.com/category/5/parfums-homme",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 1
+  },
+  {
+    "name": "PARFUMS FEMME",
+    "slug": "parfums-femme",
+    "url": "https://pafen-dz.com/category/6/parfums-femme",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 2
+  },
+  {
+    "name": "COFFRET FEMME",
+    "slug": "coffret-femme",
+    "url": "https://pafen-dz.com/category/7/coffret-femme",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 3
+  },
+  {
+    "name": "COFFRET HOMME",
+    "slug": "coffret-homme",
+    "url": "https://pafen-dz.com/category/8/coffret-homme",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 4
+  },
+  {
+    "name": "PARFUMS DE NICHE",
+    "slug": "parfums-de-niche",
+    "url": "https://pafen-dz.com/category/10/parfums-de-niche",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 5
+  },
+  {
+    "name": "DEODORANT HOMME",
+    "slug": "deodorant-homme",
+    "url": "https://pafen-dz.com/category/11/deodorant-homme",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 6
+  },
+  {
+    "name": "DEODORANT FEMME",
+    "slug": "deodorant-femme",
+    "url": "https://pafen-dz.com/category/12/deodorant-femme",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 7
+  },
+  {
+    "name": "GEL DOUCHE POUR HOMME",
+    "slug": "gel-douche-pour-homme",
+    "url": "https://pafen-dz.com/category/13/gel-douche-pour-homme",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 8
+  },
+  {
+    "name": "LAIT DE CORPS",
+    "slug": "lait-de-corps",
+    "url": "https://pafen-dz.com/category/14/lait-de-corps",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 9
+  },
+  {
+    "name": "PARFUM BÉBÉ/ ENFANT /FILLE / Garçon",
+    "slug": "parfum-bebe-enfant-fille-garcon",
+    "url": "https://pafen-dz.com/category/15/parfum-bébé-enfant-fille-garçon",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 10
+  },
+  {
+    "name": "CREME POUR LES MAINS",
+    "slug": "creme-pour-les-mains",
+    "url": "https://pafen-dz.com/category/16/creme-pour-les-mains",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 11
+  },
+  {
+    "name": "GEL DOUCHE POUR FEMME",
+    "slug": "gel-douche-pour-femme",
+    "url": "https://pafen-dz.com/category/19/gel-douche-pour-femme",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 12
+  },
+  {
+    "name": "Maquillage",
+    "slug": "maquillage",
+    "url": "https://pafen-dz.com/category/20/maquillage",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 13
+  },
+  {
+    "name": "BRUME",
+    "slug": "brume",
+    "url": "https://pafen-dz.com/category/21/brume",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 14
+  },
+  {
+    "name": "PARFUMS HOMME",
+    "slug": "parfums-homme",
+    "url": "https://pafen-dz.com/category/5/parfums-homme",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 15
+  },
+  {
+    "name": "PARFUMS FEMME",
+    "slug": "parfums-femme",
+    "url": "https://pafen-dz.com/category/6/parfums-femme",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 16
+  },
+  {
+    "name": "COFFRET FEMME",
+    "slug": "coffret-femme",
+    "url": "https://pafen-dz.com/category/7/coffret-femme",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 17
+  },
+  {
+    "name": "COFFRET HOMME",
+    "slug": "coffret-homme",
+    "url": "https://pafen-dz.com/category/8/coffret-homme",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 18
+  },
+  {
+    "name": "PARFUMS DE NICHE",
+    "slug": "parfums-de-niche",
+    "url": "https://pafen-dz.com/category/10/parfums-de-niche",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 19
+  },
+  {
+    "name": "DEODORANT HOMME",
+    "slug": "deodorant-homme",
+    "url": "https://pafen-dz.com/category/11/deodorant-homme",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 20
+  },
+  {
+    "name": "DEODORANT FEMME",
+    "slug": "deodorant-femme",
+    "url": "https://pafen-dz.com/category/12/deodorant-femme",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 21
+  },
+  {
+    "name": "GEL DOUCHE POUR HOMME",
+    "slug": "gel-douche-pour-homme",
+    "url": "https://pafen-dz.com/category/13/gel-douche-pour-homme",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 22
+  },
+  {
+    "name": "LAIT DE CORPS",
+    "slug": "lait-de-corps",
+    "url": "https://pafen-dz.com/category/14/lait-de-corps",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 23
+  },
+  {
+    "name": "PARFUM BÉBÉ/ ENFANT /FILLE / Garçon",
+    "slug": "parfum-bebe-enfant-fille-garcon",
+    "url": "https://pafen-dz.com/category/15/parfum-bébé-enfant-fille-garçon",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 24
+  },
+  {
+    "name": "CREME POUR LES MAINS",
+    "slug": "creme-pour-les-mains",
+    "url": "https://pafen-dz.com/category/16/creme-pour-les-mains",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 25
+  },
+  {
+    "name": "GEL DOUCHE POUR FEMME",
+    "slug": "gel-douche-pour-femme",
+    "url": "https://pafen-dz.com/category/19/gel-douche-pour-femme",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 26
+  },
+  {
+    "name": "Maquillage",
+    "slug": "maquillage",
+    "url": "https://pafen-dz.com/category/20/maquillage",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 27
+  },
+  {
+    "name": "BRUME",
+    "slug": "brume",
+    "url": "https://pafen-dz.com/category/21/brume",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 28
+  },
+  {
+    "name": "Achetez maintenant",
+    "slug": "achetez-maintenant",
+    "url": "https://pafen-dz.com/category/6/parfums-femme",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 29
+  },
+  {
+    "name": "Achetez maintenant",
+    "slug": "achetez-maintenant",
+    "url": "https://pafen-dz.com/category/5/parfums-homme",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 30
+  },
+  {
+    "name": "Achetez maintenant",
+    "slug": "achetez-maintenant",
+    "url": "https://pafen-dz.com/category/10/parfums-de-niche",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 31
+  },
+  {
+    "name": "S'inscrire",
+    "slug": "s-inscrire",
+    "url": "https://pafen-dz.com/register",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 32
+  },
+  {
+    "name": "S'identifier",
+    "slug": "s-identifier",
+    "url": "https://pafen-dz.com/login",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 33
+  },
+  {
+    "name": "Accueil",
+    "slug": "accueil",
+    "url": "https://pafen-dz.com/",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 34
+  },
+  {
+    "name": "PARFUMS HOMME",
+    "slug": "parfums-homme",
+    "url": "https://pafen-dz.com/category/5/parfums-homme",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 35
+  },
+  {
+    "name": "PARFUMS FEMME",
+    "slug": "parfums-femme",
+    "url": "https://pafen-dz.com/category/6/parfums-femme",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 36
+  },
+  {
+    "name": "COFFRET FEMME",
+    "slug": "coffret-femme",
+    "url": "https://pafen-dz.com/category/7/coffret-femme",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 37
+  },
+  {
+    "name": "COFFRET HOMME",
+    "slug": "coffret-homme",
+    "url": "https://pafen-dz.com/category/8/coffret-homme",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 38
+  },
+  {
+    "name": "PARFUMS DE NICHE",
+    "slug": "parfums-de-niche",
+    "url": "https://pafen-dz.com/category/10/parfums-de-niche",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 39
+  },
+  {
+    "name": "DEODORANT HOMME",
+    "slug": "deodorant-homme",
+    "url": "https://pafen-dz.com/category/11/deodorant-homme",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 40
+  },
+  {
+    "name": "DEODORANT FEMME",
+    "slug": "deodorant-femme",
+    "url": "https://pafen-dz.com/category/12/deodorant-femme",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 41
+  },
+  {
+    "name": "GEL DOUCHE POUR HOMME",
+    "slug": "gel-douche-pour-homme",
+    "url": "https://pafen-dz.com/category/13/gel-douche-pour-homme",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 42
+  },
+  {
+    "name": "LAIT DE CORPS",
+    "slug": "lait-de-corps",
+    "url": "https://pafen-dz.com/category/14/lait-de-corps",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 43
+  },
+  {
+    "name": "PARFUM BÉBÉ/ ENFANT /FILLE / Garçon",
+    "slug": "parfum-bebe-enfant-fille-garcon",
+    "url": "https://pafen-dz.com/category/15/parfum-bébé-enfant-fille-garçon",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 44
+  },
+  {
+    "name": "CREME POUR LES MAINS",
+    "slug": "creme-pour-les-mains",
+    "url": "https://pafen-dz.com/category/16/creme-pour-les-mains",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 45
+  },
+  {
+    "name": "GEL DOUCHE POUR FEMME",
+    "slug": "gel-douche-pour-femme",
+    "url": "https://pafen-dz.com/category/19/gel-douche-pour-femme",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 46
+  },
+  {
+    "name": "Maquillage",
+    "slug": "maquillage",
+    "url": "https://pafen-dz.com/category/20/maquillage",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 47
+  },
+  {
+    "name": "BRUME",
+    "slug": "brume",
+    "url": "https://pafen-dz.com/category/21/brume",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 48
+  },
+  {
+    "name": "Boutique",
+    "slug": "boutique",
+    "url": "https://pafen-dz.com/shop",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 49
+  },
+  {
+    "name": "à propos de nous",
+    "slug": "a-propos-de-nous",
+    "url": "https://pafen-dz.com/about",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 50
+  },
+  {
+    "name": "PARFUMS HOMME",
+    "slug": "parfums-homme",
+    "url": "https://pafen-dz.com/category/5/parfums-homme",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 51
+  },
+  {
+    "name": "PARFUMS FEMME",
+    "slug": "parfums-femme",
+    "url": "https://pafen-dz.com/category/6/parfums-femme",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 52
+  },
+  {
+    "name": "COFFRET FEMME",
+    "slug": "coffret-femme",
+    "url": "https://pafen-dz.com/category/7/coffret-femme",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 53
+  },
+  {
+    "name": "COFFRET HOMME",
+    "slug": "coffret-homme",
+    "url": "https://pafen-dz.com/category/8/coffret-homme",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 54
+  },
+  {
+    "name": "PARFUMS DE NICHE",
+    "slug": "parfums-de-niche",
+    "url": "https://pafen-dz.com/category/10/parfums-de-niche",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 55
+  },
+  {
+    "name": "DEODORANT HOMME",
+    "slug": "deodorant-homme",
+    "url": "https://pafen-dz.com/category/11/deodorant-homme",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 56
+  },
+  {
+    "name": "DEODORANT FEMME",
+    "slug": "deodorant-femme",
+    "url": "https://pafen-dz.com/category/12/deodorant-femme",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 57
+  },
+  {
+    "name": "GEL DOUCHE POUR HOMME",
+    "slug": "gel-douche-pour-homme",
+    "url": "https://pafen-dz.com/category/13/gel-douche-pour-homme",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 58
+  },
+  {
+    "name": "LAIT DE CORPS",
+    "slug": "lait-de-corps",
+    "url": "https://pafen-dz.com/category/14/lait-de-corps",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 59
+  },
+  {
+    "name": "PARFUM BÉBÉ/ ENFANT /FILLE / Garçon",
+    "slug": "parfum-bebe-enfant-fille-garcon",
+    "url": "https://pafen-dz.com/category/15/parfum-bébé-enfant-fille-garçon",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 60
+  },
+  {
+    "name": "CREME POUR LES MAINS",
+    "slug": "creme-pour-les-mains",
+    "url": "https://pafen-dz.com/category/16/creme-pour-les-mains",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 61
+  },
+  {
+    "name": "GEL DOUCHE POUR FEMME",
+    "slug": "gel-douche-pour-femme",
+    "url": "https://pafen-dz.com/category/19/gel-douche-pour-femme",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 62
+  },
+  {
+    "name": "Maquillage",
+    "slug": "maquillage",
+    "url": "https://pafen-dz.com/category/20/maquillage",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 63
+  },
+  {
+    "name": "BRUME",
+    "slug": "brume",
+    "url": "https://pafen-dz.com/category/21/brume",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 64
+  },
+  {
+    "name": "S'identifier",
+    "slug": "s-identifier",
+    "url": "https://pafen-dz.com/login",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 65
+  },
+  {
+    "name": "S'inscrire",
+    "slug": "s-inscrire",
+    "url": "https://pafen-dz.com/register",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 66
+  },
+  {
+    "name": "S'identifier",
+    "slug": "s-identifier",
+    "url": "https://pafen-dz.com/login",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 67
+  },
+  {
+    "name": "Accueil",
+    "slug": "accueil",
+    "url": "https://pafen-dz.com/",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 68
+  },
+  {
+    "name": "PARFUMS HOMME",
+    "slug": "parfums-homme",
+    "url": "https://pafen-dz.com/category/5/parfums-homme",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 69
+  },
+  {
+    "name": "PARFUMS FEMME",
+    "slug": "parfums-femme",
+    "url": "https://pafen-dz.com/category/6/parfums-femme",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 70
+  },
+  {
+    "name": "COFFRET FEMME",
+    "slug": "coffret-femme",
+    "url": "https://pafen-dz.com/category/7/coffret-femme",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 71
+  },
+  {
+    "name": "COFFRET HOMME",
+    "slug": "coffret-homme",
+    "url": "https://pafen-dz.com/category/8/coffret-homme",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 72
+  },
+  {
+    "name": "PARFUMS DE NICHE",
+    "slug": "parfums-de-niche",
+    "url": "https://pafen-dz.com/category/10/parfums-de-niche",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 73
+  },
+  {
+    "name": "DEODORANT HOMME",
+    "slug": "deodorant-homme",
+    "url": "https://pafen-dz.com/category/11/deodorant-homme",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 74
+  },
+  {
+    "name": "DEODORANT FEMME",
+    "slug": "deodorant-femme",
+    "url": "https://pafen-dz.com/category/12/deodorant-femme",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 75
+  },
+  {
+    "name": "GEL DOUCHE POUR HOMME",
+    "slug": "gel-douche-pour-homme",
+    "url": "https://pafen-dz.com/category/13/gel-douche-pour-homme",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 76
+  },
+  {
+    "name": "LAIT DE CORPS",
+    "slug": "lait-de-corps",
+    "url": "https://pafen-dz.com/category/14/lait-de-corps",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 77
+  },
+  {
+    "name": "PARFUM BÉBÉ/ ENFANT /FILLE / Garçon",
+    "slug": "parfum-bebe-enfant-fille-garcon",
+    "url": "https://pafen-dz.com/category/15/parfum-bébé-enfant-fille-garçon",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 78
+  },
+  {
+    "name": "CREME POUR LES MAINS",
+    "slug": "creme-pour-les-mains",
+    "url": "https://pafen-dz.com/category/16/creme-pour-les-mains",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 79
+  },
+  {
+    "name": "GEL DOUCHE POUR FEMME",
+    "slug": "gel-douche-pour-femme",
+    "url": "https://pafen-dz.com/category/19/gel-douche-pour-femme",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 80
+  },
+  {
+    "name": "Maquillage",
+    "slug": "maquillage",
+    "url": "https://pafen-dz.com/category/20/maquillage",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 81
+  },
+  {
+    "name": "BRUME",
+    "slug": "brume",
+    "url": "https://pafen-dz.com/category/21/brume",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 82
+  },
+  {
+    "name": "Boutique",
+    "slug": "boutique",
+    "url": "https://pafen-dz.com/shop",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 83
+  },
+  {
+    "name": "à propos de nous",
+    "slug": "a-propos-de-nous",
+    "url": "https://pafen-dz.com/about",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 84
+  },
+  {
+    "name": "S'inscrire",
+    "slug": "s-inscrire",
+    "url": "https://pafen-dz.com/register",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 85
+  },
+  {
+    "name": "S'identifier",
+    "slug": "s-identifier",
+    "url": "https://pafen-dz.com/login",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 86
+  },
+  {
+    "name": "PARFUMS HOMME",
+    "slug": "parfums-homme",
+    "url": "https://pafen-dz.com/category/5/parfums-homme",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 87
+  },
+  {
+    "name": "PARFUMS FEMME",
+    "slug": "parfums-femme",
+    "url": "https://pafen-dz.com/category/6/parfums-femme",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 88
+  },
+  {
+    "name": "COFFRET FEMME",
+    "slug": "coffret-femme",
+    "url": "https://pafen-dz.com/category/7/coffret-femme",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 89
+  },
+  {
+    "name": "COFFRET HOMME",
+    "slug": "coffret-homme",
+    "url": "https://pafen-dz.com/category/8/coffret-homme",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 90
+  },
+  {
+    "name": "PARFUMS DE NICHE",
+    "slug": "parfums-de-niche",
+    "url": "https://pafen-dz.com/category/10/parfums-de-niche",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 91
+  },
+  {
+    "name": "DEODORANT HOMME",
+    "slug": "deodorant-homme",
+    "url": "https://pafen-dz.com/category/11/deodorant-homme",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 92
+  },
+  {
+    "name": "DEODORANT FEMME",
+    "slug": "deodorant-femme",
+    "url": "https://pafen-dz.com/category/12/deodorant-femme",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 93
+  },
+  {
+    "name": "GEL DOUCHE POUR HOMME",
+    "slug": "gel-douche-pour-homme",
+    "url": "https://pafen-dz.com/category/13/gel-douche-pour-homme",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 94
+  },
+  {
+    "name": "LAIT DE CORPS",
+    "slug": "lait-de-corps",
+    "url": "https://pafen-dz.com/category/14/lait-de-corps",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 95
+  },
+  {
+    "name": "PARFUM BÉBÉ/ ENFANT /FILLE / Garçon",
+    "slug": "parfum-bebe-enfant-fille-garcon",
+    "url": "https://pafen-dz.com/category/15/parfum-bébé-enfant-fille-garçon",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 96
+  },
+  {
+    "name": "CREME POUR LES MAINS",
+    "slug": "creme-pour-les-mains",
+    "url": "https://pafen-dz.com/category/16/creme-pour-les-mains",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 97
+  },
+  {
+    "name": "GEL DOUCHE POUR FEMME",
+    "slug": "gel-douche-pour-femme",
+    "url": "https://pafen-dz.com/category/19/gel-douche-pour-femme",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 98
+  },
+  {
+    "name": "Maquillage",
+    "slug": "maquillage",
+    "url": "https://pafen-dz.com/category/20/maquillage",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 99
+  },
+  {
+    "name": "BRUME",
+    "slug": "brume",
+    "url": "https://pafen-dz.com/category/21/brume",
+    "description": null,
+    "image_url": null,
+    "parent_id": null,
+    "is_active": true,
+    "sort_order": 100
+  }
+]

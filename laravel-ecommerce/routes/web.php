@@ -8,6 +8,8 @@ use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GuestOrderController;
+use App\Http\Controllers\RegisterOrderController;
+use App\Http\Controllers\LocationController;
 use App\Http\Controllers\SitemapController;
 
 // Home page
@@ -35,7 +37,12 @@ Route::delete('/panier/vider', [CartController::class, 'clear'])->name('cart.cle
 
 // Guest Orders
 Route::post('/guest-order', [GuestOrderController::class, 'store'])->name('guest-order.store');
+Route::post('/register-order', [RegisterOrderController::class, 'store'])->name('register-order.store');
 Route::get('/refresh-captcha', [GuestOrderController::class, 'refreshCaptcha'])->name('refresh.captcha');
+
+// Location API
+Route::get('/api/cities/{countryCode}', [LocationController::class, 'getCities'])->name('api.cities');
+Route::get('/api/detect-location', [LocationController::class, 'detectLocation'])->name('api.detect-location');
 
 // Authentication
 Route::get('/connexion', [AuthController::class, 'showLogin'])->name('login');

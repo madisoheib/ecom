@@ -1,0 +1,41 @@
+{
+  "name": "pafen-scraper",
+  "version": "1.0.0",
+  "description": "Web scraper for pafen-dz.com to extract brands, categories, and products",
+  "main": "scraper.js",
+  "scripts": {
+    "start": "node scraper.js",
+    "scrape": "node scraper.js",
+    "scrape:brands": "node scraper.js --brands",
+    "scrape:categories": "node scraper.js --categories",
+    "scrape:products": "node scraper.js --products",
+    "scrape:all": "node scraper.js",
+    "scrape:playwright": "node playwright-scraper.js",
+    "scrape:advanced": "node advanced-scraper.js",
+    "scrape:full": "node full-scraper.js",
+    "scrape:pagination": "node pagination-scraper.js",
+    "organize": "node organize-products.js",
+    "scrape:complete": "node complete-scraper.js",
+    "dev": "nodemon scraper.js"
+  },
+  "dependencies": {
+    "axios": "^1.5.0",
+    "cheerio": "^1.0.0-rc.12",
+    "fs-extra": "^11.1.1",
+    "playwright": "^1.55.1",
+    "puppeteer": "^21.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.0"
+  },
+  "keywords": [
+    "scraper",
+    "puppeteer",
+    "pafen",
+    "ecommerce",
+    "brands",
+    "products"
+  ],
+  "author": "Laravel Ecommerce",
+  "license": "MIT"
+}

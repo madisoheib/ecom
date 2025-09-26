@@ -1,0 +1,56 @@
+[
+  {
+    "name": "DIOR",
+    "slug": "dior",
+    "description": null,
+    "logo_url": null,
+    "website_url": null,
+    "is_active": true,
+    "sort_order": 5
+  },
+  {
+    "name": "L'HOMME",
+    "slug": "l-homme",
+    "description": null,
+    "logo_url": null,
+    "website_url": null,
+    "is_active": true,
+    "sort_order": 2
+  },
+  {
+    "name": "SAUVAGE",
+    "slug": "sauvage",
+    "description": null,
+    "logo_url": null,
+    "website_url": null,
+    "is_active": true,
+    "sort_order": 3
+  },
+  {
+    "name": "NISHANE",
+    "slug": "nishane",
+    "description": null,
+    "logo_url": null,
+    "website_url": null,
+    "is_active": true,
+    "sort_order": 4
+  },
+  {
+    "name": "JPG",
+    "slug": "jpg",
+    "description": null,
+    "logo_url": null,
+    "website_url": null,
+    "is_active": true,
+    "sort_order": 5
+  },
+  {
+    "name": "YSL",
+    "slug": "ysl",
+    "description": null,
+    "logo_url": null,
+    "website_url": null,
+    "is_active": true,
+    "sort_order": 7
+  }
+]

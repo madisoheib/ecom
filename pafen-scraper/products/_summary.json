@@ -1,0 +1,14 @@
+{
+  "total_products": 50,
+  "categories": [
+    "parfums-homme",
+    "parfums-mixte",
+    "parfums-femme"
+  ],
+  "products_by_category": {
+    "parfums-homme": 7,
+    "parfums-mixte": 41,
+    "parfums-femme": 2
+  },
+  "organization_date": "2025-09-26T18:19:38.341Z"
+}

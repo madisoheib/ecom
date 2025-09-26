@@ -295,3 +295,132 @@ if (!function_exists('get_theme_css_variables')) {
         }
     }
 }
+
+if (!function_exists('get_user_country_from_ip')) {
+    function get_user_country_from_ip($ip = null): array
+    {
+        try {
+            $ip = $ip ?: request()->ip();
+            $location = geoip($ip);
+            
+            return [
+                'country_code' => $location->iso_code,
+                'country_name' => $location->country,
+                'city' => $location->city,
+                'state' => $location->state_name,
+            ];
+        } catch (\Exception $e) {
+            // Fallback to default if GeoIP fails
+            return [
+                'country_code' => 'CA',
+                'country_name' => 'Canada',
+                'city' => 'Toronto',
+                'state' => 'Ontario',
+            ];
+        }
+    }
+}
+
+if (!function_exists('get_cities_for_country')) {
+    function get_cities_for_country($countryCode): array
+    {
+        $cities = [
+            'CA' => [
+                'Toronto' => 'Toronto',
+                'Montreal' => 'Montréal',
+                'Vancouver' => 'Vancouver',
+                'Calgary' => 'Calgary',
+                'Ottawa' => 'Ottawa',
+                'Edmonton' => 'Edmonton',
+                'Quebec City' => 'Québec',
+                'Winnipeg' => 'Winnipeg',
+                'Hamilton' => 'Hamilton',
+                'London' => 'London',
+                'Kitchener' => 'Kitchener',
+                'Halifax' => 'Halifax',
+                'Victoria' => 'Victoria',
+                'Windsor' => 'Windsor',
+                'Saskatoon' => 'Saskatoon',
+                'Regina' => 'Regina',
+            ],
+            'US' => [
+                'New York' => 'New York',
+                'Los Angeles' => 'Los Angeles',
+                'Chicago' => 'Chicago',
+                'Houston' => 'Houston',
+                'Phoenix' => 'Phoenix',
+                'Philadelphia' => 'Philadelphia',
+                'San Antonio' => 'San Antonio',
+                'San Diego' => 'San Diego',
+                'Dallas' => 'Dallas',
+                'San Jose' => 'San Jose',
+                'Austin' => 'Austin',
+                'Jacksonville' => 'Jacksonville',
+                'Fort Worth' => 'Fort Worth',
+                'Columbus' => 'Columbus',
+                'Charlotte' => 'Charlotte',
+                'San Francisco' => 'San Francisco',
+                'Indianapolis' => 'Indianapolis',
+                'Seattle' => 'Seattle',
+                'Denver' => 'Denver',
+                'Boston' => 'Boston',
+            ],
+            'FR' => [
+                'Paris' => 'Paris',
+                'Marseille' => 'Marseille',
+                'Lyon' => 'Lyon',
+                'Toulouse' => 'Toulouse',
+                'Nice' => 'Nice',
+                'Nantes' => 'Nantes',
+                'Montpellier' => 'Montpellier',
+                'Strasbourg' => 'Strasbourg',
+                'Bordeaux' => 'Bordeaux',
+                'Lille' => 'Lille',
+                'Rennes' => 'Rennes',
+                'Reims' => 'Reims',
+                'Le Havre' => 'Le Havre',
+                'Saint-Étienne' => 'Saint-Étienne',
+                'Toulon' => 'Toulon',
+                'Grenoble' => 'Grenoble',
+            ],
+            'UK' => [
+                'London' => 'London',
+                'Birmingham' => 'Birmingham',
+                'Manchester' => 'Manchester',
+                'Glasgow' => 'Glasgow',
+                'Liverpool' => 'Liverpool',
+                'Leeds' => 'Leeds',
+                'Sheffield' => 'Sheffield',
+                'Edinburgh' => 'Edinburgh',
+                'Bristol' => 'Bristol',
+                'Cardiff' => 'Cardiff',
+                'Belfast' => 'Belfast',
+                'Newcastle' => 'Newcastle',
+                'Nottingham' => 'Nottingham',
+                'Southampton' => 'Southampton',
+                'Portsmouth' => 'Portsmouth',
+            ]
+        ];
+
+        return $cities[$countryCode] ?? [];
+    }
+}
+
+if (!function_exists('get_countries_list')) {
+    function get_countries_list(): array
+    {
+        return [
+            'CA' => 'Canada',
+            'US' => 'United States',
+            'FR' => 'France', 
+            'UK' => 'United Kingdom',
+            'DE' => 'Germany',
+            'ES' => 'Spain',
+            'IT' => 'Italy',
+            'BE' => 'Belgium',
+            'CH' => 'Switzerland',
+            'AU' => 'Australia',
+            'other' => 'Other'
+        ];
+    }
+}

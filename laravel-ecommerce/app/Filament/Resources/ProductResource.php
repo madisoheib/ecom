@@ -70,12 +70,21 @@ class ProductResource extends Resource
                             ->minValue(0)
                             ->helperText('Original price for discount display'),
 
+                        Forms\Components\TextInput::make('registration_discount')
+                            ->label('Registration Discount (%)')
+                            ->numeric()
+                            ->suffix('%')
+                            ->minValue(0)
+                            ->maxValue(100)
+                            ->default(5)
+                            ->helperText('Discount percentage for registered users'),
+
                         Forms\Components\TextInput::make('stock_quantity')
                             ->required()
                             ->numeric()
                             ->minValue(0)
                             ->default(0),
-                    ])->columns(3),
+                    ])->columns(4),
 
                 Forms\Components\Section::make('Organization')
                     ->schema([
@@ -271,6 +280,14 @@ class ProductResource extends Resource
                 Tables\Columns\TextColumn::make('price')
                     ->money(site_currency())
                     ->sortable(),
+
+                Tables\Columns\TextColumn::make('registration_discount')
+                    ->label('Reg. Discount')
+                    ->suffix('%')
+                    ->sortable()
+                    ->badge()
+                    ->color('success')
+                    ->toggleable(),
 
                 Tables\Columns\TextColumn::make('stock_quantity')
                     ->label('Stock')

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\GuestOrder;
 use App\Models\Product;
-use App\Models\Region;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
@@ -12,36 +11,43 @@ class GuestOrderController extends Controller
 {
     public function store(Request $request)
     {
+        // Bot protection: Check for duplicate orders in the last 5 minutes
+        $recentOrder = GuestOrder::where('phone_number', $request->phone_number)
+            ->where('product_id', $request->product_id)
+            ->where('created_at', '>', now()->subMinutes(5))
+            ->first();
+
+        if ($recentOrder) {
+            return response()->json([
+                'success' => false,
+                'message' => 'You have already placed an order for this product recently. Please wait before ordering again.',
+            ], 429);
+        }
+
         $validated = $request->validate([
             'product_id' => 'required|exists:products,id',
             'full_name' => 'required|string|max:255',
             'phone_number' => 'required|string|max:20',
             'email' => 'nullable|email|max:255',
-            'region_id' => 'nullable|exists:regions,id',
             'address' => 'required|string|max:1000',
             'quantity' => 'required|integer|min:1|max:100',
             'notes' => 'nullable|string|max:500',
-            'captcha' => 'required|captcha',
-        ], [
-            'captcha.required' => 'Please complete the captcha verification.',
-            'captcha.captcha' => 'Captcha verification failed. Please try again.',
         ]);
 
         $product = Product::findOrFail($validated['product_id']);
 
         // Check stock availability
-        if ($product->track_quantity && $product->quantity < $validated['quantity']) {
+        if ($product->stock_quantity !== null && $product->stock_quantity < $validated['quantity']) {
             throw ValidationException::withMessages([
-                'quantity' => 'Insufficient stock available. Only ' . $product->quantity . ' items left.',
+                'quantity' => 'Insufficient stock available. Only ' . $product->stock_quantity . ' items left.',
             ]);
         }
 
-        $unitPrice = $product->price;
+        $unitPrice = $product->sale_price && $product->sale_price < $product->price ? $product->sale_price : $product->price;
         $totalPrice = $unitPrice * $validated['quantity'];
 
         $guestOrder = GuestOrder::create([
             'product_id' => $validated['product_id'],
-            'region_id' => $validated['region_id'],
             'full_name' => $validated['full_name'],
             'phone_number' => $validated['phone_number'],
             'email' => $validated['email'],
@@ -49,19 +55,25 @@ class GuestOrderController extends Controller
             'quantity' => $validated['quantity'],
             'unit_price' => $unitPrice,
             'total_price' => $totalPrice,
-            'notes' => $validated['notes'],
+            'notes' => $validated['notes'] ?? null,
             'status' => 'pending',
         ]);
 
-        // Update product stock if tracking is enabled
-        if ($product->track_quantity) {
-            $product->decrement('quantity', $validated['quantity']);
+        // Update product stock if available
+        if ($product->stock_quantity !== null) {
+            $product->decrement('stock_quantity', $validated['quantity']);
         }
 
         return response()->json([
             'success' => true,
-            'message' => 'Order placed successfully! Your order number is: ' . $guestOrder->order_number,
+            'message' => trans('Order placed successfully!'),
             'order_number' => $guestOrder->order_number,
+            'order_details' => [
+                'product_name' => $product->name,
+                'quantity' => $validated['quantity'],
+                'total_price' => $totalPrice,
+                'currency' => site_currency()
+            ]
         ]);
     }
 

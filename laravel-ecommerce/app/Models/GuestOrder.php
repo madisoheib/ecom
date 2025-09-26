@@ -9,13 +9,17 @@ class GuestOrder extends Model
 {
     protected $fillable = [
         'product_id',
-        'region_id',
+        'user_id',
         'full_name',
         'phone_number',
         'email',
         'address',
+        'country',
+        'city',
         'quantity',
         'unit_price',
+        'discount_percent',
+        'discount_amount',
         'total_price',
         'status',
         'notes',
@@ -24,6 +28,8 @@ class GuestOrder extends Model
 
     protected $casts = [
         'unit_price' => 'decimal:2',
+        'discount_percent' => 'decimal:2',
+        'discount_amount' => 'decimal:2',
         'total_price' => 'decimal:2',
     ];
 
@@ -43,10 +49,11 @@ class GuestOrder extends Model
         return $this->belongsTo(Product::class);
     }
 
-    public function region(): BelongsTo
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(Region::class);
+        return $this->belongsTo(User::class);
     }
+
 
     public function getStatusColorAttribute(): string
     {

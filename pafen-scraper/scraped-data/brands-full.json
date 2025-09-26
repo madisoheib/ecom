@@ -1,0 +1,182 @@
+[
+  {
+    "name": "DIOR",
+    "slug": "dior",
+    "description": null,
+    "logo_url": null,
+    "website_url": null,
+    "is_active": true,
+    "sort_order": 11
+  },
+  {
+    "name": "L'HOMME",
+    "slug": "l-homme",
+    "description": null,
+    "logo_url": null,
+    "website_url": null,
+    "is_active": true,
+    "sort_order": 2
+  },
+  {
+    "name": "SAUVAGE",
+    "slug": "sauvage",
+    "description": null,
+    "logo_url": null,
+    "website_url": null,
+    "is_active": true,
+    "sort_order": 3
+  },
+  {
+    "name": "NISHANE",
+    "slug": "nishane",
+    "description": null,
+    "logo_url": null,
+    "website_url": null,
+    "is_active": true,
+    "sort_order": 10
+  },
+  {
+    "name": "JPG",
+    "slug": "jpg",
+    "description": null,
+    "logo_url": null,
+    "website_url": null,
+    "is_active": true,
+    "sort_order": 21
+  },
+  {
+    "name": "YSL",
+    "slug": "ysl",
+    "description": null,
+    "logo_url": null,
+    "website_url": null,
+    "is_active": true,
+    "sort_order": 21
+  },
+  {
+    "name": "XERJOFF",
+    "slug": "xerjoff",
+    "description": null,
+    "logo_url": null,
+    "website_url": null,
+    "is_active": true,
+    "sort_order": 9
+  },
+  {
+    "name": "AMOUAGE",
+    "slug": "amouage",
+    "description": null,
+    "logo_url": null,
+    "website_url": null,
+    "is_active": true,
+    "sort_order": 8
+  },
+  {
+    "name": "MORESQUE",
+    "slug": "moresque",
+    "description": null,
+    "logo_url": null,
+    "website_url": null,
+    "is_active": true,
+    "sort_order": 9
+  },
+  {
+    "name": "PARFUMS",
+    "slug": "parfums",
+    "description": null,
+    "logo_url": null,
+    "website_url": null,
+    "is_active": true,
+    "sort_order": 18
+  },
+  {
+    "name": "BLEND",
+    "slug": "blend",
+    "description": null,
+    "logo_url": null,
+    "website_url": null,
+    "is_active": true,
+    "sort_order": 11
+  },
+  {
+    "name": "TOM FORD",
+    "slug": "tom-ford",
+    "description": null,
+    "logo_url": null,
+    "website_url": null,
+    "is_active": true,
+    "sort_order": 15
+  },
+  {
+    "name": "ARMANI",
+    "slug": "armani",
+    "description": null,
+    "logo_url": null,
+    "website_url": null,
+    "is_active": true,
+    "sort_order": 16
+  },
+  {
+    "name": "NANSHE",
+    "slug": "nanshe",
+    "description": null,
+    "logo_url": null,
+    "website_url": null,
+    "is_active": true,
+    "sort_order": 14
+  },
+  {
+    "name": "GUCCI",
+    "slug": "gucci",
+    "description": null,
+    "logo_url": null,
+    "website_url": null,
+    "is_active": true,
+    "sort_order": 15
+  },
+  {
+    "name": "LOUIS",
+    "slug": "louis",
+    "description": null,
+    "logo_url": null,
+    "website_url": null,
+    "is_active": true,
+    "sort_order": 16
+  },
+  {
+    "name": "MFK",
+    "slug": "mfk",
+    "description": null,
+    "logo_url": null,
+    "website_url": null,
+    "is_active": true,
+    "sort_order": 17
+  },
+  {
+    "name": "PARFUM",
+    "slug": "parfum",
+    "description": null,
+    "logo_url": null,
+    "website_url": null,
+    "is_active": true,
+    "sort_order": 18
+  },
+  {
+    "name": "ROJA",
+    "slug": "roja",
+    "description": null,
+    "logo_url": null,
+    "website_url": null,
+    "is_active": true,
+    "sort_order": 19
+  },
+  {
+    "name": "PRADA",
+    "slug": "prada",
+    "description": null,
+    "logo_url": null,
+    "website_url": null,
+    "is_active": true,
+    "sort_order": 20
+  }
+]

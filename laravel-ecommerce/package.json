@@ -1,9 +1,17 @@
 {
     "private": true,
-    "type": "module",
     "scripts": {
         "build": "vite build",
-        "dev": "vite"
+        "dev": "vite",
+        "scrape": "node scraper.js",
+        "scrape:brands": "node scraper.js --brands",
+        "scrape:categories": "node scraper.js --categories",
+        "scrape:products": "node scraper.js --products",
+        "scrape:all": "node scraper.js"
+    },
+    "dependencies": {
+        "puppeteer": "^21.0.0",
+        "cheerio": "^1.0.0-rc.12"
     },
     "devDependencies": {
         "autoprefixer": "^10.4.20",
@@ -12,6 +20,7 @@
         "laravel-vite-plugin": "^1.2.0",
         "postcss": "^8.4.47",
         "tailwindcss": "^3.4.13",
-        "vite": "^6.0.11"
+        "vite": "^6.0.11",
+        "nodemon": "^3.0.0"
     }
 }

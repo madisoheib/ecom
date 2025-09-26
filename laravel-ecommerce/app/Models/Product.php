@@ -29,6 +29,7 @@ class Product extends Model implements HasMedia
         'price',
         'compare_price',
         'cost_price',
+        'registration_discount',
         'stock_quantity',
         'track_quantity',
         'quantity',

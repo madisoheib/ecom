@@ -121,6 +121,11 @@ class ProductController extends Controller
         $productSchema = $seoService->generateProductSchema($product);
         $breadcrumbSchema = $seoService->generateBreadcrumbSchema($breadcrumbs);
 
+        // Get user location from IP
+        $userLocation = get_user_country_from_ip();
+        $countries = get_countries_list();
+        $cities = get_cities_for_country($userLocation['country_code']);
+
         $meta = $seoService->generateMetaTags($product);
 
         return view('products.show-simple', compact(
@@ -129,6 +134,9 @@ class ProductController extends Controller
             'breadcrumbs',
             'productSchema',
             'breadcrumbSchema',
+            'userLocation',
+            'countries',
+            'cities',
             'meta'
         ));
     }

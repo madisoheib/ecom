@@ -1,0 +1,32 @@
+{
+  "scraping_date": "2025-09-26T18:20:09.182Z",
+  "source_website": "https://pafen-dz.com",
+  "scraper_used": "Pagination Playwright with Category Organization",
+  "total_brands": 6,
+  "total_categories": 14,
+  "total_products": 10,
+  "brands_with_logos": 0,
+  "products_with_images": 0,
+  "products_with_prices": 10,
+  "average_price": 27150,
+  "price_range": {
+    "min": 19500,
+    "max": 48000
+  },
+  "products_by_category": {
+    "PARFUMS HOMME": 1,
+    "PARFUMS FEMME": 1,
+    "COFFRET FEMME": 1,
+    "COFFRET HOMME": 1,
+    "PARFUMS DE NICHE": 1,
+    "DEODORANT HOMME": 1,
+    "DEODORANT FEMME": 1,
+    "GEL DOUCHE POUR HOMME": 1,
+    "LAIT DE CORPS": 1,
+    "PARFUM BÉBÉ/ ENFANT /FILLE / Garçon": 1,
+    "CREME POUR LES MAINS": 0,
+    "GEL DOUCHE POUR FEMME": 0,
+    "Maquillage": 0,
+    "BRUME": 0
+  }
+}
