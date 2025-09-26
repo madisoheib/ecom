@@ -1,1 +1,10 @@
 node_modules/
+
+# Large product files
+pafen-scraper/products/*.json
+!pafen-scraper/products/_summary.json
+!pafen-scraper/products/all-products.json
+
+# Laravel storage
+storage/logs/*.log
+storage/app/public/uploads/
