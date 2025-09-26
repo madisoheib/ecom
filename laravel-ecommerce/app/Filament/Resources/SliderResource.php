@@ -3,89 +3,106 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\SliderResource\Pages;
+use App\Filament\Resources\SliderResource\RelationManagers;
 use App\Models\Slider;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
-use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class SliderResource extends Resource
 {
     protected static ?string $model = Slider::class;
+
     protected static ?string $navigationIcon = 'heroicon-o-photo';
-    protected static ?string $navigationLabel = 'Homepage Slider';
-    protected static ?string $modelLabel = 'Slider';
-    protected static ?string $pluralModelLabel = 'Sliders';
+
     protected static ?string $navigationGroup = 'Content Management';
-    protected static ?int $navigationSort = 1;
+
+    protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\Section::make('Slide Content')
+                Forms\Components\Section::make('Slider Information')
                     ->schema([
-                        Forms\Components\TextInput::make('title')
+                        Forms\Components\KeyValue::make('title')
+                            ->label('Title (Multilingual)')
+                            ->keyLabel('Language')
+                            ->valueLabel('Title')
                             ->required()
-                            ->maxLength(255)
-                            ->columnSpanFull(),
+                            ->default([
+                                'en' => '',
+                                'fr' => '',
+                                'ar' => ''
+                            ]),
 
-                        Forms\Components\TextInput::make('subtitle')
-                            ->maxLength(255)
-                            ->columnSpanFull(),
+                        Forms\Components\KeyValue::make('subtitle')
+                            ->label('Subtitle (Multilingual)')
+                            ->keyLabel('Language')
+                            ->valueLabel('Subtitle')
+                            ->default([
+                                'en' => '',
+                                'fr' => '',
+                                'ar' => ''
+                            ]),
 
-                        Forms\Components\Textarea::make('description')
-                            ->maxLength(500)
-                            ->rows(3)
-                            ->columnSpanFull(),
+                        Forms\Components\KeyValue::make('description')
+                            ->label('Description (Multilingual)')
+                            ->keyLabel('Language')
+                            ->valueLabel('Description')
+                            ->default([
+                                'en' => '',
+                                'fr' => '',
+                                'ar' => ''
+                            ]),
+                    ])
+                    ->columns(1),
 
-                        SpatieMediaLibraryFileUpload::make('slider_image')
-                            ->collection('slider_image')
-                            ->image()
-                            ->imageEditor()
-                            ->imageEditorAspectRatios([
-                                '16:9',
-                                '21:9',
-                            ])
-                            ->maxFiles(1)
-                            ->required()
-                            ->columnSpanFull(),
-                    ]),
-
-                Forms\Components\Section::make('Button & Link')
+                Forms\Components\Section::make('Visual Settings')
                     ->schema([
-                        Forms\Components\TextInput::make('button_text')
-                            ->maxLength(100)
-                            ->placeholder('Shop Now'),
-
-                        Forms\Components\TextInput::make('button_url')
+                        Forms\Components\TextInput::make('image_path')
+                            ->label('Image URL')
                             ->url()
-                            ->maxLength(255)
-                            ->placeholder('https://example.com'),
+                            ->required()
+                            ->placeholder('https://example.com/image.jpg'),
+
+                        Forms\Components\ColorPicker::make('background_color')
+                            ->label('Background Color')
+                            ->default('#000000'),
+
+                        Forms\Components\ColorPicker::make('text_color')
+                            ->label('Text Color')
+                            ->default('#ffffff'),
                     ])
                     ->columns(2),
 
-                Forms\Components\Section::make('Styling')
+                Forms\Components\Section::make('Button Settings')
                     ->schema([
-                        Forms\Components\ColorPicker::make('background_color')
-                            ->default('#ffffff'),
+                        Forms\Components\TextInput::make('button_text')
+                            ->label('Button Text')
+                            ->placeholder('Shop Now'),
 
-                        Forms\Components\ColorPicker::make('text_color')
-                            ->default('#000000'),
+                        Forms\Components\TextInput::make('button_url')
+                            ->label('Button URL')
+                            ->url()
+                            ->placeholder('/products'),
                     ])
                     ->columns(2),
 
                 Forms\Components\Section::make('Settings')
                     ->schema([
                         Forms\Components\TextInput::make('sort_order')
+                            ->label('Sort Order')
                             ->numeric()
                             ->default(0)
-                            ->helperText('Lower numbers appear first'),
+                            ->required(),
 
                         Forms\Components\Toggle::make('is_active')
+                            ->label('Active')
                             ->default(true),
                     ])
                     ->columns(2),
@@ -96,45 +113,46 @@ class SliderResource extends Resource
     {
         return $table
             ->columns([
-                SpatieMediaLibraryImageColumn::make('slider_image')
-                    ->collection('slider_image')
-                    ->conversion('thumb')
-                    ->height(60),
+                Tables\Columns\ImageColumn::make('image_path')
+                    ->label('Image')
+                    ->square()
+                    ->size(60),
 
                 Tables\Columns\TextColumn::make('title')
+                    ->label('Title')
+                    ->getStateUsing(fn (Slider $record): string => 
+                        $record->getTranslation('title', 'en') ?: 
+                        $record->getTranslation('title', 'fr') ?: 
+                        'No title'
+                    )
                     ->searchable()
-                    ->sortable()
-                    ->limit(50),
-
-                Tables\Columns\TextColumn::make('subtitle')
-                    ->searchable()
-                    ->limit(40)
-                    ->color('gray'),
+                    ->sortable(),
 
                 Tables\Columns\TextColumn::make('button_text')
                     ->label('Button')
-                    ->badge()
-                    ->color('primary'),
+                    ->searchable(),
 
                 Tables\Columns\TextColumn::make('sort_order')
-                    ->sortable()
-                    ->badge()
-                    ->color('secondary'),
+                    ->label('Order')
+                    ->sortable(),
 
                 Tables\Columns\ToggleColumn::make('is_active')
-                    ->label('Active'),
+                    ->label('Active')
+                    ->sortable(),
 
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label('Created')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 Tables\Filters\TernaryFilter::make('is_active')
-                    ->label('Active')
-                    ->placeholder('All slides')
-                    ->trueLabel('Active slides')
-                    ->falseLabel('Inactive slides'),
+                    ->label('Status')
+                    ->boolean()
+                    ->trueLabel('Active only')
+                    ->falseLabel('Inactive only')
+                    ->native(false),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -149,6 +167,13 @@ class SliderResource extends Resource
             ->reorderable('sort_order');
     }
 
+    public static function getRelations(): array
+    {
+        return [
+            //
+        ];
+    }
+
     public static function getPages(): array
     {
         return [
@@ -156,5 +181,10 @@ class SliderResource extends Resource
             'create' => Pages\CreateSlider::route('/create'),
             'edit' => Pages\EditSlider::route('/{record}/edit'),
         ];
+    }
+
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
     }
 }

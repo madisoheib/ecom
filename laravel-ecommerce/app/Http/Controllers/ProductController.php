@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Brand;
-use App\Models\Region;
 use App\Services\SeoService;
 
 class ProductController extends Controller
@@ -124,17 +123,13 @@ class ProductController extends Controller
 
         $meta = $seoService->generateMetaTags($product);
 
-        // Get regions for order form
-        $regions = Region::orderBy('name')->get();
-
         return view('products.show-simple', compact(
             'product',
             'relatedProducts',
             'breadcrumbs',
             'productSchema',
             'breadcrumbSchema',
-            'meta',
-            'regions'
+            'meta'
         ));
     }
 }

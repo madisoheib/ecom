@@ -2,48 +2,48 @@
 
 namespace App\Helpers;
 
-use App\Models\WebsiteSetting;
+use App\Models\SiteSetting;
 
 class SettingsHelper
 {
     public static function getSiteTitle(): string
     {
-        return WebsiteSetting::get('site_title', 'My Website');
+        return SiteSetting::getSetting('site_title', 'My Website');
     }
 
     public static function getSiteLogo(): ?string
     {
-        return WebsiteSetting::get('site_logo');
+        return SiteSetting::getSetting('site_logo');
     }
 
     public static function getMetaDescription(): ?string
     {
-        return WebsiteSetting::get('meta_description');
+        return SiteSetting::getSetting('meta_description');
     }
 
     public static function getMetaKeywords(): ?string
     {
-        return WebsiteSetting::get('meta_keywords');
+        return SiteSetting::getSetting('meta_keywords');
     }
 
     public static function getDefaultCurrency(): string
     {
-        return WebsiteSetting::get('default_currency', 'USD');
+        return SiteSetting::getSetting('default_currency', 'USD');
     }
 
     public static function getPrimaryColor(): string
     {
-        return WebsiteSetting::get('primary_color', '#3b82f6');
+        return SiteSetting::getSetting('primary_color', '#3b82f6');
     }
 
     public static function getSecondaryColor(): string
     {
-        return WebsiteSetting::get('secondary_color', '#64748b');
+        return SiteSetting::getSetting('secondary_color', '#64748b');
     }
 
     public static function getAccentColor(): string
     {
-        return WebsiteSetting::get('accent_color', '#10b981');
+        return SiteSetting::getSetting('accent_color', '#10b981');
     }
 
     public static function getAllColors(): array

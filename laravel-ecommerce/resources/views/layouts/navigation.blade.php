@@ -1,6 +1,6 @@
 <nav class="bg-white border-b border-gray-100 sticky top-0 z-50" style="box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);" x-data="{ mobileMenuOpen: false, userMenuOpen: false, categoriesOpen: false }">
     <!-- Top Bar -->
-    <div class="text-white py-2 sm:py-3 bg-black">
+    <div class="py-2 sm:py-3" style="background-color: var(--color-primary); color: var(--color-secondary);">
         <div class="container mx-auto px-4 flex justify-between items-center text-xs sm:text-sm">
             <div class="flex items-center space-x-4 sm:space-x-6 {{ app()->getLocale() === 'ar' ? 'space-x-reverse' : '' }}">
                 <div class="hidden sm:flex items-center space-x-2">
@@ -33,18 +33,13 @@
 
                     <div x-show="open" @click.away="open = false" x-cloak x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
                          class="absolute {{ app()->getLocale() === 'ar' ? 'left-0' : 'right-0' }} mt-3 w-36 bg-white shadow-lg py-2 z-50" style="border-radius: 8px; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);">
-                        <a href="{{ url('/') }}?lang=fr" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-150 flex items-center space-x-2">
-                            <span class="text-lg">🇫🇷</span>
-                            <span>Français</span>
-                        </a>
-                        <a href="{{ url('/') }}?lang=en" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-150 flex items-center space-x-2">
-                            <span class="text-lg">🇺🇸</span>
-                            <span>English</span>
-                        </a>
-                        <a href="{{ url('/') }}?lang=ar" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-150 flex items-center space-x-2">
-                            <span class="text-lg">🇸🇦</span>
-                            <span>العربية</span>
-                        </a>
+                        @foreach(active_languages() as $language)
+                            <a href="{{ url('/') }}?lang={{ $language->code }}" 
+                               class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-150 flex items-center space-x-2 {{ app()->getLocale() === $language->code ? 'bg-gray-100 font-medium' : '' }}">
+                                <span class="text-lg">{{ get_language_flag($language->code) }}</span>
+                                <span>{{ $language->native_name }}</span>
+                            </a>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -78,7 +73,7 @@
                         </svg>
                     </div>
                     <button onclick="search()" class="absolute inset-y-0 right-0 pr-3 xl:pr-4 flex items-center hover:scale-110 transition-transform duration-200">
-                        <div class="w-7 h-7 xl:w-8 xl:h-8 flex items-center justify-center bg-black text-secondary rounded-full hover:bg-secondary hover:text-black transition-all duration-200">
+                        <div class="w-7 h-7 xl:w-8 xl:h-8 flex items-center justify-center rounded-full transition-all duration-200" style="background-color: var(--color-primary); color: var(--color-secondary);" onmouseover="this.style.backgroundColor='var(--color-secondary)'; this.style.color='var(--color-primary)';" onmouseout="this.style.backgroundColor='var(--color-primary)'; this.style.color='var(--color-secondary)';">
                             <svg class="h-3.5 w-3.5 xl:h-4 xl:w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                             </svg>
@@ -94,7 +89,7 @@
                     <svg class="w-5 h-5 sm:w-6 sm:h-6 text-gray-600 group-hover:text-black transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m6-5l2.5 5M17 13v6a2 2 0 01-2 2H9a2 2 0 01-2-2v-6"></path>
                     </svg>
-                    <span class="absolute -top-1 -right-1 bg-secondary text-black text-xs font-bold rounded-full h-5 w-5 sm:h-6 sm:w-6 flex items-center justify-center transform group-hover:scale-110 transition-transform duration-200" x-text="window.cartData.count">0</span>
+                    <span class="absolute -top-1 -right-1 text-xs font-bold rounded-full h-5 w-5 sm:h-6 sm:w-6 flex items-center justify-center transform group-hover:scale-110 transition-transform duration-200" style="background-color: var(--color-secondary); color: var(--color-primary);" x-text="window.cartData.count">0</span>
                 </button>
                 
                 <!-- User Menu -->
@@ -121,7 +116,7 @@
                     </div>
                 @else
                     <a href="{{ route('login') }}" class="text-gray-600 hover:text-black font-subheading transition-colors duration-200 px-2 sm:px-4 py-2 hover:bg-gray-50 rounded-lg text-sm sm:text-base">@t('Login')</a>
-                    <a href="{{ route('register') }}" class="bg-black text-secondary font-subheading px-3 sm:px-6 py-2 sm:py-2.5 text-sm sm:text-base transition-all duration-200 hover:bg-secondary hover:text-black rounded-xl border-2 border-secondary">@t('Register')</a>
+                    <a href="{{ route('register') }}" class="font-subheading px-3 sm:px-6 py-2 sm:py-2.5 text-sm sm:text-base transition-all duration-200 rounded-xl border-2" style="background-color: var(--color-primary); color: var(--color-secondary); border-color: var(--color-secondary);" onmouseover="this.style.backgroundColor='var(--color-secondary)'; this.style.color='var(--color-primary)'; this.style.borderColor='var(--color-primary)';" onmouseout="this.style.backgroundColor='var(--color-primary)'; this.style.color='var(--color-secondary)'; this.style.borderColor='var(--color-secondary)';">@t('Register')</a>
                 @endauth
                 
                 <!-- Mobile Menu Button -->
@@ -160,12 +155,12 @@
                         @endphp
                         @foreach($categories as $category)
                             <a href="{{ route('categories.show', $category->slug) }}"
-                               class="block px-5 py-3 text-sm text-gray-700 hover:bg-secondary hover:text-black transition-all duration-150 mx-2 rounded-lg">
+                               class="block px-5 py-3 text-sm text-gray-700 transition-all duration-150 mx-2 rounded-lg" onmouseover="this.style.backgroundColor='var(--color-secondary)'; this.style.color='var(--color-primary)';" onmouseout="this.style.backgroundColor=''; this.style.color='';">
                                 {{ $category->name }}
                             </a>
                         @endforeach
                         <hr class="my-3 mx-2">
-                        <a href="{{ route('categories.index') }}" class="block px-5 py-3 text-sm text-black hover:bg-secondary font-medium transition-all duration-150 mx-2 rounded-lg">
+                        <a href="{{ route('categories.index') }}" class="block px-5 py-3 text-sm font-medium transition-all duration-150 mx-2 rounded-lg" style="color: var(--color-primary);" onmouseover="this.style.backgroundColor='var(--color-secondary)'; this.style.color='var(--color-primary)';" onmouseout="this.style.backgroundColor=''; this.style.color='var(--color-primary)';">
                             @t('View All Categories')
                         </a>
                     </div>

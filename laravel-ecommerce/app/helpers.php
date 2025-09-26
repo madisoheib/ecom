@@ -1,6 +1,8 @@
 <?php
 
 use App\Models\SiteSetting;
+use App\Models\Language;
+use App\Services\ThemeService;
 
 if (!function_exists('site_title')) {
     function site_title(): string
@@ -247,5 +249,49 @@ if (!function_exists('darken_color')) {
         $b = max(0, $b * (1 - $percent));
 
         return sprintf("#%02x%02x%02x", $r, $g, $b);
+    }
+}
+
+if (!function_exists('active_languages')) {
+    function active_languages()
+    {
+        try {
+            return Language::where('is_active', true)->get();
+        } catch (\Exception $e) {
+            // Return default languages if table doesn't exist yet
+            return collect([
+                (object)['code' => 'en', 'name' => ['en' => 'English'], 'native_name' => 'English'],
+                (object)['code' => 'fr', 'name' => ['fr' => 'Français'], 'native_name' => 'Français'],
+                (object)['code' => 'ar', 'name' => ['ar' => 'العربية'], 'native_name' => 'العربية'],
+            ]);
+        }
+    }
+}
+
+if (!function_exists('get_language_flag')) {
+    function get_language_flag($langCode): string
+    {
+        $flags = [
+            'en' => '🇺🇸',
+            'fr' => '🇫🇷',
+            'ar' => '🇸🇦',
+            'ca' => '🇨🇦', // Canada
+            'dz' => '🇩🇿', // Algeria  
+            'ae' => '🇦🇪', // UAE
+        ];
+        
+        return $flags[$langCode] ?? '🌐';
+    }
+}
+
+if (!function_exists('get_theme_css_variables')) {
+    function get_theme_css_variables(): string
+    {
+        try {
+            $themeService = app(ThemeService::class);
+            return $themeService->getCssVariables();
+        } catch (\Exception $e) {
+            return '';
+        }
     }
 }

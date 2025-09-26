@@ -231,7 +231,7 @@
         }
 
         /* Dynamic theme CSS */
-        {!! generate_theme_css() !!}
+        {!! get_theme_css_variables() !!}
 
         /* Custom black and gold design styles */
         body {

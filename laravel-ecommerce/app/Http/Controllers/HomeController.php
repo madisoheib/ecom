@@ -55,7 +55,7 @@ class HomeController extends Controller
         // SEO Meta
         $meta = $seoService->generateMetaTags();
 
-        return view('home-simple', compact(
+        return view('home', compact(
             'sliders',
             'featuredProducts',
             'recentProducts',

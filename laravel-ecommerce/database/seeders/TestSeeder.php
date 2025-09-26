@@ -7,7 +7,7 @@ use Illuminate\Database\Seeder;
 use App\Models\Category;
 use App\Models\Brand;
 use App\Models\Product;
-use App\Models\Region;
+use App\Models\City;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
@@ -19,17 +19,6 @@ class TestSeeder extends Seeder
      */
     public function run(): void
     {
-        // Create regions
-        $regions = [
-            ['country_code' => 'FR', 'name' => 'Île-de-France', 'code' => 'IDF'],
-            ['country_code' => 'FR', 'name' => 'Provence-Alpes-Côte d\'Azur', 'code' => 'PACA'],
-            ['country_code' => 'MA', 'name' => 'Casablanca-Settat', 'code' => 'CS'],
-            ['country_code' => 'US', 'name' => 'California', 'code' => 'CA'],
-        ];
-
-        foreach ($regions as $regionData) {
-            Region::create($regionData);
-        }
 
         // Create roles and permissions
         $adminRole = Role::create(['name' => 'admin']);
@@ -58,7 +47,6 @@ class TestSeeder extends Seeder
             'email' => 'admin@example.com',
             'password' => bcrypt('password'),
             'country_code' => 'FR',
-            'region_id' => 1,
         ]);
         $admin->assignRole('super-admin');
 

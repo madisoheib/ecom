@@ -55,7 +55,7 @@ $isFeatured = $product->id % 3 == 0;
 @endphp
 
 <a href="{{ route('products.show', [$product->categories->first()?->slug ?? 'produits', $product->slug]) }}" class="block h-full">
-<div class="relative overflow-hidden transition-all duration-300 hover:transform hover:scale-105 group h-full w-72" style="border-radius: 16px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);">
+<div class="relative overflow-hidden transition-all duration-300 hover:transform hover:scale-105 group h-full w-full max-w-sm mx-auto" style="border-radius: 16px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);">
     <div class="h-full flex flex-col" style="background: {{ $gradientBackgrounds[$bgIndex] }}; border-radius: 16px;">
         <!-- Wishlist Heart Icon -->
         <button onclick="event.preventDefault(); event.stopPropagation();" class="absolute top-4 left-4 z-20 bg-white rounded-full p-2 shadow-md hover:shadow-lg transition-all duration-300 group/heart">
@@ -78,9 +78,9 @@ $isFeatured = $product->id % 3 == 0;
             </div>
         </div>
 
-        <div class="p-5 flex-grow flex flex-col">
+        <div class="p-4 sm:p-5 flex-grow flex flex-col">
             <!-- Product Name -->
-            <h3 class="text-base font-roboto-medium text-gray-800 mb-2 line-clamp-2">
+            <h3 class="text-sm sm:text-base font-medium text-gray-800 mb-2 line-clamp-2">
                 {{ $cosmeticNames[$nameIndex] }}
             </h3>
 
@@ -89,11 +89,11 @@ $isFeatured = $product->id % 3 == 0;
                 <div class="flex items-center">
                     @for($i = 1; $i <= 5; $i++)
                         @if($i <= floor($rating))
-                            <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20">
+                            <svg class="w-4 h-4 fill-current" style="color: var(--color-secondary);" viewBox="0 0 20 20">
                                 <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
                             </svg>
                         @elseif($i == ceil($rating) && $rating - floor($rating) > 0)
-                            <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20">
+                            <svg class="w-4 h-4 fill-current" style="color: var(--color-secondary);" viewBox="0 0 20 20">
                                 <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" opacity="0.5"/>
                             </svg>
                         @else
@@ -103,22 +103,24 @@ $isFeatured = $product->id % 3 == 0;
                         @endif
                     @endfor
                 </div>
-                <span class="text-xs text-gray-500 font-roboto-light">({{ $reviewCount }} reviews)</span>
+                <span class="text-xs text-gray-500 font-light hidden sm:inline">({{ $reviewCount }} reviews)</span>
             </div>
 
             <!-- Price and Add to Cart Button - Inline -->
             <div class="mt-auto flex items-center justify-between">
                 <!-- Price on Left -->
-                <span class="text-2xl font-roboto-bold text-gray-900">${{ number_format($product->price, 0) }}</span>
+                <span class="text-lg sm:text-2xl font-bold text-gray-900">${{ number_format($product->price, 0) }}</span>
 
                 <!-- Add to Cart Button on Right -->
                 <button onclick="event.preventDefault(); event.stopPropagation(); addToCart({{ $product->id }});"
-                        class="bg-gray-900 hover:bg-black text-white font-roboto-light py-2 px-4 transition-all duration-300 hover:shadow-lg flex items-center gap-2"
-                        style="border-radius: 12px;">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        class="font-light py-1.5 px-3 sm:py-2 sm:px-4 transition-all duration-300 hover:shadow-lg flex items-center gap-1 sm:gap-2"
+                        style="border-radius: 12px; background-color: var(--color-primary); color: var(--color-secondary);" 
+                        onmouseover="this.style.backgroundColor='var(--color-secondary)'; this.style.color='var(--color-primary)';" 
+                        onmouseout="this.style.backgroundColor='var(--color-primary)'; this.style.color='var(--color-secondary)';">
+                    <svg class="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.5 6M7 13l1.5-6m0 0h13M9 19a1 1 0 100 2 1 1 0 000-2zm7 0a1 1 0 100 2 1 1 0 000-2z"></path>
                     </svg>
-                    Add
+                    <span class="text-xs sm:text-sm">Add</span>
                 </button>
             </div>
         </div>

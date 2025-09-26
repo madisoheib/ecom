@@ -3,19 +3,50 @@
 @section('content')
 <div class="min-h-screen" style="background-color: #f8f9fa;">
     <div class="container mx-auto px-4 py-8">
-        <!-- Header -->
-        <div class="mb-12 text-center">
-            <h1 class="text-5xl font-roboto-black text-black mb-4 tracking-wide">@t('Premium Fragrance Collection')</h1>
-            <div class="w-24 h-1 bg-gradient-to-r from-transparent via-secondary to-transparent mx-auto mb-6"></div>
-            <p class="text-gray-600 font-roboto-light text-lg max-w-2xl mx-auto">@t('Discover our exquisite collection of luxury perfumes, carefully curated for the most discerning fragrance enthusiasts')</p>
+        <!-- Modern Header with Background -->
+        <div class="relative mb-12 rounded-2xl overflow-hidden">
+            <div class="p-12 text-center relative" style="background: linear-gradient(to right, var(--color-primary), #374151, var(--color-primary));">
+                <!-- Background Pattern -->
+                <div class="absolute inset-0 opacity-10">
+                    <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><defs><pattern id=\"grid\" width=\"10\" height=\"10\" patternUnits=\"userSpaceOnUse\"><path d=\"M 10 0 L 0 0 0 10\" fill=\"none\" stroke=\"%23ffffff\" stroke-width=\"0.5\"/></pattern></defs><rect width=\"100\" height=\"100\" fill=\"url(%23grid)\"/></svg>');"></div>
+                </div>
+
+                <div class="relative z-10">
+                    <div class="inline-flex items-center justify-center w-20 h-20 rounded-full mb-6 shadow-lg" style="background-color: var(--color-secondary);">
+                        <svg class="w-10 h-10" style="color: var(--color-primary);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M8 11v6a4 4 0 008 0v-6M8 11h8"></path>
+                        </svg>
+                    </div>
+                    <h1 class="text-4xl md:text-5xl font-roboto-black text-white mb-4 tracking-wide">@t('Our Products')</h1>
+                    <p class="text-xl text-gray-200 max-w-2xl mx-auto font-roboto-light">@t('Discover our complete collection of premium products')</p>
+
+                    <!-- Stats -->
+                    <div class="flex justify-center items-center mt-8 space-x-8">
+                        <div class="text-center">
+                            <div class="text-2xl font-bold" style="color: var(--color-secondary);">{{ $products->total() }}</div>
+                            <div class="text-sm text-gray-300 font-light">@t('Products')</div>
+                        </div>
+                        <div class="w-px h-12 bg-gray-600"></div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold" style="color: var(--color-secondary);">{{ $brands->count() }}</div>
+                            <div class="text-sm text-gray-300 font-light">@t('Brands')</div>
+                        </div>
+                        <div class="w-px h-12 bg-gray-600"></div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold" style="color: var(--color-secondary);">{{ $categories->count() }}</div>
+                            <div class="text-sm text-gray-300 font-light">@t('Categories')</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="flex flex-col lg:flex-row gap-8">
             <!-- Filters Sidebar -->
             <div class="lg:w-1/4">
                 <form method="GET" action="{{ route('products.index') }}" id="filters-form">
-                <div class="bg-white p-6 border-2 border-gray-100 hover:border-secondary/30 transition-all duration-300" style="border-radius: 16px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);">
-                    <h3 class="font-roboto-bold text-2xl text-black mb-6 pb-3 border-b border-secondary/20">@t('Refine Your Search')</h3>
+                <div class="bg-white p-6 rounded-2xl shadow-lg border border-gray-100">
+                    <h3 class="font-bold text-xl mb-6 pb-3 border-b" style="color: var(--color-primary); border-color: rgba(var(--color-secondary-rgb), 0.2);">@t('Filters')</h3>
                     
                     <!-- Search -->
                     <div class="mb-6">
@@ -24,8 +55,7 @@
                                name="search"
                                value="{{ request('search') }}"
                                placeholder="@t('Search products...')"
-                               class="w-full px-4 py-3 border-2 border-gray-200 focus:ring-2 focus:ring-secondary focus:border-secondary transition-all duration-300 font-body"
-                               style="border-radius: 8px;"
+                               class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:border-gray-400 transition-all duration-300"
                                onchange="document.getElementById('filters-form').submit()">
                     </div>
                     
@@ -33,8 +63,7 @@
                     <div class="mb-6">
                         <label class="block text-sm font-subheading text-gray-700 mb-2">@t('Categories')</label>
                         <select name="category"
-                                class="w-full px-4 py-3 border-2 border-gray-200 focus:ring-2 focus:ring-secondary focus:border-secondary transition-all duration-300 font-body"
-                                style="border-radius: 8px;"
+                                class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:border-gray-400 transition-all duration-300"
                                 onchange="document.getElementById('filters-form').submit()">
                             <option value="">@t('All Categories')</option>
                             @foreach($categories as $category)
@@ -49,8 +78,7 @@
                     <div class="mb-6">
                         <label class="block text-sm font-subheading text-gray-700 mb-2">@t('Brands')</label>
                         <select name="brand"
-                                class="w-full px-4 py-3 border-2 border-gray-200 focus:ring-2 focus:ring-secondary focus:border-secondary transition-all duration-300 font-body"
-                                style="border-radius: 8px;"
+                                class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:border-gray-400 transition-all duration-300"
                                 onchange="document.getElementById('filters-form').submit()">
                             <option value="">@t('All Brands')</option>
                             @foreach($brands as $brand)
@@ -69,22 +97,22 @@
                                    name="price_min"
                                    value="{{ request('price_min') }}"
                                    placeholder="@t('Min')"
-                                   class="w-1/2 px-4 py-3 border-2 border-gray-200 focus:ring-2 focus:ring-secondary focus:border-secondary transition-all duration-300 font-body"
-                                   style="border-radius: 8px;"
+                                   class="w-1/2 px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:border-gray-400 transition-all duration-300"
                                    onchange="document.getElementById('filters-form').submit()">
                             <input type="number"
                                    name="price_max"
                                    value="{{ request('price_max') }}"
                                    placeholder="@t('Max')"
-                                   class="w-1/2 px-4 py-3 border-2 border-gray-200 focus:ring-2 focus:ring-secondary focus:border-secondary transition-all duration-300 font-body"
-                                   style="border-radius: 8px;"
+                                   class="w-1/2 px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:border-gray-400 transition-all duration-300"
                                    onchange="document.getElementById('filters-form').submit()">
                         </div>
                     </div>
 
                     <button type="submit"
-                            class="w-full bg-primary hover:bg-primary-700 text-white font-subheading py-3 px-4 transition-all duration-300 font-body hover:scale-105 hover:shadow-lg"
-                            style="border-radius: 12px;">
+                            class="w-full py-3 px-4 rounded-lg font-medium transition-all duration-300 hover:shadow-lg"
+                            style="background-color: var(--color-secondary); color: var(--color-primary);"
+                            onmouseover="this.style.backgroundColor='var(--color-primary)'; this.style.color='var(--color-secondary)';" 
+                            onmouseout="this.style.backgroundColor='var(--color-secondary)'; this.style.color='var(--color-primary)';">
                         @t('Apply Filters')
                     </button>
                 </div>
@@ -104,8 +132,7 @@
                         @endforeach
 
                         <select name="sort"
-                                class="px-4 py-3 border-2 border-gray-200 focus:ring-2 focus:ring-secondary focus:border-secondary transition-all duration-300 font-body"
-                                style="border-radius: 8px;"
+                                class="px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:border-gray-400 transition-all duration-300"
                                 onchange="this.form.submit()">
                             <option value="name" {{ request('sort') === 'name' ? 'selected' : '' }}>@t('Sort by Name')</option>
                             <option value="price_asc" {{ request('sort') === 'price_asc' ? 'selected' : '' }}>@t('Price: Low to High')</option>

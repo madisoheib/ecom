@@ -14,7 +14,8 @@ RUN apk add --no-cache \
     libjpeg-turbo-dev \
     libwebp-dev \
     icu-dev \
-    oniguruma-dev
+    oniguruma-dev \
+    libzip-dev
 
 # Install PHP extensions
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
@@ -27,7 +28,8 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
     intl \
     bcmath \
     opcache \
-    exif
+    exif \
+    zip
 
 # Install Redis extension
 RUN apk add --no-cache pcre-dev $PHPIZE_DEPS \
@@ -41,14 +43,11 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Set working directory
 WORKDIR /var/www/html
 
-# Copy composer files
-COPY composer.json composer.lock ./
+# Copy application code first
+COPY . .
 
 # Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader --no-scripts
-
-# Copy application code
-COPY . .
 
 # Copy PHP configuration
 COPY docker/php/php.ini /usr/local/etc/php/conf.d/custom.ini

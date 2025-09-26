@@ -3,7 +3,7 @@
 namespace App\Filament\Pages;
 
 use App\Models\SiteSetting;
-use Filament\Forms\Components\ColorPicker;
+use App\Models\ThemeSettings;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
@@ -32,7 +32,14 @@ class GeneralSettings extends Page implements HasForms
     public function mount(): void
     {
         $settings = SiteSetting::current();
-        $this->form->fill($settings->toArray());
+        $activeTheme = ThemeSettings::getActiveTheme();
+        
+        $data = $settings->toArray();
+        if ($activeTheme) {
+            $data['active_theme'] = $activeTheme->id;
+        }
+        
+        $this->form->fill($data);
     }
 
     public function form(Form $form): Form
@@ -139,21 +146,38 @@ class GeneralSettings extends Page implements HasForms
                     ])
                     ->columns(2),
 
-                Section::make('Theme Colors')
+                Section::make('Theme Settings')
                     ->schema([
-                        ColorPicker::make('primary_color')
-                            ->label('Primary Color')
-                            ->required(),
-
-                        ColorPicker::make('secondary_color')
-                            ->label('Secondary Color')
-                            ->required(),
-
-                        ColorPicker::make('accent_color')
-                            ->label('Accent Color')
-                            ->required(),
+                        Select::make('active_theme')
+                            ->label('Active Theme')
+                            ->options(function () {
+                                return ThemeSettings::all()->mapWithKeys(function ($theme) {
+                                    return [$theme->id => $theme->name ?: "Theme #{$theme->id}"];
+                                })->toArray();
+                            })
+                            ->searchable()
+                            ->helperText('Select a theme to apply to your website. Create new themes in Theme Settings.')
+                            ->afterStateUpdated(function ($state) {
+                                if ($state) {
+                                    $theme = ThemeSettings::find($state);
+                                    if ($theme) {
+                                        $theme->activate();
+                                        // Refresh the page to show new theme
+                                        redirect()->refresh();
+                                    }
+                                }
+                            })
+                            ->live(),
+                        
+                        \Filament\Forms\Components\Actions::make([
+                            \Filament\Forms\Components\Actions\Action::make('manage_themes')
+                                ->label('Manage Themes')
+                                ->icon('heroicon-o-paint-brush')
+                                ->url(fn () => route('filament.admin.resources.theme-settings.index'))
+                                ->openUrlInNewTab(),
+                        ]),
                     ])
-                    ->columns(3),
+                    ->columns(1),
             ])
             ->statePath('data');
     }

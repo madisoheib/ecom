@@ -6,46 +6,18 @@
     <section class="relative py-8">
         <div class="container mx-auto px-4">
             <div id="modernSlider" class="relative h-[500px] rounded-3xl overflow-hidden shadow-2xl">
-                @php
-                $beautySlides = [
-                    [
-                        'image' => 'https://images.unsplash.com/photo-1596755389378-c31d21fd1273?w=1400&h=500&fit=crop&auto=format&q=90',
-                        'title' => 'Discover Beauty Excellence',
-                        'subtitle' => 'Premium Skincare & Cosmetics',
-                        'description' => 'Transform your daily routine with our carefully curated collection of luxury beauty products.',
-                        'button_text' => 'Shop Beauty',
-                        'gradient' => 'from-black/60 via-black/40 to-transparent'
-                    ],
-                    [
-                        'image' => 'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=1400&h=500&fit=crop&auto=format&q=90',
-                        'title' => 'Radiant Skin Solutions',
-                        'subtitle' => 'Advanced Skincare Technology',
-                        'description' => 'Experience the power of science-backed formulations for healthy, glowing skin.',
-                        'button_text' => 'Explore Skincare',
-                        'gradient' => 'from-blue-900/60 via-blue-800/40 to-transparent'
-                    ],
-                    [
-                        'image' => 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=1400&h=500&fit=crop&auto=format&q=90',
-                        'title' => 'Luxury Beauty Collection',
-                        'subtitle' => 'Curated for You',
-                        'description' => 'Indulge in premium beauty essentials from the world\'s most trusted brands.',
-                        'button_text' => 'View Collection',
-                        'gradient' => 'from-purple-900/60 via-purple-800/40 to-transparent'
-                    ]
-                ];
-                @endphp
-
-                @foreach($beautySlides as $index => $slide)
+                @foreach($sliders as $index => $slide)
                     <div class="slide-item absolute inset-0 transition-all duration-700 ease-in-out {{ $index === 0 ? 'opacity-100 scale-100' : 'opacity-0 scale-105' }}"
                          data-slide="{{ $index }}">
                         <div class="relative w-full h-full">
                             <!-- Background Image -->
-                            <img src="{{ $slide['image'] }}"
-                                 alt="{{ $slide['title'] }}"
+                            <img src="{{ $slide->image_path }}"
+                                 alt="{{ $slide->getTranslation('title', app()->getLocale()) }}"
                                  class="w-full h-full object-cover">
 
                             <!-- Gradient Overlay -->
-                            <div class="absolute inset-0 bg-gradient-to-r {{ $slide['gradient'] }}"></div>
+                            <div class="absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-transparent" 
+                                 style="background-color: {{ $slide->background_color }}99;"></div>
 
                             <!-- Content -->
                             <div class="absolute inset-0 flex items-center">
@@ -55,34 +27,49 @@
                                         <div class="backdrop-blur-sm bg-white/10 rounded-2xl p-8 border border-white/20 shadow-2xl transform transition-all duration-700 hover:scale-105">
                                             <div class="space-y-6">
                                                 <!-- Subtitle -->
-                                                <span class="inline-block px-4 py-2 bg-secondary/90 text-black text-sm font-medium rounded-full shadow-lg">
-                                                    {{ $slide['subtitle'] }}
-                                                </span>
+                                                @if($slide->getTranslation('subtitle', app()->getLocale()))
+                                                    <span class="inline-block px-4 py-2 text-sm font-medium rounded-full shadow-lg" 
+                                                          style="background-color: rgba(var(--color-secondary-rgb), 0.9); color: var(--color-primary);">
+                                                        {{ $slide->getTranslation('subtitle', app()->getLocale()) }}
+                                                    </span>
+                                                @endif
 
                                                 <!-- Title -->
-                                                <h1 class="text-4xl md:text-6xl font-roboto-black text-white leading-tight">
-                                                    {{ $slide['title'] }}
+                                                <h1 class="text-4xl md:text-6xl font-roboto-black leading-tight"
+                                                    style="color: {{ $slide->text_color ?? '#ffffff' }};">
+                                                    {{ $slide->getTranslation('title', app()->getLocale()) }}
                                                 </h1>
 
                                                 <!-- Description -->
-                                                <p class="text-lg md:text-xl text-white/90 font-roboto-light leading-relaxed">
-                                                    {{ $slide['description'] }}
-                                                </p>
+                                                @if($slide->getTranslation('description', app()->getLocale()))
+                                                    <p class="text-lg md:text-xl font-roboto-light leading-relaxed"
+                                                       style="color: {{ $slide->text_color ?? '#ffffff' }}aa;">
+                                                        {{ $slide->getTranslation('description', app()->getLocale()) }}
+                                                    </p>
+                                                @endif
 
                                                 <!-- Button -->
-                                                <div class="flex gap-4">
-                                                    <a href="{{ route('products.index') }}"
-                                                       class="inline-flex items-center px-8 py-4 bg-secondary text-black font-roboto-medium text-lg rounded-xl hover:bg-white hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
-                                                        {{ $slide['button_text'] }}
-                                                        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-                                                        </svg>
-                                                    </a>
-                                                    <a href="{{ route('categories.index') }}"
-                                                       class="inline-flex items-center px-8 py-4 border-2 border-white text-white font-roboto-medium text-lg rounded-xl hover:bg-white hover:text-black transition-all duration-300 transform hover:-translate-y-1">
-                                                        Categories
-                                                    </a>
-                                                </div>
+                                                @if($slide->button_text && $slide->button_url)
+                                                    <div class="flex gap-4">
+                                                        <a href="{{ $slide->button_url }}"
+                                                           class="inline-flex items-center px-8 py-4 font-roboto-medium text-lg rounded-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1" 
+                                                           style="background-color: var(--color-secondary); color: var(--color-primary);"
+                                                           onmouseover="this.style.backgroundColor='white'; this.style.color='var(--color-primary)';" 
+                                                           onmouseout="this.style.backgroundColor='var(--color-secondary)'; this.style.color='var(--color-primary)';">
+                                                            {{ $slide->button_text }}
+                                                            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                                                            </svg>
+                                                        </a>
+                                                        <a href="{{ route('categories.index') }}"
+                                                           class="inline-flex items-center px-8 py-4 border-2 font-roboto-medium text-lg rounded-xl transition-all duration-300 transform hover:-translate-y-1"
+                                                           style="border-color: {{ $slide->text_color ?? '#ffffff' }}; color: {{ $slide->text_color ?? '#ffffff' }};"
+                                                           onmouseover="this.style.backgroundColor='white'; this.style.color='var(--color-primary)';" 
+                                                           onmouseout="this.style.backgroundColor='transparent'; this.style.color='{{ $slide->text_color ?? '#ffffff' }}';">
+                                                            Categories
+                                                        </a>
+                                                    </div>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
@@ -106,22 +93,11 @@
 
                 <!-- Modern Dots Indicator -->
                 <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-3 z-30">
-                    @foreach($beautySlides as $index => $slide)
-                        <button class="slider-dot w-4 h-4 rounded-full transition-all duration-300 {{ $index === 0 ? 'bg-secondary shadow-lg' : 'bg-white/50 hover:bg-white/70' }} hover:scale-125"
+                    @foreach($sliders as $index => $slide)
+                        <button class="slider-dot w-4 h-4 rounded-full transition-all duration-300 {{ $index === 0 ? 'shadow-lg' : 'bg-white/50 hover:bg-white/70' }} hover:scale-125"
+                                style="background-color: {{ $index === 0 ? 'var(--color-secondary)' : '' }};"
                                 data-slide="{{ $index }}"></button>
                     @endforeach
-                </div>
-
-                <!-- Floating Elements -->
-                <div class="absolute top-8 right-8 z-20">
-                    <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-4 border border-white/20">
-                        <div class="flex items-center space-x-2 text-white">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-                            </svg>
-                            <span class="text-sm font-medium">Premium Quality</span>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -130,26 +106,28 @@
     <!-- Categories Section -->
     <section class="py-16 bg-white">
         <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl font-roboto-bold text-black mb-4 tracking-wide">@t('Beauty Categories')</h2>
-                <div class="w-24 h-1 bg-gradient-to-r from-transparent via-secondary to-transparent mx-auto mb-6"></div>
-                <p class="text-gray-600 font-roboto-light text-lg">@t('Explore our carefully curated skincare and beauty collections')</p>
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4" style="color: var(--color-primary);">@t('Categories')</h2>
+                <p class="text-gray-600">@t('Explore our collections')</p>
             </div>
             
-            <div class="flex justify-center">
-                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-{{ min(6, $categories->count()) }} gap-6 max-w-6xl">
-                    @foreach($categories as $category)
-                        <a href="{{ route('categories.show', $category->slug) }}"
-                           class="group bg-white p-6 text-center hover:shadow-2xl transition-all duration-300 hover:bg-secondary/5 border-2 border-gray-100 hover:border-secondary rounded-xl min-w-[140px] transform hover:-translate-y-2">
-                            <div class="w-16 h-16 flex items-center justify-center mx-auto mb-4 transition-colors bg-gradient-to-br from-primary to-secondary rounded-xl shadow-lg">
-                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
-                                </svg>
-                            </div>
-                            <h3 class="font-roboto-medium text-gray-900 group-hover:text-black transition-colors text-sm">{{ $category->name }}</h3>
-                        </a>
-                    @endforeach
-                </div>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
+                @foreach($categories as $category)
+                    <a href="{{ route('categories.show', $category->slug) }}"
+                       class="group bg-gray-50 rounded-lg p-6 text-center hover:shadow-lg transition-all duration-300"
+                       onmouseover="this.style.backgroundColor='var(--color-secondary)'; this.style.transform='translateY(-4px)';" 
+                       onmouseout="this.style.backgroundColor='#f9fafb'; this.style.transform='translateY(0)';">
+                        
+                        <div class="w-12 h-12 mx-auto mb-3 rounded-full flex items-center justify-center"
+                             style="background-color: var(--color-primary);">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                            </svg>
+                        </div>
+                        
+                        <h3 class="font-medium text-gray-900 text-sm">{{ $category->name }}</h3>
+                    </a>
+                @endforeach
             </div>
         </div>
     </section>
@@ -157,10 +135,9 @@
     <!-- Featured Products -->
     <section class="py-16 bg-gray-50">
         <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl font-roboto-bold text-black mb-4 tracking-wide">@t('Featured Beauty Products')</h2>
-                <div class="w-24 h-1 bg-gradient-to-r from-transparent via-secondary to-transparent mx-auto mb-6"></div>
-                <p class="text-gray-600 font-roboto-light text-lg">@t('Our most popular skincare and beauty essentials, loved by customers worldwide')</p>
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4" style="color: var(--color-primary);">@t('Featured Products')</h2>
+                <p class="text-gray-600">@t('Our most popular products')</p>
             </div>
             
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
@@ -171,8 +148,11 @@
             
             <div class="text-center mt-12">
                 <a href="{{ route('products.index', ['featured' => 1]) }}"
-                   class="bg-black text-secondary border-2 border-secondary hover:bg-secondary hover:text-black px-10 py-4 font-roboto-medium rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-                    @t('Explore Our Complete Collection')
+                   class="inline-block px-8 py-3 rounded-lg font-medium transition-colors"
+                   style="background-color: var(--color-secondary); color: var(--color-primary);"
+                   onmouseover="this.style.backgroundColor='var(--color-primary)'; this.style.color='var(--color-secondary)';" 
+                   onmouseout="this.style.backgroundColor='var(--color-secondary)'; this.style.color='var(--color-primary)';">
+                    @t('View All Products')
                 </a>
             </div>
         </div>
@@ -182,8 +162,8 @@
     <section class="py-16 bg-white">
         <div class="container mx-auto px-4">
             <div class="text-center mb-12">
-                <h2 class="text-3xl font-roboto-bold text-gray-900 mb-4">@t('New Beauty Arrivals')</h2>
-                <p class="text-gray-600 font-roboto-light">@t('Latest skincare and beauty products added to our collection')</p>
+                <h2 class="text-3xl font-bold mb-4" style="color: var(--color-primary);">@t('New Arrivals')</h2>
+                <p class="text-gray-600">@t('Latest products added to our collection')</p>
             </div>
             
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
@@ -194,7 +174,10 @@
             
             <div class="text-center mt-12">
                 <a href="{{ route('products.index', ['sort' => 'newest']) }}"
-                   class="bg-secondary hover:bg-yellow-400 text-primary px-8 py-3 font-semibold rounded-lg transition-colors">
+                   class="px-8 py-3 font-semibold rounded-lg transition-colors"
+                   style="background-color: var(--color-secondary); color: var(--color-primary);"
+                   onmouseover="this.style.backgroundColor='var(--color-primary)'; this.style.color='var(--color-secondary)';" 
+                   onmouseout="this.style.backgroundColor='var(--color-secondary)'; this.style.color='var(--color-primary)';">
                     @t('View All New Products')
                 </a>
             </div>
@@ -205,8 +188,8 @@
     <section class="py-16 bg-gray-50">
         <div class="container mx-auto px-4">
             <div class="text-center mb-12">
-                <h2 class="text-3xl font-roboto-bold text-gray-900 mb-4">@t('Beauty Best Sellers')</h2>
-                <p class="text-gray-600 font-roboto-light">@t('Most popular beauty and skincare products among our customers')</p>
+                <h2 class="text-3xl font-bold mb-4" style="color: var(--color-primary);">@t('Best Sellers')</h2>
+                <p class="text-gray-600">@t('Most popular products among our customers')</p>
             </div>
             
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
@@ -217,7 +200,10 @@
             
             <div class="text-center mt-12">
                 <a href="{{ route('products.index', ['sort' => 'popular']) }}"
-                   class="bg-secondary hover:bg-yellow-400 text-primary px-8 py-3 font-semibold rounded-lg transition-colors">
+                   class="px-8 py-3 font-semibold rounded-lg transition-colors"
+                   style="background-color: var(--color-secondary); color: var(--color-primary);"
+                   onmouseover="this.style.backgroundColor='var(--color-primary)'; this.style.color='var(--color-secondary)';" 
+                   onmouseout="this.style.backgroundColor='var(--color-secondary)'; this.style.color='var(--color-primary)';">
                     @t('View All Best Sellers')
                 </a>
             </div>
@@ -228,19 +214,22 @@
     <section class="py-16 bg-white">
         <div class="container mx-auto px-4">
             <div class="text-center mb-12">
-                <h2 class="text-3xl font-roboto-bold text-gray-900 mb-4">@t('Featured Beauty Brands')</h2>
-                <p class="text-gray-600 font-roboto-light">@t('Trusted beauty and skincare brands we partner with')</p>
+                <h2 class="text-3xl font-bold mb-4" style="color: var(--color-primary);">@t('Our Brands')</h2>
+                <p class="text-gray-600">@t('Trusted brands we partner with')</p>
             </div>
             
-            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-8">
+            <div class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 max-w-4xl mx-auto">
                 @foreach($brands as $brand)
                     <a href="{{ route('brands.show', $brand->slug) }}" 
-                       class="group bg-gray-50 rounded-lg p-6 flex items-center justify-center hover:shadow-lg transition-all duration-300 hover:bg-gray-100">
+                       class="group bg-gray-50 rounded-lg p-4 flex items-center justify-center hover:shadow-lg transition-all duration-300"
+                       onmouseover="this.style.backgroundColor='var(--color-secondary)'; this.style.transform='translateY(-2px)';" 
+                       onmouseout="this.style.backgroundColor='#f9fafb'; this.style.transform='translateY(0)';">
                         <div class="text-center">
-                            <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center mx-auto mb-2">
-                                <span class="text-xl font-bold text-gray-600">{{ substr($brand->name, 0, 1) }}</span>
+                            <div class="w-10 h-10 rounded-full flex items-center justify-center mx-auto mb-2"
+                                 style="background-color: var(--color-primary);">
+                                <span class="text-sm font-bold text-white">{{ substr($brand->name, 0, 1) }}</span>
                             </div>
-                            <h3 class="text-sm font-medium text-gray-900 group-hover:text-secondary transition-colors">{{ $brand->name }}</h3>
+                            <h3 class="text-xs font-medium text-gray-900">{{ $brand->name }}</h3>
                         </div>
                     </a>
                 @endforeach
@@ -249,17 +238,20 @@
     </section>
 
     <!-- Newsletter Section -->
-    <section class="py-16 bg-primary text-white">
+    <section class="py-16 text-white" style="background-color: var(--color-primary);">
         <div class="container mx-auto px-4 text-center">
-            <h2 class="text-3xl font-bold mb-4">@t('Stay Updated')</h2>
-            <p class="text-xl mb-8 opacity-90">@t('Subscribe to our newsletter for exclusive deals and updates')</p>
+            <h2 class="text-2xl font-bold mb-4">@t('Newsletter')</h2>
+            <p class="mb-8 opacity-90">@t('Subscribe for updates and exclusive offers')</p>
 
             <form class="max-w-md mx-auto flex gap-4">
                 <input type="email"
                        placeholder="@t('Enter your email')"
                        class="flex-1 px-4 py-3 rounded-lg text-gray-900 focus:ring-2 focus:ring-white focus:outline-none">
                 <button type="submit"
-                        class="bg-white text-primary px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                        class="px-6 py-3 rounded-lg font-semibold transition-colors"
+                        style="background-color: var(--color-secondary); color: var(--color-primary);"
+                        onmouseover="this.style.backgroundColor='white'; this.style.color='var(--color-primary)';" 
+                        onmouseout="this.style.backgroundColor='var(--color-secondary)'; this.style.color='var(--color-primary)';">
                     @t('Subscribe')
                 </button>
             </form>
@@ -292,10 +284,12 @@ document.addEventListener('DOMContentLoaded', function() {
         dots.forEach((dot, i) => {
             if (i === index) {
                 dot.classList.remove('bg-white/50');
-                dot.classList.add('bg-secondary', 'shadow-lg');
+                dot.classList.add('shadow-lg');
+                dot.style.backgroundColor = 'var(--color-secondary)';
             } else {
-                dot.classList.remove('bg-secondary', 'shadow-lg');
+                dot.classList.remove('shadow-lg');
                 dot.classList.add('bg-white/50');
+                dot.style.backgroundColor = '';
             }
         });
 

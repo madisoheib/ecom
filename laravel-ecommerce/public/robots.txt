@@ -5,7 +5,7 @@ Allow: /
 Disallow: /admin/
 Disallow: /filament/
 
-# Disallow user areas
+# Disallow user areas  
 Disallow: /mon-compte
 Disallow: /mes-commandes
 Disallow: /profil
@@ -18,6 +18,14 @@ Disallow: /commande
 Disallow: /connexion
 Disallow: /inscription
 
+# Allow CSS, JS and assets (Critical for SEO)
+Allow: /css/
+Allow: /js/
+Allow: /assets/
+Allow: /build/
+Allow: /storage/
+Allow: /vendor/
+
 # Allow important SEO pages
 Allow: /produits
 Allow: /categories
@@ -27,7 +35,7 @@ Allow: /categorie/
 Allow: /marque/
 
 # Sitemap location
-Sitemap: http://localhost:8000/sitemap.xml
+Sitemap: http://localhost:8080/sitemap.xml
 
-# Crawl delay (1 second)
-Crawl-delay: 1
+# Optional: Crawl delay (removed as it can slow indexing)
+# Crawl-delay: 1

@@ -15,6 +15,14 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             EcommerceSeeder::class,
+            CurrencySeeder::class,
+            LanguageSeeder::class,
+            CountrySeeder::class,
+            CitySeeder::class,
+            ThemeSettingsSeeder::class,
+            DefaultThemesSeeder::class,
+            ProductSeeder::class,
+            SliderSeeder::class,
         ]);
     }
 }
