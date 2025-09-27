@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="min-h-screen" style="background-color: #f8f9fa;">
-    <!-- Modern Creative Hero Slider -->
+    <!-- Simplified Hero Slider -->
     <section class="relative py-8">
         <div class="container mx-auto px-4">
             <div id="modernSlider" class="relative h-[500px] rounded-3xl overflow-hidden shadow-2xl">
@@ -19,67 +19,25 @@
                             <div class="absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-transparent" 
                                  style="background-color: {{ $slide->background_color }}99;"></div>
 
-                            <!-- Content -->
-                            <div class="absolute inset-0 flex items-center">
-                                <div class="container mx-auto px-8 relative z-10">
-                                    <div class="max-w-2xl">
-                                        <!-- Animated Content Card -->
-                                        <div class="backdrop-blur-sm bg-white/10 rounded-2xl p-8 border border-white/20 shadow-2xl transform transition-all duration-700 hover:scale-105">
-                                            <div class="space-y-6">
-                                                <!-- Subtitle -->
-                                                @if($slide->getTranslation('subtitle', app()->getLocale()))
-                                                    <span class="inline-block px-4 py-2 text-sm font-medium rounded-full shadow-lg" 
-                                                          style="background-color: rgba(var(--color-secondary-rgb), 0.9); color: var(--color-primary);">
-                                                        {{ $slide->getTranslation('subtitle', app()->getLocale()) }}
-                                                    </span>
-                                                @endif
-
-                                                <!-- Title -->
-                                                <h1 class="text-4xl md:text-6xl font-roboto-black leading-tight"
-                                                    style="color: {{ $slide->text_color ?? '#ffffff' }};">
-                                                    {{ $slide->getTranslation('title', app()->getLocale()) }}
-                                                </h1>
-
-                                                <!-- Description -->
-                                                @if($slide->getTranslation('description', app()->getLocale()))
-                                                    <p class="text-lg md:text-xl font-roboto-light leading-relaxed"
-                                                       style="color: {{ $slide->text_color ?? '#ffffff' }}aa;">
-                                                        {{ $slide->getTranslation('description', app()->getLocale()) }}
-                                                    </p>
-                                                @endif
-
-                                                <!-- Button -->
-                                                @if($slide->button_text && $slide->button_url)
-                                                    <div class="flex gap-4">
-                                                        <a href="{{ $slide->button_url }}"
-                                                           class="inline-flex items-center px-8 py-4 font-roboto-medium text-lg rounded-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1" 
-                                                           style="background-color: var(--color-secondary); color: var(--color-primary);"
-                                                           onmouseover="this.style.backgroundColor='white'; this.style.color='var(--color-primary)';" 
-                                                           onmouseout="this.style.backgroundColor='var(--color-secondary)'; this.style.color='var(--color-primary)';">
-                                                            {{ $slide->button_text }}
-                                                            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-                                                            </svg>
-                                                        </a>
-                                                        <a href="{{ route('categories.index') }}"
-                                                           class="inline-flex items-center px-8 py-4 border-2 font-roboto-medium text-lg rounded-xl transition-all duration-300 transform hover:-translate-y-1"
-                                                           style="border-color: {{ $slide->text_color ?? '#ffffff' }}; color: {{ $slide->text_color ?? '#ffffff' }};"
-                                                           onmouseover="this.style.backgroundColor='white'; this.style.color='var(--color-primary)';" 
-                                                           onmouseout="this.style.backgroundColor='transparent'; this.style.color='{{ $slide->text_color ?? '#ffffff' }}';">
-                                                            Categories
-                                                        </a>
-                                                    </div>
-                                                @endif
-                                            </div>
-                                        </div>
-                                    </div>
+                            <!-- Simple Content - Just Title -->
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="text-center">
+                                    @if(app()->getLocale() === 'ar')
+                                        <h1 class="text-4xl md:text-6xl leading-tight text-white" style="font-family: 'Amiri', 'Tajawal', serif !important; font-weight: 600; direction: rtl;">
+                                            {{ $slide->getTranslation('title', app()->getLocale()) }}
+                                        </h1>
+                                    @else
+                                        <h1 class="text-4xl md:text-6xl leading-tight text-white" style="font-family: 'Dancing Script', cursive !important; font-weight: 400;">
+                                            {{ $slide->getTranslation('title', app()->getLocale()) }}
+                                        </h1>
+                                    @endif
                                 </div>
                             </div>
                         </div>
                     </div>
                 @endforeach
 
-                <!-- Modern Navigation -->
+                <!-- Navigation Arrows -->
                 <button id="prevSlide" class="absolute left-6 top-1/2 transform -translate-y-1/2 bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white p-4 rounded-2xl transition-all duration-300 z-30 shadow-xl hover:shadow-2xl hover:scale-110">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
@@ -91,7 +49,7 @@
                     </svg>
                 </button>
 
-                <!-- Modern Dots Indicator -->
+                <!-- Dots Indicator -->
                 <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-3 z-30">
                     @foreach($sliders as $index => $slide)
                         <button class="slider-dot w-4 h-4 rounded-full transition-all duration-300 {{ $index === 0 ? 'shadow-lg' : 'bg-white/50 hover:bg-white/70' }} hover:scale-125"
@@ -107,25 +65,54 @@
     <section class="py-16 bg-white">
         <div class="container mx-auto px-4">
             <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold mb-4" style="color: var(--color-primary);">@t('Categories')</h2>
+                @if(app()->getLocale() === 'ar')
+                    <h2 class="mb-4" style="font-family: 'Amiri', 'Tajawal', serif !important; font-size: 42px; line-height: 48px; color: #505e5b; text-align: center; font-weight: 600; direction: rtl;">@t('Categories')</h2>
+                @else  
+                    <h2 class="mb-4" style="font-family: 'Dancing Script', cursive !important; font-size: 38px; line-height: 44px; color: #505e5b; text-align: center; font-weight: 400; text-transform: capitalize;">@t('Categories')</h2>
+                @endif
                 <p class="text-gray-600">@t('Explore our collections')</p>
             </div>
             
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
-                @foreach($categories as $category)
+                @php
+                    $beautyIcons = [
+                        // Skincare
+                        '<svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>',
+                        
+                        // Makeup/Lipstick
+                        '<svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M18.5 3c-1.4 0-2.5 1.1-2.5 2.5 0 .8.4 1.5 1 2l-7 7c-.5-.6-1.2-1-2-1-1.4 0-2.5 1.1-2.5 2.5S6.6 18.5 8 18.5s2.5-1.1 2.5-2.5c0-.8-.4-1.5-1-2l7-7c.5.6 1.2 1 2 1 1.4 0 2.5-1.1 2.5-2.5S19.9 3 18.5 3z"/><circle cx="8" cy="16" r="1.5"/><circle cx="18.5" cy="5.5" r="1.5"/></svg>',
+                        
+                        // Perfume
+                        '<svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M9 2v4.5c0 .83.67 1.5 1.5 1.5h3c.83 0 1.5-.67 1.5-1.5V2H9zm6 6H9c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h6c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2z"/><circle cx="12" cy="16" r="2"/></svg>',
+                        
+                        // Face care
+                        '<svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.14 2 5 5.14 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.86-3.14-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>',
+                        
+                        // Hair care
+                        '<svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>',
+                        
+                        // Nail care
+                        '<svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>',
+                        
+                        // Body care
+                        '<svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>',
+                        
+                        // Beauty accessories
+                        '<svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>'
+                    ];
+                @endphp
+                @foreach($categories as $index => $category)
                     <a href="{{ route('categories.show', $category->slug) }}"
-                       class="group bg-gray-50 rounded-lg p-6 text-center hover:shadow-lg transition-all duration-300"
+                       class="group bg-gray-50 rounded-lg p-6 text-center hover:shadow-lg transition-all duration-300 flex flex-col items-center justify-center"
                        onmouseover="this.style.backgroundColor='var(--color-secondary)'; this.style.transform='translateY(-4px)';" 
                        onmouseout="this.style.backgroundColor='#f9fafb'; this.style.transform='translateY(0)';">
                         
-                        <div class="w-12 h-12 mx-auto mb-3 rounded-full flex items-center justify-center"
-                             style="background-color: var(--color-primary);">
-                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
-                            </svg>
+                        <div class="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center shadow-lg"
+                             style="background: linear-gradient(135deg, var(--color-primary), #333333);">
+                            {!! $beautyIcons[$index % count($beautyIcons)] !!}
                         </div>
                         
-                        <h3 class="font-medium text-gray-900 text-sm">{{ $category->name }}</h3>
+                        <h3 class="font-medium text-gray-900 text-sm text-center leading-tight">{{ $category->name }}</h3>
                     </a>
                 @endforeach
             </div>
@@ -136,7 +123,11 @@
     <section class="py-16 bg-gray-50">
         <div class="container mx-auto px-4">
             <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold mb-4" style="color: var(--color-primary);">@t('Featured Products')</h2>
+                @if(app()->getLocale() === 'ar')
+                    <h2 class="mb-4" style="font-family: 'Amiri', 'Tajawal', serif !important; font-size: 42px; line-height: 48px; color: #505e5b; text-align: center; font-weight: 600; direction: rtl;">@t('Featured Products')</h2>
+                @else  
+                    <h2 class="mb-4" style="font-family: 'Dancing Script', cursive !important; font-size: 38px; line-height: 44px; color: #505e5b; text-align: center; font-weight: 400; text-transform: capitalize;">@t('Featured Products')</h2>
+                @endif
                 <p class="text-gray-600">@t('Our most popular products')</p>
             </div>
             
@@ -162,7 +153,11 @@
     <section class="py-16 bg-white">
         <div class="container mx-auto px-4">
             <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold mb-4" style="color: var(--color-primary);">@t('New Arrivals')</h2>
+                @if(app()->getLocale() === 'ar')
+                    <h2 class="mb-4" style="font-family: 'Amiri', 'Tajawal', serif !important; font-size: 42px; line-height: 48px; color: #505e5b; text-align: center; font-weight: 600; direction: rtl;">@t('New Arrivals')</h2>
+                @else  
+                    <h2 class="mb-4" style="font-family: 'Dancing Script', cursive !important; font-size: 38px; line-height: 44px; color: #505e5b; text-align: center; font-weight: 400; text-transform: capitalize;">@t('New Arrivals')</h2>
+                @endif
                 <p class="text-gray-600">@t('Latest products added to our collection')</p>
             </div>
             
@@ -188,7 +183,11 @@
     <section class="py-16 bg-gray-50">
         <div class="container mx-auto px-4">
             <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold mb-4" style="color: var(--color-primary);">@t('Best Sellers')</h2>
+                @if(app()->getLocale() === 'ar')
+                    <h2 class="mb-4" style="font-family: 'Amiri', 'Tajawal', serif !important; font-size: 42px; line-height: 48px; color: #505e5b; text-align: center; font-weight: 600; direction: rtl;">@t('Best Sellers')</h2>
+                @else  
+                    <h2 class="mb-4" style="font-family: 'Dancing Script', cursive !important; font-size: 38px; line-height: 44px; color: #505e5b; text-align: center; font-weight: 400; text-transform: capitalize;">@t('Best Sellers')</h2>
+                @endif
                 <p class="text-gray-600">@t('Most popular products among our customers')</p>
             </div>
             
@@ -214,7 +213,11 @@
     <section class="py-16 bg-white">
         <div class="container mx-auto px-4">
             <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold mb-4" style="color: var(--color-primary);">@t('Our Brands')</h2>
+                @if(app()->getLocale() === 'ar')
+                    <h2 class="mb-4" style="font-family: 'Amiri', 'Tajawal', serif !important; font-size: 42px; line-height: 48px; color: #505e5b; text-align: center; font-weight: 600; direction: rtl;">@t('Our Brands')</h2>
+                @else  
+                    <h2 class="mb-4" style="font-family: 'Dancing Script', cursive !important; font-size: 38px; line-height: 44px; color: #505e5b; text-align: center; font-weight: 400; text-transform: capitalize;">@t('Our Brands')</h2>
+                @endif
                 <p class="text-gray-600">@t('Trusted brands we partner with')</p>
             </div>
             
@@ -240,7 +243,11 @@
     <!-- Newsletter Section -->
     <section class="py-16 text-white" style="background-color: var(--color-primary);">
         <div class="container mx-auto px-4 text-center">
-            <h2 class="text-2xl font-bold mb-4">@t('Newsletter')</h2>
+            @if(app()->getLocale() === 'ar')
+                <h2 class="mb-4" style="font-family: 'Amiri', 'Tajawal', serif !important; font-size: 42px; line-height: 48px; color: #505e5b; text-align: center; font-weight: 600; direction: rtl;">@t('Newsletter')</h2>
+            @else  
+                <h2 class="mb-4" style="font-family: 'Dancing Script', cursive !important; font-size: 38px; line-height: 44px; color: #505e5b; text-align: center; font-weight: 400; text-transform: capitalize;">@t('Newsletter')</h2>
+            @endif
             <p class="mb-8 opacity-90">@t('Subscribe for updates and exclusive offers')</p>
 
             <form class="max-w-md mx-auto flex gap-4">
@@ -259,6 +266,8 @@
     </section>
 </div>
 
+@endsection
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const slides = document.querySelectorAll('.slide-item');
@@ -269,7 +278,6 @@ document.addEventListener('DOMContentLoaded', function() {
     let autoSlideInterval;
 
     function showSlide(index) {
-        // Hide all slides with modern animation
         slides.forEach((slide, i) => {
             if (i === index) {
                 slide.classList.remove('opacity-0', 'scale-105');
@@ -280,7 +288,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
-        // Update dots
         dots.forEach((dot, i) => {
             if (i === index) {
                 dot.classList.remove('bg-white/50');
@@ -307,14 +314,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function startAutoSlide() {
-        autoSlideInterval = setInterval(nextSlide, 6000); // Auto advance every 6 seconds
+        autoSlideInterval = setInterval(nextSlide, 6000);
     }
 
     function stopAutoSlide() {
         clearInterval(autoSlideInterval);
     }
 
-    // Event listeners
     if (nextBtn) {
         nextBtn.addEventListener('click', () => {
             stopAutoSlide();
@@ -331,7 +337,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Dot navigation
     dots.forEach((dot, index) => {
         dot.addEventListener('click', () => {
             stopAutoSlide();
@@ -340,60 +345,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Pause auto-slide on hover
     const slider = document.getElementById('modernSlider');
     if (slider) {
         slider.addEventListener('mouseenter', stopAutoSlide);
         slider.addEventListener('mouseleave', startAutoSlide);
     }
 
-    // Keyboard navigation
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowLeft') {
-            stopAutoSlide();
-            prevSlide();
-            startAutoSlide();
-        } else if (e.key === 'ArrowRight') {
-            stopAutoSlide();
-            nextSlide();
-            startAutoSlide();
-        }
-    });
-
-    // Start auto-slide
     startAutoSlide();
-
-    // Touch/swipe support for mobile
-    let touchStartX = 0;
-    let touchEndX = 0;
-
-    if (slider) {
-        slider.addEventListener('touchstart', (e) => {
-            touchStartX = e.changedTouches[0].screenX;
-        }, { passive: true });
-
-        slider.addEventListener('touchend', (e) => {
-            touchEndX = e.changedTouches[0].screenX;
-            handleSwipe();
-        }, { passive: true });
-    }
-
-    function handleSwipe() {
-        const swipeThreshold = 50;
-        const diff = touchStartX - touchEndX;
-
-        if (Math.abs(diff) > swipeThreshold) {
-            stopAutoSlide();
-            if (diff > 0) {
-                // Swipe left, show next slide
-                nextSlide();
-            } else {
-                // Swipe right, show previous slide
-                prevSlide();
-            }
-            startAutoSlide();
-        }
-    }
 });
 </script>
-@endsection

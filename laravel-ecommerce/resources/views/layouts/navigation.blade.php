@@ -155,12 +155,12 @@
                         @endphp
                         @foreach($categories as $category)
                             <a href="{{ route('categories.show', $category->slug) }}"
-                               class="block px-5 py-3 text-sm text-gray-700 transition-all duration-150 mx-2 rounded-lg" onmouseover="this.style.backgroundColor='var(--color-secondary)'; this.style.color='var(--color-primary)';" onmouseout="this.style.backgroundColor=''; this.style.color='';">
+                               class="block px-5 py-3 text-sm text-gray-700 transition-all duration-150 mx-2 rounded-lg" onmouseover="this.style.backgroundColor='var(--color-secondary)'; this.style.color='var(--color-primary)'; this.style.fontWeight='bold';" onmouseout="this.style.backgroundColor=''; this.style.color=''; this.style.fontWeight='normal';">
                                 {{ $category->name }}
                             </a>
                         @endforeach
                         <hr class="my-3 mx-2">
-                        <a href="{{ route('categories.index') }}" class="block px-5 py-3 text-sm font-medium transition-all duration-150 mx-2 rounded-lg" style="color: var(--color-primary);" onmouseover="this.style.backgroundColor='var(--color-secondary)'; this.style.color='var(--color-primary)';" onmouseout="this.style.backgroundColor=''; this.style.color='var(--color-primary)';">
+                        <a href="{{ route('categories.index') }}" class="block px-5 py-3 text-sm font-medium transition-all duration-150 mx-2 rounded-lg" style="color: var(--color-primary);" onmouseover="this.style.backgroundColor='var(--color-secondary)'; this.style.color='var(--color-primary)'; this.style.fontWeight='bold';" onmouseout="this.style.backgroundColor=''; this.style.color='var(--color-primary)'; this.style.fontWeight='medium';">
                             @t('View All Categories')
                         </a>
                     </div>

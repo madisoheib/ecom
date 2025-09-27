@@ -152,6 +152,14 @@ class TranslationHelper
             'Categories will appear here once they are added' => 'ستظهر الفئات هنا بمجرد إضافتها',
             'This category doesn\'t have any products yet' => 'هذه الفئة لا تحتوي على أي منتجات حتى الآن',
             'Discover our carefully curated perfume collections organized by style, occasion, and fragrance family' => 'اكتشف مجموعات العطور المختارة بعناية والمنظمة حسب الأسلوب والمناسبة وعائلة العطر',
+            'Explore our collections' => 'استكشف مجموعاتنا',
+            'Our most popular products' => 'منتجاتنا الأكثر شعبية',
+            'View All Products' => 'عرض جميع المنتجات',
+            'View All New Products' => 'عرض جميع المنتجات الجديدة',
+            'View All Best Sellers' => 'عرض جميع الأكثر مبيعاً',
+            'Subscribe for updates and exclusive offers' => 'اشترك للحصول على التحديثات والعروض الحصرية',
+            'Newsletter' => 'النشرة الإخبارية',
+            'Our Brands' => 'علاماتنا التجارية',
         ],
         'fr' => [
             'Welcome to Our Store' => 'Bienvenue dans Notre Boutique',
@@ -300,6 +308,14 @@ class TranslationHelper
             'Categories will appear here once they are added' => 'Les catégories apparaîtront ici une fois ajoutées',
             'This category doesn\'t have any products yet' => 'Cette catégorie n\'a pas encore de produits',
             'Discover our carefully curated perfume collections organized by style, occasion, and fragrance family' => 'Découvrez nos collections de parfums soigneusement sélectionnées organisées par style, occasion et famille de fragrances',
+            'Explore our collections' => 'Explorez nos collections',
+            'Our most popular products' => 'Nos produits les plus populaires',
+            'View All Products' => 'Voir Tous les Produits',
+            'View All New Products' => 'Voir Tous les Nouveaux Produits', 
+            'View All Best Sellers' => 'Voir Tous les Best-Sellers',
+            'Subscribe for updates and exclusive offers' => 'Abonnez-vous pour les mises à jour et offres exclusives',
+            'Newsletter' => 'Newsletter',
+            'Our Brands' => 'Nos Marques',
         ]
     ];
 

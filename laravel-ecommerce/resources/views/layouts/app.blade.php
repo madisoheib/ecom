@@ -22,10 +22,10 @@
             theme: {
                 extend: {
                     fontFamily: {
-                        'sans': ['Roboto', 'system-ui', 'sans-serif'],
-                        'body': ['Roboto', 'system-ui', 'sans-serif'],
-                        'heading': ['Roboto', 'system-ui', 'sans-serif'],
-                        'display': ['Roboto', 'system-ui', 'sans-serif'],
+                        'sans': ['Lato', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'],
+                        'body': ['Lato', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'],
+                        'heading': ['Lato', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'],
+                        'display': ['Lato', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'],
                         'arabic': ['Tajawal', 'system-ui', 'sans-serif'],
                     },
                     colors: {
@@ -76,11 +76,13 @@
     <!-- Inter font for shadcn -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     
-    <!-- Google Fonts - Roboto Family -->
+    <!-- Google Fonts - Lato Family -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
     
     <!-- Heroicons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/heroicons@2.0.18/24/outline/style.css">
@@ -111,31 +113,31 @@
             --tw-space-x-reverse: 1;
         }
 
-        /* Typography for luxury perfume brand using Roboto Light */
-        body { font-family: 'Roboto', 'system-ui', sans-serif; font-weight: 300; }
-        h1, h2, h3, h4, h5, h6 { font-family: 'Roboto', 'system-ui', sans-serif; }
+        /* Typography for luxury perfume brand using Lato */
+        body { font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: 300; }
+        h1, h2, h3, h4, h5, h6 { font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif; }
 
-        /* Default to Roboto Light for English and French */
-        html[lang="en"] body, html[lang="fr"] body { font-family: 'Roboto', system-ui, sans-serif; font-weight: 300; }
-        html[lang="en"] *, html[lang="fr"] * { font-family: 'Roboto', system-ui, sans-serif; }
+        /* Default to Lato for English and French */
+        html[lang="en"] body, html[lang="fr"] body { font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: 300; }
+        html[lang="en"] *, html[lang="fr"] * { font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif; }
 
-        /* Font weight hierarchy for luxury design using Roboto */
-        .font-display { font-family: 'Roboto', sans-serif; font-weight: 900; } /* For hero titles */
-        .font-heading { font-family: 'Roboto', sans-serif; font-weight: 700; } /* For section headings */
-        .font-subheading { font-family: 'Roboto', sans-serif; font-weight: 500; } /* For subheadings */
-        .font-body { font-family: 'Roboto', sans-serif; font-weight: 400; } /* For body text */
-        .font-light { font-family: 'Roboto', sans-serif; font-weight: 300; } /* For descriptions */
-        .font-thin { font-family: 'Roboto', sans-serif; font-weight: 100; } /* For subtle text */
-        .font-extralight { font-family: 'Roboto', sans-serif; font-weight: 200; } /* For extra light text */
+        /* Font weight hierarchy for luxury design using Lato */
+        .font-display { font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: 900; } /* For hero titles */
+        .font-heading { font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: 700; } /* For section headings */
+        .font-subheading { font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: 500; } /* For subheadings */
+        .font-body { font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: 400; } /* For body text */
+        .font-light { font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: 300; } /* For descriptions */
+        .font-thin { font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: 100; } /* For subtle text */
+        .font-extralight { font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: 200; } /* For extra light text */
 
-        /* Roboto utility classes for consistent naming */
-        .font-roboto-thin { font-family: 'Roboto', sans-serif; font-weight: 100; }
-        .font-roboto-extralight { font-family: 'Roboto', sans-serif; font-weight: 200; }
-        .font-roboto-light { font-family: 'Roboto', sans-serif; font-weight: 300; }
-        .font-roboto-regular { font-family: 'Roboto', sans-serif; font-weight: 400; }
-        .font-roboto-medium { font-family: 'Roboto', sans-serif; font-weight: 500; }
-        .font-roboto-bold { font-family: 'Roboto', sans-serif; font-weight: 700; }
-        .font-roboto-black { font-family: 'Roboto', sans-serif; font-weight: 900; }
+        /* Lato utility classes for consistent naming */
+        .font-roboto-thin { font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: 100; }
+        .font-roboto-extralight { font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: 200; }
+        .font-roboto-light { font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: 300; }
+        .font-roboto-regular { font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: 400; }
+        .font-roboto-medium { font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: 500; }
+        .font-roboto-bold { font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: 700; }
+        .font-roboto-black { font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: 900; }
 
         /* Arabic Roboto classes for consistent naming - High specificity */
         html[lang="ar"] .font-roboto-thin { font-family: 'Tajawal', sans-serif !important; font-weight: 200; }
@@ -154,7 +156,7 @@
         }
 
         button, input, textarea, select {
-            font-family: 'Roboto', 'system-ui', sans-serif;
+            font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
             font-weight: 400;
             -webkit-appearance: none;
             -moz-appearance: none;

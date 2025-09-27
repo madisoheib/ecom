@@ -15,10 +15,10 @@
             theme: {
                 extend: {
                     fontFamily: {
-                        'sans': ['Roboto', 'system-ui', 'sans-serif'],
-                        'body': ['Roboto', 'system-ui', 'sans-serif'],
-                        'heading': ['Roboto', 'system-ui', 'sans-serif'],
-                        'display': ['Roboto', 'system-ui', 'sans-serif'],
+                        'sans': ['Lato', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'],
+                        'body': ['Lato', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'],
+                        'heading': ['Lato', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'],
+                        'display': ['Lato', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'],
                         'arabic': ['Tajawal', 'system-ui', 'sans-serif'],
                     },
                     colors: {
@@ -63,11 +63,13 @@
     <!-- Alpine.js -->
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
-    <!-- Google Fonts - Roboto Family -->
+    <!-- Google Fonts - Lato Family -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
     
     <style>
         [x-cloak] { display: none !important; }
@@ -85,19 +87,19 @@
         }
 
         button, input, textarea, select {
-            font-family: 'Roboto', 'system-ui', sans-serif;
+            font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
             font-weight: 400;
         }
 
-        body { font-family: 'Roboto', 'system-ui', sans-serif; font-weight: 300; }
-        h1, h2, h3, h4, h5, h6 { font-family: 'Roboto', 'system-ui', sans-serif; }
+        body { font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: 300; }
+        h1, h2, h3, h4, h5, h6 { font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif; }
 
         /* Font weight hierarchy */
-        .font-display { font-family: 'Roboto', sans-serif; font-weight: 900; }
-        .font-heading { font-family: 'Roboto', sans-serif; font-weight: 700; }
-        .font-subheading { font-family: 'Roboto', sans-serif; font-weight: 500; }
-        .font-body { font-family: 'Roboto', sans-serif; font-weight: 400; }
-        .font-light { font-family: 'Roboto', sans-serif; font-weight: 300; }
+        .font-display { font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: 900; }
+        .font-heading { font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: 700; }
+        .font-subheading { font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: 500; }
+        .font-body { font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: 400; }
+        .font-light { font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: 300; }
 
         /* Consistent transitions */
         a, button, input, textarea, select {

@@ -56,7 +56,7 @@ $isFeatured = $product->id % 3 == 0;
 
 <a href="{{ route('products.show', [$product->categories->first()?->slug ?? 'produits', $product->slug]) }}" class="block h-full">
 <div class="relative overflow-hidden transition-all duration-300 hover:transform hover:scale-105 group h-full w-full max-w-sm mx-auto" style="border-radius: 16px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);">
-    <div class="h-full flex flex-col" style="background: {{ $gradientBackgrounds[$bgIndex] }}; border-radius: 16px;">
+    <div class="h-full flex flex-col bg-white" style="border-radius: 16px;">
         <!-- Wishlist Heart Icon -->
         <button onclick="event.preventDefault(); event.stopPropagation();" class="absolute top-4 left-4 z-20 bg-white rounded-full p-2 shadow-md hover:shadow-lg transition-all duration-300 group/heart">
             <svg class="w-5 h-5 text-gray-400 group-hover/heart:text-red-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -79,8 +79,17 @@ $isFeatured = $product->id % 3 == 0;
         </div>
 
         <div class="p-4 sm:p-5 flex-grow flex flex-col">
+            <!-- Brand Name -->
+            <p class="text-xs sm:text-sm text-gray-500 mb-1 text-center font-light">
+                @if($product->brand)
+                    {{ $product->brand->name }}
+                @else
+                    Brand Name
+                @endif
+            </p>
+            
             <!-- Product Name -->
-            <h3 class="text-sm sm:text-base font-medium text-gray-800 mb-2 line-clamp-2">
+            <h3 class="text-sm sm:text-base font-medium text-gray-800 mb-2 line-clamp-2 text-center">
                 {{ $cosmeticNames[$nameIndex] }}
             </h3>
 
