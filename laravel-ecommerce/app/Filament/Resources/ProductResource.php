@@ -16,14 +16,23 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
+use Filament\Resources\Concerns\Translatable;
+use Filament\Resources\Pages\Page;
 
 class ProductResource extends Resource
 {
+    use Translatable;
+
     protected static ?string $model = Product::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-cube';
     protected static ?string $navigationGroup = 'Shop Management';
     protected static ?int $navigationSort = 1;
+
+    public static function getTranslatableLocales(): array
+    {
+        return ['en', 'fr', 'ar'];
+    }
 
     public static function form(Form $form): Form
     {
@@ -49,26 +58,32 @@ class ProductResource extends Resource
                             ->maxLength(255),
 
                         Forms\Components\Textarea::make('short_description')
-                            ->maxLength(500)
-                            ->rows(3),
+                            ->rows(3)
+                            ->columnSpanFull(),
 
                         Forms\Components\RichEditor::make('description')
+                            ->columnSpanFull(),
+
+                        Forms\Components\RichEditor::make('specifications')
                             ->columnSpanFull(),
                     ])->columns(2),
 
                 Forms\Components\Section::make('Pricing & Inventory')
                     ->schema([
                         Forms\Components\TextInput::make('price')
+                            ->label('Base Price')
                             ->required()
                             ->numeric()
-                            ->prefix(site_currency())
-                            ->minValue(0),
+                            ->prefix('CAD $')
+                            ->minValue(0)
+                            ->helperText('Base price in Canadian Dollars. Country-specific pricing can be set below.'),
 
                         Forms\Components\TextInput::make('compare_price')
+                            ->label('Compare Price')
                             ->numeric()
-                            ->prefix(site_currency())
+                            ->prefix('CAD $')
                             ->minValue(0)
-                            ->helperText('Original price for discount display'),
+                            ->helperText('Original price for discount display (in CAD)'),
 
                         Forms\Components\TextInput::make('registration_discount')
                             ->label('Registration Discount (%)')
@@ -126,51 +141,21 @@ class ProductResource extends Resource
                             ->maxFiles(10),
                     ])->columnSpanFull(),
 
-                Forms\Components\Section::make('Multilingual Content')
+                Forms\Components\Section::make('Slug Translations')
                     ->schema([
-                        Forms\Components\Tabs::make('Language Content')
-                            ->tabs([
-                                Forms\Components\Tabs\Tab::make('French')
-                                    ->schema([
-                                        Forms\Components\TextInput::make('name_translations.fr')
-                                            ->label('Name (French)')
-                                            ->maxLength(255),
-                                        Forms\Components\Textarea::make('short_description_translations.fr')
-                                            ->label('Short Description (French)')
-                                            ->rows(3),
-                                        Forms\Components\RichEditor::make('description_translations.fr')
-                                            ->label('Description (French)'),
-                                        Forms\Components\RichEditor::make('specifications_translations.fr')
-                                            ->label('Specifications (French)'),
-                                    ]),
-                                Forms\Components\Tabs\Tab::make('English')
-                                    ->schema([
-                                        Forms\Components\TextInput::make('name_translations.en')
-                                            ->label('Name (English)')
-                                            ->maxLength(255),
-                                        Forms\Components\Textarea::make('short_description_translations.en')
-                                            ->label('Short Description (English)')
-                                            ->rows(3),
-                                        Forms\Components\RichEditor::make('description_translations.en')
-                                            ->label('Description (English)'),
-                                        Forms\Components\RichEditor::make('specifications_translations.en')
-                                            ->label('Specifications (English)'),
-                                    ]),
-                                Forms\Components\Tabs\Tab::make('Arabic')
-                                    ->schema([
-                                        Forms\Components\TextInput::make('name_translations.ar')
-                                            ->label('Name (Arabic)')
-                                            ->maxLength(255),
-                                        Forms\Components\Textarea::make('short_description_translations.ar')
-                                            ->label('Short Description (Arabic)')
-                                            ->rows(3),
-                                        Forms\Components\RichEditor::make('description_translations.ar')
-                                            ->label('Description (Arabic)'),
-                                        Forms\Components\RichEditor::make('specifications_translations.ar')
-                                            ->label('Specifications (Arabic)'),
-                                    ]),
-                            ])->columnSpanFull(),
-                    ])->columnSpanFull(),
+                        Forms\Components\TextInput::make('slug_translations.en')
+                            ->label('URL Slug (English)')
+                            ->helperText('Leave empty to auto-generate from English name')
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('slug_translations.fr')
+                            ->label('URL Slug (French)')
+                            ->helperText('Leave empty to auto-generate from French name')
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('slug_translations.ar')
+                            ->label('URL Slug (Arabic)')
+                            ->helperText('Leave empty to auto-generate from Arabic name')
+                            ->maxLength(255),
+                    ])->columns(3)->collapsible(),
 
                 Forms\Components\Section::make('SEO & Meta')
                     ->schema([
@@ -242,6 +227,94 @@ class ProductResource extends Resource
                                             ->helperText('Separate keywords with commas'),
                                     ]),
                             ])->columnSpanFull(),
+                    ])->columnSpanFull(),
+
+                Forms\Components\Section::make('Countries & Availability')
+                    ->schema([
+                        Forms\Components\Select::make('default_country')
+                            ->label('Default Country')
+                            ->options([
+                                'CA' => 'Canada',
+                                'US' => 'United States',
+                                'FR' => 'France',
+                                'AE' => 'United Arab Emirates',
+                                'KW' => 'Kuwait',
+                                'OM' => 'Oman',
+                                'DZ' => 'Algeria',
+                            ])
+                            ->default('CA')
+                            ->required(),
+
+                        Forms\Components\Repeater::make('productCountries')
+                            ->label('Country-Specific Settings')
+                            ->relationship()
+                            ->schema([
+                                Forms\Components\Select::make('country_code')
+                                    ->label('Country')
+                                    ->options([
+                                        'CA' => 'Canada',
+                                        'US' => 'United States',
+                                        'FR' => 'France',
+                                        'AE' => 'United Arab Emirates',
+                                        'KW' => 'Kuwait',
+                                        'OM' => 'Oman',
+                                        'DZ' => 'Algeria',
+                                    ])
+                                    ->required()
+                                    ->live()
+                                    ->afterStateUpdated(function ($state, callable $set) {
+                                        $currencies = [
+                                            'CA' => 'CAD',
+                                            'US' => 'USD',
+                                            'FR' => 'EUR',
+                                            'AE' => 'AED',
+                                            'KW' => 'KWD',
+                                            'OM' => 'OMR',
+                                            'DZ' => 'DZD',
+                                        ];
+                                        $set('currency', $currencies[$state] ?? 'USD');
+                                    }),
+
+                                Forms\Components\TextInput::make('price')
+                                    ->label('Country Price')
+                                    ->numeric()
+                                    ->minValue(0)
+                                    ->helperText('Leave empty to use default product price'),
+
+                                Forms\Components\TextInput::make('currency')
+                                    ->label('Currency')
+                                    ->maxLength(3)
+                                    ->disabled()
+                                    ->dehydrated(true)
+                                    ->helperText('Auto-filled based on selected country'),
+
+                                Forms\Components\TextInput::make('stock_quantity')
+                                    ->label('Stock Quantity')
+                                    ->numeric()
+                                    ->minValue(0)
+                                    ->default(0)
+                                    ->required(),
+
+                                Forms\Components\Toggle::make('is_available')
+                                    ->label('Available in this country')
+                                    ->default(true),
+                            ])
+                            ->columns(3)
+                            ->collapsible()
+                            ->itemLabel(fn (array $state): ?string =>
+                                isset($state['country_code'])
+                                    ? match($state['country_code']) {
+                                        'CA' => 'Canada',
+                                        'US' => 'United States',
+                                        'FR' => 'France',
+                                        'AE' => 'United Arab Emirates',
+                                        'KW' => 'Kuwait',
+                                        'OM' => 'Oman',
+                                        'DZ' => 'Algeria',
+                                        default => $state['country_code']
+                                    }
+                                    : null
+                            ),
                     ])->columnSpanFull(),
 
                 Forms\Components\Section::make('Settings')
@@ -316,6 +389,31 @@ class ProductResource extends Resource
                     ->label('Sales')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
+
+                Tables\Columns\TextColumn::make('default_country')
+                    ->label('Default Country')
+                    ->formatStateUsing(fn (string $state): string => match($state) {
+                        'CA' => 'Canada',
+                        'US' => 'United States',
+                        'FR' => 'France',
+                        'AE' => 'UAE',
+                        'KW' => 'Kuwait',
+                        'OM' => 'Oman',
+                        'DZ' => 'Algeria',
+                        default => $state
+                    })
+                    ->badge()
+                    ->color('primary')
+                    ->sortable()
+                    ->toggleable(),
+
+                Tables\Columns\TextColumn::make('productCountries_count')
+                    ->label('Countries')
+                    ->counts('productCountries')
+                    ->badge()
+                    ->color('success')
+                    ->sortable()
+                    ->toggleable(),
 
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()

@@ -1,0 +1,97 @@
+# Stage 1: Build Node assets
+FROM node:18-alpine AS node-builder
+WORKDIR /app
+
+# Copy package files
+COPY package*.json ./
+
+# Install dependencies
+RUN npm ci || npm install
+
+# Copy source files needed for build
+COPY vite.config.js ./
+COPY resources ./resources
+COPY tailwind.config.js ./tailwind.config.js 2>/dev/null || true
+COPY postcss.config.js ./postcss.config.js 2>/dev/null || true
+
+# Build assets
+RUN npm run build
+
+# Stage 2: PHP Application
+FROM php:8.2-fpm-alpine
+
+# Install system dependencies
+RUN apk add --no-cache \
+    git \
+    curl \
+    libpng-dev \
+    libxml2-dev \
+    zip \
+    unzip \
+    freetype-dev \
+    libjpeg-turbo-dev \
+    libwebp-dev \
+    icu-dev \
+    oniguruma-dev \
+    libzip-dev
+
+# Install PHP extensions
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
+    && docker-php-ext-install \
+    pdo_mysql \
+    mysqli \
+    gd \
+    xml \
+    mbstring \
+    intl \
+    bcmath \
+    opcache \
+    exif \
+    zip
+
+# Install Redis extension
+RUN apk add --no-cache pcre-dev $PHPIZE_DEPS \
+    && pecl install redis \
+    && docker-php-ext-enable redis \
+    && apk del pcre-dev $PHPIZE_DEPS
+
+# Install Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+# Set working directory
+WORKDIR /var/www/html
+
+# Copy composer files first for better caching
+COPY composer.json composer.lock ./
+
+# Install PHP dependencies
+RUN composer install --no-dev --optimize-autoloader --no-scripts --no-autoloader
+
+# Copy application code
+COPY . .
+
+# Copy built assets from Node stage
+COPY --from=node-builder /app/public/build ./public/build
+
+# Copy PHP configuration
+COPY docker/php/php.ini /usr/local/etc/php/conf.d/custom.ini
+
+# Generate optimized autoload
+RUN composer dump-autoload --optimize
+
+# Set proper permissions
+RUN chown -R www-data:www-data /var/www/html \
+    && chmod -R 755 /var/www/html/storage \
+    && chmod -R 755 /var/www/html/bootstrap/cache
+
+# Create startup script
+RUN echo '#!/bin/sh' > /usr/local/bin/start.sh \
+    && echo 'php artisan config:cache' >> /usr/local/bin/start.sh \
+    && echo 'php artisan route:cache' >> /usr/local/bin/start.sh \
+    && echo 'php artisan view:cache' >> /usr/local/bin/start.sh \
+    && echo 'php-fpm' >> /usr/local/bin/start.sh \
+    && chmod +x /usr/local/bin/start.sh
+
+EXPOSE 9000
+
+CMD ["/usr/local/bin/start.sh"]

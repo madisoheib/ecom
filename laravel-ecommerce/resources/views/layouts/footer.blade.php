@@ -40,10 +40,10 @@
             <div>
                 <h3 class="text-lg font-roboto-medium mb-4">@t('Quick Links')</h3>
                 <ul class="space-y-2">
-                    <li><a href="{{ route('home') }}" class="text-gray-300 transition-colors" onmouseover="this.style.color='var(--color-secondary)';" onmouseout="this.style.color='';">@t('Home')</a></li>
-                    <li><a href="{{ route('products.index') }}" class="text-gray-300 transition-colors" onmouseover="this.style.color='var(--color-secondary)';" onmouseout="this.style.color='';">@t('Products')</a></li>
-                    <li><a href="{{ route('categories.index') }}" class="text-gray-300 transition-colors" onmouseover="this.style.color='var(--color-secondary)';" onmouseout="this.style.color='';">@t('Categories')</a></li>
-                    <li><a href="{{ route('brands.index') }}" class="text-gray-300 transition-colors" onmouseover="this.style.color='var(--color-secondary)';" onmouseout="this.style.color='';">@t('Brands')</a></li>
+                    <li><a href="{{ localized_route('home') }}" class="text-gray-300 transition-colors" onmouseover="this.style.color='var(--color-secondary)';" onmouseout="this.style.color='';">@t('Home')</a></li>
+                    <li><a href="{{ localized_route('products.index') }}" class="text-gray-300 transition-colors" onmouseover="this.style.color='var(--color-secondary)';" onmouseout="this.style.color='';">@t('Products')</a></li>
+                    <li><a href="{{ localized_route('categories.index') }}" class="text-gray-300 transition-colors" onmouseover="this.style.color='var(--color-secondary)';" onmouseout="this.style.color='';">@t('Categories')</a></li>
+                    <li><a href="{{ localized_route('brands.index') }}" class="text-gray-300 transition-colors" onmouseover="this.style.color='var(--color-secondary)';" onmouseout="this.style.color='';">@t('Brands')</a></li>
                     <li><a href="#" class="text-gray-300 transition-colors" onmouseover="this.style.color='var(--color-secondary)';" onmouseout="this.style.color='';">@t('About Us')</a></li>
                     <li><a href="#" class="text-gray-300 transition-colors" onmouseover="this.style.color='var(--color-secondary)';" onmouseout="this.style.color='';">@t('Contact')</a></li>
                 </ul>

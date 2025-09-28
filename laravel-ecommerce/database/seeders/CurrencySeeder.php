@@ -63,6 +63,26 @@ class CurrencySeeder extends Seeder
                 ],
                 'symbol' => '$',
                 'is_active' => true
+            ],
+            [
+                'code' => 'KWD',
+                'name' => [
+                    'en' => 'Kuwaiti Dinar',
+                    'fr' => 'Dinar koweïtien',
+                    'ar' => 'دينار كويتي'
+                ],
+                'symbol' => 'د.ك',
+                'is_active' => true
+            ],
+            [
+                'code' => 'OMR',
+                'name' => [
+                    'en' => 'Omani Rial',
+                    'fr' => 'Rial omanais',
+                    'ar' => 'ريال عماني'
+                ],
+                'symbol' => 'ر.ع.',
+                'is_active' => true
             ]
         ];
 

@@ -337,7 +337,7 @@
                         <svg class="w-6 h-6 mr-2 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                         </svg>
-                        <span class="text-xl font-heading">⚡ LIMITED TIME OFFER ⚡</span>
+                        <span class="text-xl font-heading">⚡ {{ __('LIMITED TIME OFFER') }} ⚡</span>
                     </div>
                     <p class="text-lg opacity-90">@t('Order within the next') <span id="countdown" class="font-heading">23:59:45</span> @t('to secure this price!')</p>
                 </div>
@@ -380,7 +380,7 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                             <!-- Full Name -->
                             <div>
-                                <label for="full_name" class="block text-sm font-subheading text-gray-700 mb-2">Full Name *</label>
+                                <label for="full_name" class="block text-sm font-subheading text-gray-700 mb-2">{{ __('Full Name') }} *</label>
                                 <input type="text" id="full_name" name="full_name" required
                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent">
                                 <div class="error-message text-red-500 text-sm mt-1 hidden"></div>
@@ -388,7 +388,7 @@
 
                             <!-- Phone Number -->
                             <div>
-                                <label for="phone_number" class="block text-sm font-subheading text-gray-700 mb-2">Phone Number *</label>
+                                <label for="phone_number" class="block text-sm font-subheading text-gray-700 mb-2">{{ __('Phone Number') }} *</label>
                                 <input type="tel" id="phone_number" name="phone_number" required
                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent">
                                 <div class="error-message text-red-500 text-sm mt-1 hidden"></div>
@@ -396,19 +396,19 @@
 
                             <!-- Email (Optional) -->
                             <div>
-                                <label for="email" class="block text-sm font-subheading text-gray-700 mb-2">Email (Optional)</label>
+                                <label for="email" class="block text-sm font-subheading text-gray-700 mb-2">{{ __('Email') }} ({{ __('Optional') }})</label>
                                 <input type="email" id="email" name="email"
                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                                       placeholder="For order updates and promotions">
+                                       placeholder="{{ __('For order updates and promotions') }}">
                                 <div class="error-message text-red-500 text-sm mt-1 hidden"></div>
                             </div>
 
                             <!-- Region -->
                             <div>
-                                <label for="region_id" class="block text-sm font-subheading text-gray-700 mb-2">Region</label>
+                                <label for="region_id" class="block text-sm font-subheading text-gray-700 mb-2">{{ __('Region') }}</label>
                                 <select id="region_id" name="region_id"
                                         class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent">
-                                    <option value="">Select Region</option>
+                                    <option value="">{{ __('Select Region') }}</option>
                                     @foreach($regions as $region)
                                         <option value="{{ $region->id }}">{{ $region->name }}</option>
                                     @endforeach
@@ -418,7 +418,7 @@
 
                             <!-- Quantity -->
                             <div>
-                                <label for="quantity" class="block text-sm font-subheading text-gray-700 mb-2">Quantity *</label>
+                                <label for="quantity" class="block text-sm font-subheading text-gray-700 mb-2">{{ __('Quantity') }} *</label>
                                 <div class="flex items-center">
                                     <button type="button" onclick="decreaseQuantity()"
                                             class="px-3 py-2 border border-gray-300 rounded-l-lg hover:bg-gray-50">-</button>
@@ -427,7 +427,7 @@
                                     <button type="button" onclick="increaseQuantity()"
                                             class="px-3 py-2 border border-gray-300 rounded-r-lg hover:bg-gray-50">+</button>
                                     <span class="ml-4 text-sm text-gray-600">
-                                        Price: $<span id="totalPrice">{{ number_format($product->price, 2) }}</span>
+                                        {{ __('Price') }}: $<span id="totalPrice">{{ number_format($product->price, 2) }}</span>
                                     </span>
                                 </div>
                                 <div class="error-message text-red-500 text-sm mt-1 hidden"></div>
@@ -436,25 +436,25 @@
 
                         <!-- Address -->
                         <div class="mb-6">
-                            <label for="address" class="block text-sm font-subheading text-gray-700 mb-2">Delivery Address *</label>
+                            <label for="address" class="block text-sm font-subheading text-gray-700 mb-2">{{ __('Delivery Address') }} *</label>
                             <textarea id="address" name="address" rows="3" required
                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                                      placeholder="Street address, city, postal code"></textarea>
+                                      placeholder="{{ __('Street address, city, postal code') }}"></textarea>
                             <div class="error-message text-red-500 text-sm mt-1 hidden"></div>
                         </div>
 
                         <!-- Notes -->
                         <div class="mb-6">
-                            <label for="notes" class="block text-sm font-subheading text-gray-700 mb-2">Additional Notes (Optional)</label>
+                            <label for="notes" class="block text-sm font-subheading text-gray-700 mb-2">{{ __('Additional Notes') }} ({{ __('Optional') }})</label>
                             <textarea id="notes" name="notes" rows="2"
                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                                      placeholder="Special instructions, preferred delivery time, etc."></textarea>
+                                      placeholder="{{ __('Special instructions, preferred delivery time, etc.') }}"></textarea>
                             <div class="error-message text-red-500 text-sm mt-1 hidden"></div>
                         </div>
 
                         <!-- Captcha -->
                         <div class="mb-6">
-                            <label class="block text-sm font-subheading text-gray-700 mb-2">Security Verification *</label>
+                            <label class="block text-sm font-subheading text-gray-700 mb-2">{{ __('Security Verification') }} *</label>
                             <div class="flex items-center space-x-4">
                                 <div id="captcha-container">
                                     {!! captcha_img('flat') !!}
@@ -468,7 +468,7 @@
                             </div>
                             <input type="text" name="captcha" required
                                    class="mt-2 w-40 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                                   placeholder="Enter captcha">
+                                   placeholder="{{ __('Enter captcha') }}">
                             <div class="error-message text-red-500 text-sm mt-1 hidden"></div>
                         </div>
 
@@ -482,7 +482,7 @@
                                             <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
                                         </svg>
                                     @endfor
-                                    <span class="ml-2 text-sm font-subheading text-gray-600">(4.9/5 from 12,847 reviews)</span>
+                                    <span class="ml-2 text-sm font-subheading text-gray-600">(4.9/5 {{ __('from') }} 12,847 {{ __('reviews') }})</span>
                                 </div>
                                 <div class="grid grid-cols-3 gap-4 text-center">
                                     <div>
@@ -741,7 +741,7 @@ document.getElementById('guestOrderForm').addEventListener('submit', function(e)
     });
 
     // Show loading state
-    submitBtn.innerHTML = '<svg class="animate-spin w-5 h-5 inline mr-3" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>Processing...';
+    submitBtn.innerHTML = '<svg class="animate-spin w-5 h-5 inline mr-3" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>{{ __('Processing...') }}';
     submitBtn.disabled = true;
 
     const formData = new FormData(this);
@@ -765,12 +765,12 @@ document.getElementById('guestOrderForm').addEventListener('submit', function(e)
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                             </svg>
                         </div>
-                        <h3 class="text-2xl font-heading text-gray-900 mb-2">🎉 Order Confirmed!</h3>
-                        <p class="text-gray-600 mb-4">Your order #${data.order_number} has been placed successfully!</p>
-                        <p class="text-sm text-gray-500 mb-6">You'll receive SMS updates about your delivery.</p>
+                        <h3 class="text-2xl font-heading text-gray-900 mb-2">🎉 {{ __('Order Confirmed!') }}</h3>
+                        <p class="text-gray-600 mb-4">{{ __('Your order') }} #${data.order_number} {{ __('has been placed successfully!') }}</p>
+                        <p class="text-sm text-gray-500 mb-6">{{ __('You\'ll receive SMS updates about your delivery.') }}</p>
                         <button onclick="this.parentElement.parentElement.remove()"
                                 class="bg-primary text-white px-6 py-3 rounded-xl font-subheading hover:bg-primary-700 transition-colors">
-                            Continue Shopping
+                            {{ __('Continue Shopping') }}
                         </button>
                     </div>
                 </div>
@@ -796,7 +796,7 @@ document.getElementById('guestOrderForm').addEventListener('submit', function(e)
     })
     .catch(error => {
         console.error('Error:', error);
-        alert('An error occurred. Please try again.');
+        alert('{{ __('An error occurred. Please try again.') }}');
         refreshCaptcha();
     })
     .finally(() => {

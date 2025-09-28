@@ -324,103 +324,212 @@ if (!function_exists('get_user_country_from_ip')) {
 if (!function_exists('get_cities_for_country')) {
     function get_cities_for_country($countryCode): array
     {
-        $cities = [
-            'CA' => [
-                'Toronto' => 'Toronto',
-                'Montreal' => 'Montréal',
-                'Vancouver' => 'Vancouver',
-                'Calgary' => 'Calgary',
-                'Ottawa' => 'Ottawa',
-                'Edmonton' => 'Edmonton',
-                'Quebec City' => 'Québec',
-                'Winnipeg' => 'Winnipeg',
-                'Hamilton' => 'Hamilton',
-                'London' => 'London',
-                'Kitchener' => 'Kitchener',
-                'Halifax' => 'Halifax',
-                'Victoria' => 'Victoria',
-                'Windsor' => 'Windsor',
-                'Saskatoon' => 'Saskatoon',
-                'Regina' => 'Regina',
-            ],
-            'US' => [
-                'New York' => 'New York',
-                'Los Angeles' => 'Los Angeles',
-                'Chicago' => 'Chicago',
-                'Houston' => 'Houston',
-                'Phoenix' => 'Phoenix',
-                'Philadelphia' => 'Philadelphia',
-                'San Antonio' => 'San Antonio',
-                'San Diego' => 'San Diego',
-                'Dallas' => 'Dallas',
-                'San Jose' => 'San Jose',
-                'Austin' => 'Austin',
-                'Jacksonville' => 'Jacksonville',
-                'Fort Worth' => 'Fort Worth',
-                'Columbus' => 'Columbus',
-                'Charlotte' => 'Charlotte',
-                'San Francisco' => 'San Francisco',
-                'Indianapolis' => 'Indianapolis',
-                'Seattle' => 'Seattle',
-                'Denver' => 'Denver',
-                'Boston' => 'Boston',
-            ],
-            'FR' => [
-                'Paris' => 'Paris',
-                'Marseille' => 'Marseille',
-                'Lyon' => 'Lyon',
-                'Toulouse' => 'Toulouse',
-                'Nice' => 'Nice',
-                'Nantes' => 'Nantes',
-                'Montpellier' => 'Montpellier',
-                'Strasbourg' => 'Strasbourg',
-                'Bordeaux' => 'Bordeaux',
-                'Lille' => 'Lille',
-                'Rennes' => 'Rennes',
-                'Reims' => 'Reims',
-                'Le Havre' => 'Le Havre',
-                'Saint-Étienne' => 'Saint-Étienne',
-                'Toulon' => 'Toulon',
-                'Grenoble' => 'Grenoble',
-            ],
-            'UK' => [
-                'London' => 'London',
-                'Birmingham' => 'Birmingham',
-                'Manchester' => 'Manchester',
-                'Glasgow' => 'Glasgow',
-                'Liverpool' => 'Liverpool',
-                'Leeds' => 'Leeds',
-                'Sheffield' => 'Sheffield',
-                'Edinburgh' => 'Edinburgh',
-                'Bristol' => 'Bristol',
-                'Cardiff' => 'Cardiff',
-                'Belfast' => 'Belfast',
-                'Newcastle' => 'Newcastle',
-                'Nottingham' => 'Nottingham',
-                'Southampton' => 'Southampton',
-                'Portsmouth' => 'Portsmouth',
-            ]
-        ];
+        // Fetch cities from database for the given country code
+        $country = \App\Models\Country::where('code', $countryCode)
+            ->where('is_active', true)
+            ->first();
 
-        return $cities[$countryCode] ?? [];
+        if (!$country) {
+            return [];
+        }
+
+        $cities = \App\Models\City::where('country_id', $country->id)
+            ->where('is_active', true)
+            ->get();
+
+        $cityArray = [];
+        foreach ($cities as $city) {
+            // Use city ID as key and translated name as value
+            $cityArray[$city->id] = $city->getTranslation('name', app()->getLocale());
+        }
+
+        return $cityArray;
     }
 }
 
 if (!function_exists('get_countries_list')) {
     function get_countries_list(): array
     {
-        return [
-            'CA' => 'Canada',
-            'US' => 'United States',
-            'FR' => 'France', 
-            'UK' => 'United Kingdom',
-            'DE' => 'Germany',
-            'ES' => 'Spain',
-            'IT' => 'Italy',
-            'BE' => 'Belgium',
-            'CH' => 'Switzerland',
-            'AU' => 'Australia',
-            'other' => 'Other'
+        // Fetch active countries from database
+        $countries = \App\Models\Country::where('is_active', true)->get();
+
+        $countryArray = [];
+        foreach ($countries as $country) {
+            // Use country code as key and translated name as value
+            $countryArray[$country->code] = $country->getTranslation('name', app()->getLocale());
+        }
+
+        // Add "Other" option at the end
+        $countryArray['other'] = __('Other');
+
+        return $countryArray;
+    }
+}
+
+if (!function_exists('localized_route')) {
+    function localized_route(string $name, array $parameters = [], ?string $locale = null): string
+    {
+        $locale = $locale ?? app()->getLocale();
+
+        // Define localized route patterns
+        $localizedRoutes = [
+            'en' => [
+                'home' => '/en',
+                'products.index' => '/en/products',
+                'products.show' => '/en/product/{categorySlug}/{productSlug}',
+                'categories.index' => '/en/categories',
+                'categories.show' => '/en/category/{slug}',
+                'brands.index' => '/en/brands',
+                'brands.show' => '/en/brand/{slug}',
+                'cart.index' => '/en/cart',
+                'login' => '/en/login',
+                'register' => '/en/register',
+                'dashboard' => '/en/my-account',
+                'user.orders' => '/en/my-orders',
+                'user.profile' => '/en/profile',
+            ],
+            'fr' => [
+                'home' => '/fr',
+                'products.index' => '/fr/produits',
+                'products.show' => '/fr/produit/{categorySlug}/{productSlug}',
+                'categories.index' => '/fr/categories',
+                'categories.show' => '/fr/categorie/{slug}',
+                'brands.index' => '/fr/marques',
+                'brands.show' => '/fr/marque/{slug}',
+                'cart.index' => '/fr/panier',
+                'login' => '/fr/connexion',
+                'register' => '/fr/inscription',
+                'dashboard' => '/fr/mon-compte',
+                'user.orders' => '/fr/mes-commandes',
+                'user.profile' => '/fr/profil',
+            ],
+            'ar' => [
+                'home' => '/ar',
+                'products.index' => '/ar/منتجات',
+                'products.show' => '/ar/منتج/{categorySlug}/{productSlug}',
+                'categories.index' => '/ar/فئات',
+                'categories.show' => '/ar/فئة/{slug}',
+                'brands.index' => '/ar/علامات-تجارية',
+                'brands.show' => '/ar/علامة-تجارية/{slug}',
+                'cart.index' => '/ar/عربة-التسوق',
+                'login' => '/ar/تسجيل-الدخول',
+                'register' => '/ar/إنشاء-حساب',
+                'dashboard' => '/ar/حسابي',
+                'user.orders' => '/ar/طلباتي',
+                'user.profile' => '/ar/الملف-الشخصي',
+            ]
         ];
+
+        $pattern = $localizedRoutes[$locale][$name] ?? $localizedRoutes['en'][$name] ?? "/{$locale}/{$name}";
+
+        // Replace parameters in the pattern
+        foreach ($parameters as $key => $value) {
+            $pattern = str_replace("{{$key}}", $value, $pattern);
+        }
+
+        return url($pattern);
+    }
+}
+
+if (!function_exists('get_current_locale')) {
+    function get_current_locale(): string
+    {
+        return app()->getLocale();
+    }
+}
+
+if (!function_exists('get_alternate_locales')) {
+    function get_alternate_locales(): array
+    {
+        $currentLocale = app()->getLocale();
+        $allLocales = ['en', 'fr', 'ar'];
+
+        return array_filter($allLocales, fn($locale) => $locale !== $currentLocale);
+    }
+}
+
+if (!function_exists('generate_hreflang_tags')) {
+    function generate_hreflang_tags(string $routeName, array $parameters = []): string
+    {
+        $locales = ['en', 'fr', 'ar'];
+        $currentUrl = request()->url();
+        $tags = '';
+
+        foreach ($locales as $locale) {
+            $localizedUrl = localized_route($routeName, $parameters, $locale);
+            $tags .= "<link rel=\"alternate\" hreflang=\"{$locale}\" href=\"{$localizedUrl}\" />\n";
+        }
+
+        // Add x-default for English
+        $defaultUrl = localized_route($routeName, $parameters, 'en');
+        $tags .= "<link rel=\"alternate\" hreflang=\"x-default\" href=\"{$defaultUrl}\" />\n";
+
+        return $tags;
+    }
+}
+
+if (!function_exists('get_user_currency')) {
+    function get_user_currency(): string
+    {
+        try {
+            $userLocation = get_user_country_from_ip();
+            $countryCode = $userLocation['country_code'];
+
+            $currencies = [
+                'CA' => 'CAD',
+                'US' => 'USD',
+                'FR' => 'EUR',
+                'AE' => 'AED',
+                'KW' => 'KWD',
+                'OM' => 'OMR',
+                'DZ' => 'DZD',
+            ];
+
+            return $currencies[$countryCode] ?? 'USD';
+        } catch (\Exception $e) {
+            return 'USD';
+        }
+    }
+}
+
+if (!function_exists('get_currency_symbol')) {
+    function get_currency_symbol(?string $currency = null): string
+    {
+        $currency = $currency ?: get_user_currency();
+
+        $symbols = [
+            'USD' => '$',
+            'CAD' => 'C$',
+            'EUR' => '€',
+            'GBP' => '£',
+            'AED' => 'د.إ',
+            'KWD' => 'د.ك',
+            'OMR' => 'ر.ع.',
+            'DZD' => 'د.ج',
+        ];
+
+        return $symbols[$currency] ?? $currency;
+    }
+}
+
+if (!function_exists('format_price')) {
+    function format_price($amount, ?string $currency = null): string
+    {
+        $currency = $currency ?: get_user_currency();
+        $symbol = get_currency_symbol($currency);
+
+        return $symbol . number_format($amount, 2);
+    }
+}
+
+if (!function_exists('site_currency')) {
+    function site_currency(): string
+    {
+        // Check if we're in admin panel
+        if (request()->is('admin/*') || request()->is('*/admin/*')) {
+            return 'CAD'; // Default admin currency
+        }
+
+        return get_user_currency();
     }
 }

@@ -19,6 +19,8 @@ class CitySeeder extends Seeder
         $canada = Country::where('code', 'CA')->first();
         $france = Country::where('code', 'FR')->first();
         $uae = Country::where('code', 'AE')->first();
+        $kuwait = Country::where('code', 'KW')->first();
+        $oman = Country::where('code', 'OM')->first();
 
         $cities = [
             // Villes d'Algérie
@@ -134,6 +136,64 @@ class CitySeeder extends Seeder
                     'ar' => 'الشارقة'
                 ],
                 'country_id' => $uae?->id,
+                'is_active' => true
+            ],
+
+            // Cities of Kuwait
+            [
+                'name' => [
+                    'en' => 'Kuwait City',
+                    'fr' => 'Koweït City',
+                    'ar' => 'مدينة الكويت'
+                ],
+                'country_id' => $kuwait?->id,
+                'is_active' => true
+            ],
+            [
+                'name' => [
+                    'en' => 'Hawalli',
+                    'fr' => 'Hawalli',
+                    'ar' => 'حولي'
+                ],
+                'country_id' => $kuwait?->id,
+                'is_active' => true
+            ],
+            [
+                'name' => [
+                    'en' => 'Salmiya',
+                    'fr' => 'Salmiya',
+                    'ar' => 'السالمية'
+                ],
+                'country_id' => $kuwait?->id,
+                'is_active' => true
+            ],
+
+            // Cities of Oman
+            [
+                'name' => [
+                    'en' => 'Muscat',
+                    'fr' => 'Mascate',
+                    'ar' => 'مسقط'
+                ],
+                'country_id' => $oman?->id,
+                'is_active' => true
+            ],
+            [
+                'name' => [
+                    'en' => 'Salalah',
+                    'fr' => 'Salalah',
+                    'ar' => 'صلالة'
+                ],
+                'country_id' => $oman?->id,
+                'is_active' => true
+            ],
+            [
+                'name' => [
+                    'en' => 'Nizwa',
+                    'fr' => 'Nizwa',
+                    'ar' => 'نزوى'
+                ],
+                'country_id' => $oman?->id,
                 'is_active' => true
             ]
         ];

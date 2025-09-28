@@ -29,20 +29,52 @@ class BrandResource extends Resource
             ->schema([
                 Forms\Components\Section::make('Basic Information')
                     ->schema([
-                        Forms\Components\TextInput::make('name')
-                            ->required()
-                            ->maxLength(255)
-                            ->live(onBlur: true)
-                            ->afterStateUpdated(fn (string $context, $state, callable $set) => $context === 'create' ? $set('slug', \Illuminate\Support\Str::slug($state)) : null),
+                        Forms\Components\Tabs::make('Translations')
+                            ->tabs([
+                                Forms\Components\Tabs\Tab::make('English')
+                                    ->schema([
+                                        Forms\Components\TextInput::make('name.en')
+                                            ->label('Name (English)')
+                                            ->required()
+                                            ->maxLength(255)
+                                            ->live(onBlur: true)
+                                            ->afterStateUpdated(fn (string $context, $state, callable $set) => $context === 'create' ? $set('slug', \Illuminate\Support\Str::slug($state)) : null),
+
+                                        Forms\Components\Textarea::make('description.en')
+                                            ->label('Description (English)')
+                                            ->maxLength(1000)
+                                            ->rows(4),
+                                    ]),
+
+                                Forms\Components\Tabs\Tab::make('French')
+                                    ->schema([
+                                        Forms\Components\TextInput::make('name.fr')
+                                            ->label('Name (French)')
+                                            ->maxLength(255),
+
+                                        Forms\Components\Textarea::make('description.fr')
+                                            ->label('Description (French)')
+                                            ->maxLength(1000)
+                                            ->rows(4),
+                                    ]),
+
+                                Forms\Components\Tabs\Tab::make('Arabic')
+                                    ->schema([
+                                        Forms\Components\TextInput::make('name.ar')
+                                            ->label('Name (Arabic)')
+                                            ->maxLength(255),
+
+                                        Forms\Components\Textarea::make('description.ar')
+                                            ->label('Description (Arabic)')
+                                            ->maxLength(1000)
+                                            ->rows(4),
+                                    ]),
+                            ])->columnSpanFull(),
 
                         Forms\Components\TextInput::make('slug')
                             ->required()
                             ->maxLength(255)
                             ->unique(Brand::class, 'slug', ignoreRecord: true),
-
-                        Forms\Components\Textarea::make('description')
-                            ->maxLength(1000)
-                            ->rows(4),
                     ])->columns(2),
 
                 Forms\Components\Section::make('Organization')
@@ -87,7 +119,8 @@ class BrandResource extends Resource
 
                 Tables\Columns\TextColumn::make('name')
                     ->searchable()
-                    ->sortable(),
+                    ->sortable()
+                    ->formatStateUsing(fn ($record) => $record->getTranslation('name', app()->getLocale()) ?? $record->getTranslation('name', 'en')),
 
                 Tables\Columns\TextColumn::make('slug')
                     ->searchable()

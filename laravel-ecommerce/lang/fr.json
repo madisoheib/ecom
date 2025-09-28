@@ -77,5 +77,11 @@
     "Subscribe": "S'abonner",
     "Product added to cart!": "Produit ajouté au panier!",
     "Failed to add product to cart": "Échec de l'ajout du produit au panier",
-    "An error occurred. Please try again.": "Une erreur s'est produite. Veuillez réessayer."
+    "An error occurred. Please try again.": "Une erreur s'est produite. Veuillez réessayer.",
+    "Track and manage your order history": "Suivez et gérez l'historique de vos commandes",
+    "Order History": "Historique des Commandes",
+    "No orders found": "Aucune commande trouvée",
+    "You haven't placed any orders yet. Start shopping to see your orders here.": "Vous n'avez encore passé aucune commande. Commencez vos achats pour voir vos commandes ici.",
+    "Start Shopping": "Commencer les Achats",
+    "Back to Dashboard": "Retour au Tableau de Bord"
 }

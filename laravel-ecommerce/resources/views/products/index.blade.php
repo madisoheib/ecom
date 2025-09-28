@@ -88,6 +88,23 @@
                             @endforeach
                         </select>
                     </div>
+
+                    <!-- Countries -->
+                    <div class="mb-6">
+                        <label class="block text-sm font-subheading text-gray-700 mb-2">@t('Available in')</label>
+                        <select name="country"
+                                class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:border-gray-400 transition-all duration-300"
+                                onchange="document.getElementById('filters-form').submit()">
+                            @foreach($availableCountries as $code => $name)
+                                <option value="{{ $code }}" {{ $selectedCountry === $code ? 'selected' : '' }}>
+                                    {{ $name }}
+                                    @if($code === $userLocation['country_code'] && $code !== 'all')
+                                        <span class="text-green-600">({{ __('Your Location') }})</span>
+                                    @endif
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
                     
                     <!-- Price Range -->
                     <div class="mb-6">

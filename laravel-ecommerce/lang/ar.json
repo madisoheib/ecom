@@ -77,5 +77,11 @@
     "Subscribe": "اشتراك",
     "Product added to cart!": "تم إضافة المنتج إلى السلة!",
     "Failed to add product to cart": "فشل في إضافة المنتج إلى السلة",
-    "An error occurred. Please try again.": "حدث خطأ. يرجى المحاولة مرة أخرى."
+    "An error occurred. Please try again.": "حدث خطأ. يرجى المحاولة مرة أخرى.",
+    "Track and manage your order history": "تتبع وإدارة تاريخ طلباتك",
+    "Order History": "تاريخ الطلبات",
+    "No orders found": "لم يتم العثور على طلبات",
+    "You haven't placed any orders yet. Start shopping to see your orders here.": "لم تقم بوضع أي طلبات بعد. ابدأ التسوق لرؤية طلباتك هنا.",
+    "Start Shopping": "ابدأ التسوق",
+    "Back to Dashboard": "العودة إلى لوحة التحكم"
 }

@@ -1,0 +1,156 @@
+/* Arabic Font Styles and RTL Support */
+
+/* Base font setup */
+[x-cloak] {
+    display: none !important;
+}
+
+.rtl {
+    direction: rtl;
+}
+
+.arabic {
+    font-family: 'Tajawal', system-ui, sans-serif;
+}
+
+/* Modern typography styles */
+* {
+    border-color: #e5e7eb;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+button, input, textarea, select {
+    font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 400;
+}
+
+body {
+    font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 300;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+/* Font weight hierarchy */
+.font-display {
+    font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 900;
+}
+
+.font-heading {
+    font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 700;
+}
+
+.font-subheading {
+    font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 500;
+}
+
+.font-body {
+    font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 400;
+}
+
+.font-light {
+    font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 300;
+}
+
+/* Consistent transitions */
+a, button, input, textarea, select {
+    transition: all 0.2s ease;
+}
+
+/* Arabic font hierarchy using Tajawal - High specificity */
+html[lang="ar"] * {
+    font-family: 'Tajawal', 'Amiri', 'Noto Sans Arabic', system-ui, sans-serif !important;
+}
+
+html[lang="ar"] body {
+    font-family: 'Tajawal', 'Amiri', 'Noto Sans Arabic', system-ui, sans-serif !important;
+    font-weight: 400;
+    direction: rtl !important;
+}
+
+html[lang="ar"] h1,
+html[lang="ar"] h2,
+html[lang="ar"] h3,
+html[lang="ar"] h4,
+html[lang="ar"] h5,
+html[lang="ar"] h6 {
+    font-family: 'Tajawal', 'Amiri', 'Noto Sans Arabic', system-ui, sans-serif !important;
+    font-weight: 700;
+}
+
+html[lang="ar"] .font-display {
+    font-family: 'Tajawal', 'Amiri', sans-serif !important;
+    font-weight: 900;
+}
+
+html[lang="ar"] .font-heading {
+    font-family: 'Tajawal', 'Amiri', sans-serif !important;
+    font-weight: 700;
+}
+
+html[lang="ar"] .font-subheading {
+    font-family: 'Tajawal', 'Amiri', sans-serif !important;
+    font-weight: 400;
+}
+
+html[lang="ar"] .font-body {
+    font-family: 'Tajawal', 'Amiri', sans-serif !important;
+    font-weight: 400;
+}
+
+html[lang="ar"] .font-light {
+    font-family: 'Tajawal', 'Amiri', sans-serif !important;
+    font-weight: 300;
+}
+
+html[lang="ar"] .font-thin {
+    font-family: 'Tajawal', 'Amiri', sans-serif !important;
+    font-weight: 200;
+}
+
+html[lang="ar"] .font-extralight {
+    font-family: 'Tajawal', 'Amiri', sans-serif !important;
+    font-weight: 200;
+}
+
+/* Make sure the Arabic class works everywhere */
+.arabic {
+    font-family: 'Tajawal', 'Amiri', 'Noto Sans Arabic', system-ui, sans-serif !important;
+    font-weight: 500 !important;
+}
+
+/* Arabic navbar text */
+html[lang="ar"] nav .font-subheading {
+    font-family: 'Tajawal', 'Amiri', sans-serif !important;
+    font-weight: 400 !important;
+    font-size: 1em !important;
+}
+
+/* Fix for RTL spacing utilities */
+.rtl .space-x-reverse > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-x-reverse: 1;
+}
+
+/* Arabic specific button and form styling */
+html[lang="ar"] button,
+html[lang="ar"] input,
+html[lang="ar"] textarea,
+html[lang="ar"] select {
+    font-family: 'Tajawal', 'Amiri', system-ui, sans-serif !important;
+    font-weight: 400;
+}
+
+/* Header and card text in Arabic */
+html[lang="ar"] .text-3xl,
+html[lang="ar"] .text-lg,
+html[lang="ar"] .text-sm {
+    font-family: 'Tajawal', 'Amiri', sans-serif !important;
+}

@@ -1,11 +1,11 @@
 <x-layout>
-    <x-slot name="title">My Account</x-slot>
+    <x-slot name="title">{{ __('My Account') }}</x-slot>
 
     <div class="container mx-auto px-4 py-8">
         <div class="max-w-6xl mx-auto">
             <div class="mb-8">
-                <h1 class="text-3xl font-bold text-gray-900">Welcome back, {{ auth()->user()->name }}!</h1>
-                <p class="text-gray-600 mt-2">Manage your account and view your orders</p>
+                <h1 class="text-3xl font-bold text-gray-900">{{ __('Welcome back') }}, {{ auth()->user()->name }}!</h1>
+                <p class="text-gray-600 mt-2">{{ __('Manage your account and view your orders') }}</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
@@ -18,7 +18,7 @@
                             </svg>
                         </div>
                         <div class="ml-4">
-                            <p class="text-sm font-medium text-gray-600">Total Orders</p>
+                            <p class="text-sm font-medium text-gray-600">{{ __('Total Orders') }}</p>
                             <p class="text-2xl font-semibold text-gray-900">0</p>
                         </div>
                     </div>
@@ -32,7 +32,7 @@
                             </svg>
                         </div>
                         <div class="ml-4">
-                            <p class="text-sm font-medium text-gray-600">Total Spent</p>
+                            <p class="text-sm font-medium text-gray-600">{{ __('Total Spent') }}</p>
                             <p class="text-2xl font-semibold text-gray-900">{{ site_currency() }} 0.00</p>
                         </div>
                     </div>
@@ -46,7 +46,7 @@
                             </svg>
                         </div>
                         <div class="ml-4">
-                            <p class="text-sm font-medium text-gray-600">Wishlist Items</p>
+                            <p class="text-sm font-medium text-gray-600">{{ __('Wishlist Items') }}</p>
                             <p class="text-2xl font-semibold text-gray-900">0</p>
                         </div>
                     </div>
@@ -60,8 +60,8 @@
                     <div class="bg-white rounded-lg shadow-md">
                         <div class="px-6 py-4 border-b border-gray-200">
                             <div class="flex items-center justify-between">
-                                <h2 class="text-lg font-semibold text-gray-900">Recent Orders</h2>
-                                <a href="{{ route('user.orders') }}" class="text-primary hover:text-primary-dark text-sm font-medium">View All</a>
+                                <h2 class="text-lg font-semibold text-gray-900">{{ __('Recent Orders') }}</h2>
+                                <a href="{{ route('user.orders') }}" class="text-primary hover:text-primary-dark text-sm font-medium">{{ __('View All') }}</a>
                             </div>
                         </div>
                         <div class="p-6">
@@ -69,11 +69,11 @@
                                 <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
                                 </svg>
-                                <h3 class="mt-2 text-sm font-medium text-gray-900">No orders yet</h3>
-                                <p class="mt-1 text-sm text-gray-500">Start shopping to see your orders here.</p>
+                                <h3 class="mt-2 text-sm font-medium text-gray-900">{{ __('No orders yet') }}</h3>
+                                <p class="mt-1 text-sm text-gray-500">{{ __('Start shopping to see your orders here.') }}</p>
                                 <div class="mt-6">
                                     <a href="{{ route('products.index') }}" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary hover:bg-primary-dark">
-                                        Start Shopping
+                                        {{ __('Start Shopping') }}
                                     </a>
                                 </div>
                             </div>
@@ -83,7 +83,7 @@
                     <!-- Address Book -->
                     <div class="bg-white rounded-lg shadow-md">
                         <div class="px-6 py-4 border-b border-gray-200">
-                            <h2 class="text-lg font-semibold text-gray-900">Address Book</h2>
+                            <h2 class="text-lg font-semibold text-gray-900">{{ __('Address Book') }}</h2>
                         </div>
                         <div class="p-6">
                             <div class="text-center py-8">
@@ -91,11 +91,11 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                 </svg>
-                                <h3 class="mt-2 text-sm font-medium text-gray-900">No addresses saved</h3>
-                                <p class="mt-1 text-sm text-gray-500">Add your shipping addresses for faster checkout.</p>
+                                <h3 class="mt-2 text-sm font-medium text-gray-900">{{ __('No addresses saved') }}</h3>
+                                <p class="mt-1 text-sm text-gray-500">{{ __('Add your shipping addresses for faster checkout.') }}</p>
                                 <div class="mt-6">
                                     <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
-                                        Add Address
+                                        {{ __('Add Address') }}
                                     </button>
                                 </div>
                             </div>
@@ -157,7 +157,7 @@
 
                             @if($hasAnyLink)
                                 <div class="mt-6 pt-6 border-t border-gray-200">
-                                    <p class="text-sm font-medium text-gray-600 mb-3">Follow Us</p>
+                                    <p class="text-sm font-medium text-gray-600 mb-3">{{ __('Follow Us') }}</p>
                                     <div class="flex space-x-3">
                                         @if($socialLinks['facebook'])
                                             <a href="{{ $socialLinks['facebook'] }}" target="_blank" class="text-gray-400 hover:text-blue-600">
@@ -207,7 +207,7 @@
                     <!-- Account Menu -->
                     <div class="bg-white rounded-lg shadow-md">
                         <div class="px-6 py-4 border-b border-gray-200">
-                            <h2 class="text-lg font-semibold text-gray-900">Account</h2>
+                            <h2 class="text-lg font-semibold text-gray-900">{{ __('Account') }}</h2>
                         </div>
                         <div class="p-6">
                             <nav class="space-y-2">
@@ -216,19 +216,19 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"></path>
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2m-6 4h4"></path>
                                     </svg>
-                                    Dashboard
+                                    {{ __('Dashboard') }}
                                 </a>
                                 <a href="{{ route('user.orders') }}" class="flex items-center px-3 py-2 text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-md">
                                     <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
                                     </svg>
-                                    My Orders
+                                    {{ __('My Orders') }}
                                 </a>
                                 <a href="{{ route('user.profile') }}" class="flex items-center px-3 py-2 text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-md">
                                     <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                                     </svg>
-                                    Profile Settings
+                                    {{ __('Profile Settings') }}
                                 </a>
                             </nav>
                         </div>
@@ -237,26 +237,26 @@
                     <!-- Account Info -->
                     <div class="bg-white rounded-lg shadow-md">
                         <div class="px-6 py-4 border-b border-gray-200">
-                            <h2 class="text-lg font-semibold text-gray-900">Account Information</h2>
+                            <h2 class="text-lg font-semibold text-gray-900">{{ __('Account Information') }}</h2>
                         </div>
                         <div class="p-6">
                             <div class="space-y-4">
                                 <div>
-                                    <p class="text-sm font-medium text-gray-600">Name</p>
+                                    <p class="text-sm font-medium text-gray-600">{{ __('Name') }}</p>
                                     <p class="text-sm text-gray-900">{{ auth()->user()->name }}</p>
                                 </div>
                                 <div>
-                                    <p class="text-sm font-medium text-gray-600">Email</p>
+                                    <p class="text-sm font-medium text-gray-600">{{ __('Email') }}</p>
                                     <p class="text-sm text-gray-900">{{ auth()->user()->email }}</p>
                                 </div>
                                 <div>
-                                    <p class="text-sm font-medium text-gray-600">Member Since</p>
+                                    <p class="text-sm font-medium text-gray-600">{{ __('Member Since') }}</p>
                                     <p class="text-sm text-gray-900">{{ auth()->user()->created_at->format('F Y') }}</p>
                                 </div>
                             </div>
                             <div class="mt-6">
                                 <a href="{{ route('user.profile') }}" class="w-full inline-flex justify-center items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
-                                    Edit Profile
+                                    {{ __('Edit Profile') }}
                                 </a>
                             </div>
                         </div>
@@ -271,7 +271,7 @@
                                     <svg class="mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
                                     </svg>
-                                    Sign Out
+                                    {{ __('Sign Out') }}
                                 </button>
                             </form>
                         </div>

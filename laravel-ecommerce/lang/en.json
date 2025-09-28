@@ -77,5 +77,11 @@
     "Subscribe": "Subscribe",
     "Product added to cart!": "Product added to cart!",
     "Failed to add product to cart": "Failed to add product to cart",
-    "An error occurred. Please try again.": "An error occurred. Please try again."
+    "An error occurred. Please try again.": "An error occurred. Please try again.",
+    "Track and manage your order history": "Track and manage your order history",
+    "Order History": "Order History",
+    "No orders found": "No orders found",
+    "You haven't placed any orders yet. Start shopping to see your orders here.": "You haven't placed any orders yet. Start shopping to see your orders here.",
+    "Start Shopping": "Start Shopping",
+    "Back to Dashboard": "Back to Dashboard"
 }

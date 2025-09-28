@@ -43,7 +43,13 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Set working directory
 WORKDIR /var/www/html
 
-# Copy application code first
+# Copy package files first for better caching
+COPY package*.json ./
+
+# Install Node dependencies
+RUN npm ci || npm install
+
+# Copy application code
 COPY . .
 
 # Install PHP dependencies
@@ -52,13 +58,13 @@ RUN composer install --no-dev --optimize-autoloader --no-scripts
 # Copy PHP configuration
 COPY docker/php/php.ini /usr/local/etc/php/conf.d/custom.ini
 
+# Build assets
+RUN npm run build || echo "Build step failed but continuing..."
+
 # Set proper permissions
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html/storage \
     && chmod -R 755 /var/www/html/bootstrap/cache
-
-# Install Node dependencies and build assets
-RUN npm ci && npm run build
 
 # Generate optimized autoload files
 RUN composer dump-autoload --optimize

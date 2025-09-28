@@ -21,11 +21,11 @@
             <!-- Language Switcher -->
             <div class="flex items-center space-x-4 {{ app()->getLocale() === 'ar' ? 'space-x-reverse' : '' }}">
                 <div class="relative" x-data="{ open: false }">
-                    <button @click="open = !open" class="flex items-center space-x-2 hover:text-gray-200 transition-colors duration-200 px-3 py-1">
+                    <button @click="open = !open" class="flex items-center space-x-2 hover:text-gray-200 transition-colors duration-200 px-3 py-1 {{ app()->getLocale() === 'ar' ? 'space-x-reverse' : '' }}">
                         <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.012 6.012 0 011.912-2.706C6.512 5.73 6.974 6 7.5 6A1.5 1.5 0 019 7.5V8a2 2 0 004 0 2 2 0 011.523-1.943A5.977 5.977 0 0116 10c0 .34-.028.675-.083 1H15a2 2 0 00-2 2v2.197A5.973 5.973 0 0110 16v-2a2 2 0 00-2-2 2 2 0 01-2-2 2 2 0 00-1.668-1.973z" clip-rule="evenodd"></path>
                         </svg>
-                        <span class="font-subheading">{{ strtoupper(app()->getLocale()) }}</span>
+                        <span class="font-subheading {{ app()->getLocale() === 'ar' ? 'arabic' : '' }}">{{ strtoupper(app()->getLocale()) }}</span>
                         <svg class="w-3 h-3 transition-transform duration-200" :class="{ 'rotate-180': open }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                         </svg>
@@ -34,10 +34,10 @@
                     <div x-show="open" @click.away="open = false" x-cloak x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
                          class="absolute {{ app()->getLocale() === 'ar' ? 'left-0' : 'right-0' }} mt-3 w-36 bg-white shadow-lg py-2 z-50" style="border-radius: 8px; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);">
                         @foreach(active_languages() as $language)
-                            <a href="{{ url('/') }}?lang={{ $language->code }}" 
-                               class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-150 flex items-center space-x-2 {{ app()->getLocale() === $language->code ? 'bg-gray-100 font-medium' : '' }}">
+                            <a href="{{ url('/') }}?lang={{ $language->code }}"
+                               class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-150 flex items-center space-x-2 {{ app()->getLocale() === $language->code ? 'bg-gray-100 font-medium' : '' }} {{ $language->code === 'ar' ? 'space-x-reverse' : '' }}">
                                 <span class="text-lg">{{ get_language_flag($language->code) }}</span>
-                                <span>{{ $language->native_name }}</span>
+                                <span class="{{ $language->code === 'ar' ? 'arabic font-medium' : '' }}">{{ $language->native_name }}</span>
                             </a>
                         @endforeach
                     </div>
@@ -51,7 +51,7 @@
         <div class="flex justify-between items-center h-16 sm:h-18">
             <!-- Logo -->
             <div class="flex items-center">
-                <a href="{{ route('home') }}" class="flex items-center group">
+                <a href="{{ localized_route('home') }}" class="flex items-center group">
                     <img src="{{ asset('logo.svg') }}"
                          alt="Riha Original"
                          class="h-12 sm:h-16 w-auto transition-all duration-300 group-hover:scale-105"
@@ -104,9 +104,9 @@
                         
                         <div x-show="open" @click.away="open = false" x-cloak
                              class="absolute {{ app()->getLocale() === 'ar' ? 'left-0' : 'right-0' }} mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
-                            <a href="{{ route('dashboard') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">@t('Dashboard')</a>
-                            <a href="{{ route('user.orders') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">@t('My Orders')</a>
-                            <a href="{{ route('user.profile') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">@t('Profile')</a>
+                            <a href="{{ localized_route('dashboard') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">@t('Dashboard')</a>
+                            <a href="{{ localized_route('user.orders') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">@t('My Orders')</a>
+                            <a href="{{ localized_route('user.profile') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">@t('Profile')</a>
                             <hr class="my-1">
                             <form method="POST" action="{{ route('logout') }}" class="block">
                                 @csrf
@@ -115,8 +115,8 @@
                         </div>
                     </div>
                 @else
-                    <a href="{{ route('login') }}" class="text-gray-600 hover:text-black font-subheading transition-colors duration-200 px-2 sm:px-4 py-2 hover:bg-gray-50 rounded-lg text-sm sm:text-base">@t('Login')</a>
-                    <a href="{{ route('register') }}" class="font-subheading px-3 sm:px-6 py-2 sm:py-2.5 text-sm sm:text-base transition-all duration-200 rounded-xl border-2" style="background-color: var(--color-primary); color: var(--color-secondary); border-color: var(--color-secondary);" onmouseover="this.style.backgroundColor='var(--color-secondary)'; this.style.color='var(--color-primary)'; this.style.borderColor='var(--color-primary)';" onmouseout="this.style.backgroundColor='var(--color-primary)'; this.style.color='var(--color-secondary)'; this.style.borderColor='var(--color-secondary)';">@t('Register')</a>
+                    <a href="{{ localized_route('login') }}" class="text-gray-600 hover:text-black font-subheading transition-colors duration-200 px-2 sm:px-4 py-2 hover:bg-gray-50 rounded-lg text-sm sm:text-base">@t('Login')</a>
+                    <a href="{{ localized_route('register') }}" class="font-subheading px-3 sm:px-6 py-2 sm:py-2.5 text-sm sm:text-base transition-all duration-200 rounded-xl border-2" style="background-color: var(--color-primary); color: var(--color-secondary); border-color: var(--color-secondary);" onmouseover="this.style.backgroundColor='var(--color-secondary)'; this.style.color='var(--color-primary)'; this.style.borderColor='var(--color-primary)';" onmouseout="this.style.backgroundColor='var(--color-primary)'; this.style.color='var(--color-secondary)'; this.style.borderColor='var(--color-secondary)';">@t('Register')</a>
                 @endauth
                 
                 <!-- Mobile Menu Button -->
@@ -154,22 +154,22 @@
                                 ->get();
                         @endphp
                         @foreach($categories as $category)
-                            <a href="{{ route('categories.show', $category->slug) }}"
+                            <a href="{{ localized_route('categories.show', ['slug' => $category->slug]) }}"
                                class="block px-5 py-3 text-sm text-gray-700 transition-all duration-150 mx-2 rounded-lg" onmouseover="this.style.backgroundColor='var(--color-secondary)'; this.style.color='var(--color-primary)'; this.style.fontWeight='bold';" onmouseout="this.style.backgroundColor=''; this.style.color=''; this.style.fontWeight='normal';">
                                 {{ $category->name }}
                             </a>
                         @endforeach
                         <hr class="my-3 mx-2">
-                        <a href="{{ route('categories.index') }}" class="block px-5 py-3 text-sm font-medium transition-all duration-150 mx-2 rounded-lg" style="color: var(--color-primary);" onmouseover="this.style.backgroundColor='var(--color-secondary)'; this.style.color='var(--color-primary)'; this.style.fontWeight='bold';" onmouseout="this.style.backgroundColor=''; this.style.color='var(--color-primary)'; this.style.fontWeight='medium';">
+                        <a href="{{ localized_route('categories.index') }}" class="block px-5 py-3 text-sm font-medium transition-all duration-150 mx-2 rounded-lg" style="color: var(--color-primary);" onmouseover="this.style.backgroundColor='var(--color-secondary)'; this.style.color='var(--color-primary)'; this.style.fontWeight='bold';" onmouseout="this.style.backgroundColor=''; this.style.color='var(--color-primary)'; this.style.fontWeight='medium';"
                             @t('View All Categories')
                         </a>
                     </div>
                 </div>
 
-                <a href="{{ route('products.index') }}" class="text-gray-700 hover:text-black font-subheading px-3 xl:px-4 py-2 hover:bg-white transition-all duration-200 rounded-lg text-sm xl:text-base">@t('Products')</a>
-                <a href="{{ route('brands.index') }}" class="text-gray-700 hover:text-black font-subheading px-3 xl:px-4 py-2 hover:bg-white transition-all duration-200 rounded-lg text-sm xl:text-base">@t('Brands')</a>
-                <a href="{{ route('products.index', ['sort' => 'newest']) }}" class="text-gray-700 hover:text-black font-subheading px-3 xl:px-4 py-2 hover:bg-white transition-all duration-200 rounded-lg text-sm xl:text-base">@t('New Arrivals')</a>
-                <a href="{{ route('products.index', ['sort' => 'popular']) }}" class="text-gray-700 hover:text-black font-subheading px-3 xl:px-4 py-2 hover:bg-white transition-all duration-200 rounded-lg text-sm xl:text-base">@t('Best Sellers')</a>
+                <a href="{{ localized_route('products.index') }}" class="text-gray-700 hover:text-black font-subheading px-3 xl:px-4 py-2 hover:bg-white transition-all duration-200 rounded-lg text-sm xl:text-base">@t('Products')</a>
+                <a href="{{ localized_route('brands.index') }}" class="text-gray-700 hover:text-black font-subheading px-3 xl:px-4 py-2 hover:bg-white transition-all duration-200 rounded-lg text-sm xl:text-base">@t('Brands')</a>
+                <a href="{{ localized_route('products.index', ['sort' => 'newest']) }}" class="text-gray-700 hover:text-black font-subheading px-3 xl:px-4 py-2 hover:bg-white transition-all duration-200 rounded-lg text-sm xl:text-base">@t('New Arrivals')</a>
+                <a href="{{ localized_route('products.index', ['sort' => 'popular']) }}" class="text-gray-700 hover:text-black font-subheading px-3 xl:px-4 py-2 hover:bg-white transition-all duration-200 rounded-lg text-sm xl:text-base">@t('Best Sellers')</a>
             </div>
         </div>
     </div>
@@ -192,11 +192,11 @@
 
             <!-- Mobile Navigation Links -->
             <div class="space-y-1">
-                <a href="{{ route('categories.index') }}" class="block text-gray-700 hover:text-black hover:bg-gray-50 px-4 py-3 font-medium transition-all duration-200 text-sm" style="border-radius: 10px;">@t('Categories')</a>
-                <a href="{{ route('products.index') }}" class="block text-gray-700 hover:text-black hover:bg-gray-50 px-4 py-3 font-medium transition-all duration-200 text-sm" style="border-radius: 10px;">@t('Products')</a>
-                <a href="{{ route('brands.index') }}" class="block text-gray-700 hover:text-black hover:bg-gray-50 px-4 py-3 font-medium transition-all duration-200 text-sm" style="border-radius: 10px;">@t('Brands')</a>
-                <a href="{{ route('products.index', ['sort' => 'newest']) }}" class="block text-gray-700 hover:text-black hover:bg-gray-50 px-4 py-3 font-medium transition-all duration-200 text-sm" style="border-radius: 10px;">@t('New Arrivals')</a>
-                <a href="{{ route('products.index', ['sort' => 'popular']) }}" class="block text-gray-700 hover:text-black hover:bg-gray-50 px-4 py-3 font-medium transition-all duration-200 text-sm" style="border-radius: 10px;">@t('Best Sellers')</a>
+                <a href="{{ localized_route('categories.index') }}" class="block text-gray-700 hover:text-black hover:bg-gray-50 px-4 py-3 font-medium transition-all duration-200 text-sm" style="border-radius: 10px;">@t('Categories')</a>
+                <a href="{{ localized_route('products.index') }}" class="block text-gray-700 hover:text-black hover:bg-gray-50 px-4 py-3 font-medium transition-all duration-200 text-sm" style="border-radius: 10px;">@t('Products')</a>
+                <a href="{{ localized_route('brands.index') }}" class="block text-gray-700 hover:text-black hover:bg-gray-50 px-4 py-3 font-medium transition-all duration-200 text-sm" style="border-radius: 10px;">@t('Brands')</a>
+                <a href="{{ localized_route('products.index', ['sort' => 'newest']) }}" class="block text-gray-700 hover:text-black hover:bg-gray-50 px-4 py-3 font-medium transition-all duration-200 text-sm" style="border-radius: 10px;">@t('New Arrivals')</a>
+                <a href="{{ localized_route('products.index', ['sort' => 'popular']) }}" class="block text-gray-700 hover:text-black hover:bg-gray-50 px-4 py-3 font-medium transition-all duration-200 text-sm" style="border-radius: 10px;">@t('Best Sellers')</a>
             </div>
         </div>
     </div>

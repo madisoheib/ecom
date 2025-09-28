@@ -23,11 +23,13 @@ class Brand extends Model implements HasMedia
         'logo_path',
         'sort_order',
         'is_active',
+        'slug_translations',
     ];
 
     public $translatable = ['name', 'description'];
 
     protected $casts = [
+        'slug_translations' => 'array',
         'is_active' => 'boolean',
     ];
 
@@ -58,5 +60,20 @@ class Brand extends Model implements HasMedia
         $this->addMediaCollection('brand_logo')
             ->singleFile()
             ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/svg+xml', 'image/webp']);
+    }
+
+    /**
+     * Get localized slug for current locale
+     */
+    public function getLocalizedSlug($locale = null): string
+    {
+        $locale = $locale ?? app()->getLocale();
+
+        if ($this->slug_translations && isset($this->slug_translations[$locale])) {
+            return $this->slug_translations[$locale];
+        }
+
+        // Fallback to default slug
+        return $this->slug;
     }
 }

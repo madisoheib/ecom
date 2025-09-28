@@ -33,12 +33,12 @@ class GeneralSettings extends Page implements HasForms
     {
         $settings = SiteSetting::current();
         $activeTheme = ThemeSettings::getActiveTheme();
-        
-        $data = $settings->toArray();
+
+        $data = $settings ? $settings->toArray() : [];
         if ($activeTheme) {
             $data['active_theme'] = $activeTheme->id;
         }
-        
+
         $this->form->fill($data);
     }
 
@@ -102,8 +102,9 @@ class GeneralSettings extends Page implements HasForms
 
                         TextInput::make('company_phone')
                             ->label('Company Phone')
-                            ->tel()
-                            ->maxLength(255),
+                            ->maxLength(255)
+                            ->placeholder('+1 (555) 123-4567')
+                            ->helperText('Enter phone number in any format'),
 
                         Textarea::make('company_address')
                             ->label('Company Address')
@@ -156,18 +157,7 @@ class GeneralSettings extends Page implements HasForms
                                 })->toArray();
                             })
                             ->searchable()
-                            ->helperText('Select a theme to apply to your website. Create new themes in Theme Settings.')
-                            ->afterStateUpdated(function ($state) {
-                                if ($state) {
-                                    $theme = ThemeSettings::find($state);
-                                    if ($theme) {
-                                        $theme->activate();
-                                        // Refresh the page to show new theme
-                                        redirect()->refresh();
-                                    }
-                                }
-                            })
-                            ->live(),
+                            ->helperText('Select a theme to apply to your website. Save settings to activate the selected theme.'),
                         
                         \Filament\Forms\Components\Actions::make([
                             \Filament\Forms\Components\Actions\Action::make('manage_themes')
@@ -194,6 +184,17 @@ class GeneralSettings extends Page implements HasForms
     public function save(): void
     {
         $data = $this->form->getState();
+
+        // Handle theme activation separately
+        if (isset($data['active_theme'])) {
+            $themeId = $data['active_theme'];
+            unset($data['active_theme']); // Remove from data array as it's not a SiteSetting field
+
+            $theme = ThemeSettings::find($themeId);
+            if ($theme) {
+                $theme->activate();
+            }
+        }
 
         $settings = SiteSetting::current();
         $settings->update($data);

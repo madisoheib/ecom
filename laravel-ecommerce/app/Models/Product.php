@@ -44,11 +44,9 @@ class Product extends Model implements HasMedia
         'length',
         'views_count',
         'sales_count',
-        // Multilingual fields
-        'name_translations',
-        'description_translations',
-        'specifications_translations',
-        'short_description_translations',
+        'default_country',
+        // Manual slug translations (keeping this as it has custom logic)
+        'slug_translations',
         // SEO fields
         'meta_title',
         'meta_description',
@@ -77,11 +75,8 @@ class Product extends Model implements HasMedia
         'track_quantity' => 'boolean',
         'allow_backorder' => 'boolean',
         'index_follow' => 'boolean',
-        // Multilingual content casts
-        'name_translations' => 'array',
-        'description_translations' => 'array',
-        'specifications_translations' => 'array',
-        'short_description_translations' => 'array',
+        // Manual slug translations (keeping this as it has custom logic)
+        'slug_translations' => 'array',
         // SEO fields casts
         'meta_title' => 'array',
         'meta_description' => 'array',
@@ -161,49 +156,25 @@ class Product extends Model implements HasMedia
     public function getTranslatedName($locale = null)
     {
         $locale = $locale ?: app()->getLocale();
-        $translations = $this->name_translations;
-
-        if (is_array($translations) && isset($translations[$locale])) {
-            return $translations[$locale];
-        }
-
-        return $this->name;
+        return $this->getTranslation('name', $locale) ?: $this->name;
     }
 
     public function getTranslatedDescription($locale = null)
     {
         $locale = $locale ?: app()->getLocale();
-        $translations = $this->description_translations;
-
-        if (is_array($translations) && isset($translations[$locale])) {
-            return $translations[$locale];
-        }
-
-        return $this->description;
+        return $this->getTranslation('description', $locale) ?: $this->description;
     }
 
     public function getTranslatedSpecifications($locale = null)
     {
         $locale = $locale ?: app()->getLocale();
-        $translations = $this->specifications_translations;
-
-        if (is_array($translations) && isset($translations[$locale])) {
-            return $translations[$locale];
-        }
-
-        return $this->specifications;
+        return $this->getTranslation('specifications', $locale) ?: $this->specifications;
     }
 
     public function getTranslatedShortDescription($locale = null)
     {
         $locale = $locale ?: app()->getLocale();
-        $translations = $this->short_description_translations;
-
-        if (is_array($translations) && isset($translations[$locale])) {
-            return $translations[$locale];
-        }
-
-        return $this->short_description;
+        return $this->getTranslation('short_description', $locale) ?: $this->short_description;
     }
 
     // SEO helpers
@@ -267,16 +238,27 @@ class Product extends Model implements HasMedia
         }
 
         $category = $this->categories->first();
-        return route('products.show', [
-            'categorySlug' => $category ? $category->slug : 'produits',
-            'productSlug' => $this->slug
+        return localized_route('products.show', [
+            'categorySlug' => $category ? $category->getLocalizedSlug() : 'produits',
+            'productSlug' => $this->getLocalizedSlug()
         ]);
     }
 
-    public function generateSchemaMarkup()
+    public function generateSchemaMarkup($userCountry = null)
     {
         $category = $this->categories->first();
         $brand = $this->brand;
+
+        // Get country-specific pricing if user country is provided
+        if ($userCountry) {
+            $price = $this->getPriceForCountry($userCountry);
+            $currency = $this->getCurrencyForCountry($userCountry);
+            $stock = $this->getStockForCountry($userCountry);
+        } else {
+            $price = $this->price;
+            $currency = get_user_currency();
+            $stock = $this->stock_quantity;
+        }
 
         return [
             '@context' => 'https://schema.org/',
@@ -296,10 +278,10 @@ class Product extends Model implements HasMedia
             'offers' => [
                 '@type' => 'Offer',
                 'url' => $this->getCanonicalUrl(),
-                'priceCurrency' => 'EUR',
-                'price' => $this->price,
+                'priceCurrency' => $currency,
+                'price' => $price,
                 'priceValidUntil' => now()->addYear()->format('Y-m-d'),
-                'availability' => $this->stock_quantity > 0
+                'availability' => $stock > 0
                     ? 'https://schema.org/InStock'
                     : 'https://schema.org/OutOfStock',
                 'seller' => [
@@ -373,5 +355,181 @@ class Product extends Model implements HasMedia
         ]);
 
         return $this->content_score;
+    }
+
+    /**
+     * Get localized slug for current locale
+     */
+    public function getLocalizedSlug($locale = null): string
+    {
+        $locale = $locale ?? app()->getLocale();
+
+        if ($this->slug_translations && isset($this->slug_translations[$locale])) {
+            return $this->slug_translations[$locale];
+        }
+
+        // Fallback to default slug
+        return $this->slug;
+    }
+
+    /**
+     * Set translated slug for a specific locale
+     */
+    public function setSlugTranslation(string $locale, string $slug): void
+    {
+        $translations = $this->slug_translations ?? [];
+        $translations[$locale] = $slug;
+        $this->slug_translations = $translations;
+    }
+
+    /**
+     * Generate slug from name for specific locale
+     */
+    public function generateSlugForLocale(string $locale): string
+    {
+        $name = $this->getTranslatedName($locale);
+
+        if ($locale === 'ar') {
+            // For Arabic, create transliteration or keep English
+            $slug = $this->transliterateArabic($name) ?: str($this->getTranslatedName('en'))->slug();
+        } else {
+            $slug = str($name)->slug();
+        }
+
+        return $this->makeLocaleSlugUnique($slug, $locale);
+    }
+
+    /**
+     * Simple Arabic transliteration
+     */
+    private function transliterateArabic(string $text): string
+    {
+        $arabicToLatin = [
+            'ا' => 'a', 'ب' => 'b', 'ت' => 't', 'ث' => 'th', 'ج' => 'j',
+            'ح' => 'h', 'خ' => 'kh', 'د' => 'd', 'ذ' => 'dh', 'ر' => 'r',
+            'ز' => 'z', 'س' => 's', 'ش' => 'sh', 'ص' => 's', 'ض' => 'd',
+            'ط' => 't', 'ظ' => 'z', 'ع' => 'a', 'غ' => 'gh', 'ف' => 'f',
+            'ق' => 'q', 'ك' => 'k', 'ل' => 'l', 'م' => 'm', 'ن' => 'n',
+            'ه' => 'h', 'و' => 'w', 'ي' => 'y', 'ى' => 'a'
+        ];
+
+        $transliterated = strtr($text, $arabicToLatin);
+        return str($transliterated)->slug();
+    }
+
+    /**
+     * Make slug unique for the given locale
+     */
+    private function makeLocaleSlugUnique(string $slug, string $locale): string
+    {
+        $originalSlug = $slug;
+        $counter = 1;
+
+        while ($this->slugExistsForLocale($slug, $locale)) {
+            $slug = $originalSlug . '-' . $counter;
+            $counter++;
+        }
+
+        return $slug;
+    }
+
+    /**
+     * Check if slug exists for locale
+     */
+    private function slugExistsForLocale(string $slug, string $locale): bool
+    {
+        return static::where('id', '!=', $this->id ?? 0)
+            ->where(function($query) use ($slug, $locale) {
+                $query->where('slug', $slug)
+                      ->orWhere('slug_translations->' . $locale, $slug);
+            })
+            ->exists();
+    }
+
+    /**
+     * Get product countries configurations
+     */
+    public function productCountries(): HasMany
+    {
+        return $this->hasMany(ProductCountry::class);
+    }
+
+    /**
+     * Get available countries for this product
+     */
+    public function availableCountries()
+    {
+        return $this->productCountries()->where('is_available', true);
+    }
+
+    /**
+     * Get price for specific country
+     */
+    public function getPriceForCountry(string $countryCode): ?float
+    {
+        $productCountry = $this->productCountries()
+            ->where('country_code', $countryCode)
+            ->where('is_available', true)
+            ->first();
+
+        return $productCountry ? $productCountry->price : $this->price;
+    }
+
+    /**
+     * Get currency for specific country
+     */
+    public function getCurrencyForCountry(string $countryCode): string
+    {
+        $productCountry = $this->productCountries()
+            ->where('country_code', $countryCode)
+            ->where('is_available', true)
+            ->first();
+
+        if ($productCountry && $productCountry->currency) {
+            return $productCountry->currency;
+        }
+
+        // Fallback to country's default currency
+        $countryCurrencies = [
+            'CA' => 'CAD',
+            'US' => 'USD',
+            'FR' => 'EUR',
+            'AE' => 'AED',
+            'KW' => 'KWD',
+            'OM' => 'OMR',
+            'DZ' => 'DZD',
+        ];
+
+        return $countryCurrencies[$countryCode] ?? 'USD';
+    }
+
+    /**
+     * Check if product is available in specific country
+     */
+    public function isAvailableInCountry(string $countryCode): bool
+    {
+        $productCountry = $this->productCountries()
+            ->where('country_code', $countryCode)
+            ->first();
+
+        if ($productCountry) {
+            return $productCountry->is_available && $productCountry->stock_quantity > 0;
+        }
+
+        // If no specific country config, check if it's the default country
+        return $this->default_country === $countryCode && $this->stock_quantity > 0;
+    }
+
+    /**
+     * Get stock quantity for specific country
+     */
+    public function getStockForCountry(string $countryCode): int
+    {
+        $productCountry = $this->productCountries()
+            ->where('country_code', $countryCode)
+            ->where('is_available', true)
+            ->first();
+
+        return $productCountry ? $productCountry->stock_quantity : $this->stock_quantity;
     }
 }

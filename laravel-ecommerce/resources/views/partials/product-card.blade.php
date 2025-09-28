@@ -118,7 +118,13 @@ $isFeatured = $product->id % 3 == 0;
             <!-- Price and Add to Cart Button - Inline -->
             <div class="mt-auto flex items-center justify-between">
                 <!-- Price on Left -->
-                <span class="text-lg sm:text-2xl font-bold text-gray-900">${{ number_format($product->price, 0) }}</span>
+                @php
+                    $userLocation = get_user_country_from_ip();
+                    $userCountry = $userLocation['country_code'];
+                    $countryPrice = $product->getPriceForCountry($userCountry);
+                    $countryCurrency = $product->getCurrencyForCountry($userCountry);
+                @endphp
+                <span class="text-lg sm:text-2xl font-bold text-gray-900">{{ format_price($countryPrice, $countryCurrency) }}</span>
 
                 <!-- Add to Cart Button on Right -->
                 <button onclick="event.preventDefault(); event.stopPropagation(); addToCart({{ $product->id }});"

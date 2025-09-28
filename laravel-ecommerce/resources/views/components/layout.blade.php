@@ -71,40 +71,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
     
-    <style>
-        [x-cloak] { display: none !important; }
-        .rtl { direction: rtl; }
-        .arabic { font-family: 'Tajawal', system-ui, sans-serif; }
+    <!-- Arabic Styles -->
+    <link href="{{ asset('css/arabic-styles.css') }}" rel="stylesheet">
 
+    <style>
         /* Dynamic theme CSS */
         {!! get_theme_css_variables() !!}
-
-        /* Modern typography styles */
-        * {
-            border-color: #e5e7eb;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        button, input, textarea, select {
-            font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
-            font-weight: 400;
-        }
-
-        body { font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: 300; }
-        h1, h2, h3, h4, h5, h6 { font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif; }
-
-        /* Font weight hierarchy */
-        .font-display { font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: 900; }
-        .font-heading { font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: 700; }
-        .font-subheading { font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: 500; }
-        .font-body { font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: 400; }
-        .font-light { font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: 300; }
-
-        /* Consistent transitions */
-        a, button, input, textarea, select {
-            transition: all 0.2s ease;
-        }
     </style>
 </head>
 <body class="{{ app()->getLocale() === 'ar' ? 'arabic rtl' : '' }} text-gray-900 antialiased" style="background-color: #f8f9fa;">
@@ -126,80 +98,17 @@
     <!-- Cart Sidebar -->
     @include('partials.cart-sidebar')
     
-    <!-- Scripts (similar to layouts.app) -->
+    <!-- Layout JavaScript -->
+    <script src="{{ asset('js/layout.js') }}"></script>
+
+    <!-- Initialize cart data from server -->
     <script>
-        // Cart functionality
+        // Initialize cart data from Laravel session
         window.cartData = {
             items: @json(session('cart', [])),
             total: {{ session('cart_total', 0) }},
             count: {{ session('cart_count', 0) }}
         };
-
-        // Initialize cart count display
-        document.addEventListener('DOMContentLoaded', function() {
-            const cartElements = document.querySelectorAll('[x-text="window.cartData.count"], .cart-count');
-            cartElements.forEach(el => el.textContent = window.cartData.count);
-            refreshCartSidebar();
-        });
-        
-        // Language switcher
-        function switchLanguage(locale) {
-            const currentUrl = new URL(window.location.href);
-            currentUrl.searchParams.set('lang', locale);
-            window.location.href = currentUrl.toString();
-        }
-        
-        // Search functionality
-        function search() {
-            let query = '';
-            const desktopInput = document.querySelector('#search-input');
-            const mobileInput = document.querySelector('#mobile-search-input');
-
-            if (desktopInput && desktopInput.value.trim()) {
-                query = desktopInput.value;
-            } else if (mobileInput && mobileInput.value.trim()) {
-                query = mobileInput.value;
-            }
-
-            if (query.trim()) {
-                window.location.href = '/produits?search=' + encodeURIComponent(query);
-            }
-        }
-
-        // Add to cart functionality (simplified for components)
-        function addToCart(productId, productName = '', quantity = 1) {
-            fetch('/cart/add', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                },
-                body: JSON.stringify({
-                    product_id: productId,
-                    quantity: quantity
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    window.cartData.count = data.cart_count || data.count;
-                    const cartElements = document.querySelectorAll('[x-text="window.cartData.count"], .cart-count');
-                    cartElements.forEach(el => el.textContent = window.cartData.count);
-                    alert('Product added to cart!');
-                } else {
-                    alert(data.message || 'Failed to add product to cart');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('An error occurred. Please try again.');
-            });
-        }
-
-        // Refresh cart sidebar
-        function refreshCartSidebar() {
-            // Simplified cart sidebar refresh for components
-        }
     </script>
 </body>
 </html>
