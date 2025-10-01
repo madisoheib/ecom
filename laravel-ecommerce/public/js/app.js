@@ -70,7 +70,8 @@ function addToCart(productId, productName = '', quantity = 1) {
         addButton.classList.add('loading-spinner');
     }
 
-    fetch('/cart/add', {
+    const cartUrl = window.cartRoutes?.add || '/panier/ajouter';
+    fetch(cartUrl, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -117,10 +118,123 @@ function addToCart(productId, productName = '', quantity = 1) {
  * Refresh cart sidebar
  */
 function refreshCartSidebar() {
-    // Trigger Alpine.js refresh or custom cart update logic
-    if (window.Alpine) {
-        window.Alpine.store('cart')?.refresh?.();
+    // Fetch updated cart data from server
+    fetch(window.cartRoutes?.data || '/panier/data')
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Update global cart data
+                window.cartData = {
+                    items: data.cart,
+                    total: data.cart_total,
+                    count: data.cart_count
+                };
+
+                // Update cart count in header and other elements
+                const cartElements = document.querySelectorAll('[x-text="window.cartData.count"], .cart-count');
+                cartElements.forEach(el => {
+                    el.textContent = window.cartData.count;
+                });
+
+                // Trigger Alpine.js cart update event
+                window.dispatchEvent(new CustomEvent('cart-updated'));
+                
+                // Force Alpine.js to update by triggering reactivity
+                // This ensures the cart sidebar updates with new data
+            }
+        })
+        .catch(error => {
+            console.error('Error refreshing cart:', error);
+        });
+}
+
+/**
+ * Update cart sidebar content dynamically
+ * @param {Array} cartItems - Cart items array
+ * @param {Number} cartTotal - Cart total amount
+ */
+function updateCartSidebarContent(cartItems, cartTotal) {
+    const cartItemsContainer = document.getElementById('sidebar-cart-items');
+    const cartTotalElement = document.getElementById('sidebar-cart-total');
+    
+    if (!cartItemsContainer) return;
+
+    // Clear current items
+    cartItemsContainer.innerHTML = '';
+
+    // Cosmetic images for products
+    const perfumeImages = [
+        'https://images.unsplash.com/photo-1541643600914-78b084683601?w=80&h=80&fit=crop',
+        'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=80&h=80&fit=crop',
+        'https://images.unsplash.com/photo-1594736797933-d0301ba2fe65?w=80&h=80&fit=crop',
+        'https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=80&h=80&fit=crop',
+        'https://images.unsplash.com/photo-1563170351-be82bc888aa4?w=80&h=80&fit=crop',
+        'https://images.unsplash.com/photo-1588405748880-12d1d2a59d75?w=80&h=80&fit=crop',
+        'https://images.unsplash.com/photo-1528740561666-dc2479dc08ab?w=80&h=80&fit=crop',
+        'https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=80&h=80&fit=crop'
+    ];
+
+    // Add each cart item
+    cartItems.forEach(item => {
+        const imageUrl = perfumeImages[(item.id - 1) % perfumeImages.length];
+        const itemElement = document.createElement('div');
+        itemElement.className = 'flex items-center space-x-4 p-4 bg-white border border-gray-100 rounded-xl hover:shadow-md transition-all duration-200 cart-item';
+        itemElement.setAttribute('data-id', item.id);
+        
+        itemElement.innerHTML = `
+            <div class="flex-shrink-0">
+                <img src="${imageUrl}" alt="${item.name}" class="w-16 h-16 object-cover rounded-lg shadow-sm">
+            </div>
+            <div class="flex-1 min-w-0">
+                <h4 class="text-sm font-subheading text-gray-900 leading-tight mb-1">${item.name}</h4>
+                <div class="flex items-center justify-between">
+                    <p class="text-sm text-gray-600">${item.quantity} × $${item.price.toFixed(2)}</p>
+                    <p class="text-sm font-subheading text-primary">$${item.subtotal.toFixed(2)}</p>
+                </div>
+            </div>
+            <button onclick="removeFromCartSidebar(${item.id})" class="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-full transition-colors">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                </svg>
+            </button>
+        `;
+        
+        cartItemsContainer.appendChild(itemElement);
+    });
+
+    // Update cart total
+    if (cartTotalElement) {
+        cartTotalElement.textContent = `$${cartTotal.toFixed(2)}`;
     }
+}
+
+/**
+ * Remove item from cart sidebar
+ * @param {number} productId - Product ID to remove
+ */
+function removeFromCartSidebar(productId) {
+    const removeUrl = window.cartRoutes?.remove ? `${window.cartRoutes.remove}/${productId}` : `/panier/supprimer/${productId}`;
+    
+    fetch(removeUrl, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showToast('Product removed from cart', 'success');
+            refreshCartSidebar();
+        } else {
+            showToast(data.message || 'Failed to remove product', 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error removing item:', error);
+        showToast('An error occurred. Please try again.', 'error');
+    });
 }
 
 /**

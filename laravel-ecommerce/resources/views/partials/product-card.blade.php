@@ -143,30 +143,3 @@ $isFeatured = $product->id % 3 == 0;
 </div>
 </a>
 
-<script>
-function addToCart(productId) {
-    fetch('{{ route('cart.add') }}', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-        },
-        body: JSON.stringify({
-            product_id: productId,
-            quantity: 1
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            alert('Product added to cart!');
-        } else {
-            alert(data.message || 'Failed to add product to cart');
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('An error occurred. Please try again.');
-    });
-}
-</script>

@@ -160,7 +160,7 @@
                             </a>
                         @endforeach
                         <hr class="my-3 mx-2">
-                        <a href="{{ localized_route('categories.index') }}" class="block px-5 py-3 text-sm font-medium transition-all duration-150 mx-2 rounded-lg" style="color: var(--color-primary);" onmouseover="this.style.backgroundColor='var(--color-secondary)'; this.style.color='var(--color-primary)'; this.style.fontWeight='bold';" onmouseout="this.style.backgroundColor=''; this.style.color='var(--color-primary)'; this.style.fontWeight='medium';"
+                        <a href="{{ localized_route('categories.index') }}" class="block px-5 py-3 text-sm font-medium transition-all duration-150 mx-2 rounded-lg" style="color: var(--color-primary);" onmouseover="this.style.backgroundColor='var(--color-secondary)'; this.style.color='var(--color-primary)'; this.style.fontWeight='bold';" onmouseout="this.style.backgroundColor=''; this.style.color='var(--color-primary)'; this.style.fontWeight='medium';">
                             @t('View All Categories')
                         </a>
                     </div>

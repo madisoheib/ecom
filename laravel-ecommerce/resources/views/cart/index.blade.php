@@ -7,7 +7,7 @@
         <div class="mb-8">
             <h1 class="text-3xl font-bold text-gray-900 mb-4">@t('Shopping Cart')</h1>
             <nav class="text-sm text-gray-600">
-                <a href="{{ route('home') }}" class="hover:text-primary">@t('Home')</a>
+                <a href="{{ url('/') }}" class="hover:text-primary">@t('Home')</a>
                 <span class="mx-2">></span>
                 <span class="text-gray-900">@t('Shopping Cart')</span>
             </nav>
@@ -120,7 +120,7 @@
                                 @t('Proceed to Checkout')
                             </a>
 
-                            <a href="{{ route('home') }}"
+                            <a href="{{ url('/') }}"
                                class="w-full bg-gray-100 text-gray-900 font-medium py-3 px-4 text-center block hover:bg-gray-200 transition-colors"
                                style="border-radius: 12px;">
                                 @t('Continue Shopping')
@@ -137,7 +137,7 @@
                 </svg>
                 <h2 class="text-2xl font-bold text-gray-900 mb-4">@t('Your cart is empty')</h2>
                 <p class="text-gray-600 mb-8">@t('Add some products to get started')</p>
-                <a href="{{ route('home') }}"
+                <a href="{{ url('/') }}"
                    class="inline-flex items-center px-8 py-3 text-white font-semibold transition-all duration-200 hover:scale-105 hover:shadow-lg"
                    class="bg-primary hover:bg-primary-700" style="border-radius: 12px;">
                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

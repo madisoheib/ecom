@@ -9,11 +9,13 @@
             this.cartItems = window.cartData?.items || [];
             this.cartTotal = window.cartData?.total || {{ session()->get('cart_total', 0) }};
             this.cartCount = window.cartData?.count || {{ session()->get('cart_count', 0) }};
+        },
+        removeFromCartSidebar(productId) {
+            window.removeFromCartSidebar(productId);
         }
      }"
-     @cart-toggle.window="open = !open; if(open) { updateCartDisplay(); refreshCartSidebar(); }"
+     @cart-toggle.window="open = !open; if(open) { updateCartDisplay(); }"
      @cart-updated.window="updateCartDisplay()"
-     x-init="updateCartDisplay()"
      x-cloak>
     <!-- Backdrop -->
     <div x-show="open"
@@ -62,43 +64,32 @@
             <!-- Cart Items -->
             <div class="flex-1 overflow-y-auto" x-show="cartCount > 0">
                 <div class="p-6 space-y-4" id="sidebar-cart-items">
-                    @php
-                        $cart = session()->get('cart', []);
-                        $perfumeImages = [
-                            'https://images.unsplash.com/photo-1541643600914-78b084683601?w=80&h=80&fit=crop',
-                            'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=80&h=80&fit=crop',
-                            'https://images.unsplash.com/photo-1594736797933-d0301ba2fe65?w=80&h=80&fit=crop',
-                            'https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=80&h=80&fit=crop',
-                            'https://images.unsplash.com/photo-1563170351-be82bc888aa4?w=80&h=80&fit=crop',
-                            'https://images.unsplash.com/photo-1588405748880-12d1d2a59d75?w=80&h=80&fit=crop',
-                            'https://images.unsplash.com/photo-1528740561666-dc2479dc08ab?w=80&h=80&fit=crop',
-                            'https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=80&h=80&fit=crop'
-                        ];
-                    @endphp
-                    @foreach($cart as $id => $item)
-                        <div class="flex items-center space-x-4 p-4 bg-white border border-gray-100 rounded-xl hover:shadow-md transition-all duration-200 cart-item" data-id="{{ $id }}">
+                    <!-- Dynamic cart items using Alpine.js -->
+                    <template x-for="item in cartItems" :key="item.id">
+                        <div class="flex items-center space-x-4 p-4 bg-white border border-gray-100 rounded-xl hover:shadow-md transition-all duration-200 cart-item" :data-id="item.id">
                             <div class="flex-shrink-0">
-                                @php
-                                    $imageUrl = $perfumeImages[($id - 1) % count($perfumeImages)];
-                                @endphp
-                                <img src="{{ $imageUrl }}"
-                                     alt="{{ $item['name'] }}"
+                                <img :src="item.image" 
+                                     :alt="item.name"
                                      class="w-16 h-16 object-cover rounded-lg shadow-sm">
                             </div>
                             <div class="flex-1 min-w-0">
-                                <h4 class="text-sm font-subheading text-gray-900 leading-tight mb-1">{{ $item['name'] }}</h4>
+                                <h4 class="text-sm font-subheading text-gray-900 leading-tight mb-1" x-text="item.name"></h4>
                                 <div class="flex items-center justify-between">
-                                    <p class="text-sm text-gray-600">{{ $item['quantity'] }} × {{ site_currency() === 'EUR' ? '€' : '$' }}{{ number_format($item['price'], 2) }}</p>
-                                    <p class="text-sm font-subheading text-primary">{{ site_currency() === 'EUR' ? '€' : '$' }}{{ number_format($item['price'] * $item['quantity'], 2) }}</p>
+                                    <p class="text-sm text-gray-600">
+                                        <span x-text="item.quantity"></span> × $<span x-text="parseFloat(item.price).toFixed(2)"></span>
+                                    </p>
+                                    <p class="text-sm font-subheading text-primary">
+                                        $<span x-text="item.subtotal.toFixed(2)"></span>
+                                    </p>
                                 </div>
                             </div>
-                            <button onclick="removeFromCartSidebar({{ $id }})" class="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-full transition-colors">
+                            <button @click="removeFromCartSidebar(item.id)" class="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-full transition-colors">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                                 </svg>
                             </button>
                         </div>
-                    @endforeach
+                    </template>
                 </div>
             </div>
 
@@ -126,7 +117,7 @@
                 <!-- Total -->
                 <div class="flex justify-between items-center">
                     <span class="text-lg font-subheading text-gray-900">@t('Total')</span>
-                    <span class="text-xl font-heading text-primary" id="sidebar-cart-total">{{ site_currency() === 'EUR' ? '€' : '$' }}{{ number_format(session()->get('cart_total', 0), 2) }}</span>
+                    <span class="text-xl font-heading text-primary" id="sidebar-cart-total">$<span x-text="cartTotal.toFixed(2)"></span></span>
                 </div>
 
                 <!-- Actions -->
@@ -136,7 +127,7 @@
                        class="w-full bg-white border-2 border-gray-200 text-gray-900 py-3 px-4 rounded-xl text-center block hover:border-gray-300 hover:shadow-sm transition-all font-subheading">
                         @t('Voir le panier')
                     </a>
-                    <a href="{{ route('checkout') }}"
+                    <a href="{{ url('/commande') }}"
                        @click="open = false"
                        class="w-full bg-gradient-to-r from-primary to-primary-700 text-white py-3 px-4 rounded-xl text-center block hover:shadow-lg hover:scale-105 transition-all font-subheading">
                         @t('Commander')

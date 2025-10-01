@@ -54,7 +54,8 @@ function search() {
  * @param {number} quantity - Quantity to add (default: 1)
  */
 function addToCart(productId, productName = '', quantity = 1) {
-    fetch('/cart/add', {
+    const cartUrl = window.cartRoutes?.add || '/panier/ajouter';
+    fetch(cartUrl, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

@@ -161,7 +161,7 @@
     @include('partials.cart-sidebar')
 
     <!-- App JavaScript -->
-    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}?v={{ time() }}"></script>
 
     <!-- Initialize cart data from server -->
     <script>
@@ -170,6 +170,15 @@
             items: @json(session('cart', [])),
             total: {{ session('cart_total', 0) }},
             count: {{ session('cart_count', 0) }}
+        };
+
+        // Initialize cart routes for JavaScript
+        window.cartRoutes = {
+            add: '{{ route('cart.add') }}',
+            update: '{{ url('panier/modifier') }}',
+            remove: '{{ url('panier/supprimer') }}',
+            clear: '{{ route('cart.clear') }}',
+            data: '{{ route('cart.data') }}'
         };
     </script>
 </body>

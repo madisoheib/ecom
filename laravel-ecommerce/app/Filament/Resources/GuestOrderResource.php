@@ -5,7 +5,6 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\GuestOrderResource\Pages;
 use App\Models\GuestOrder;
 use App\Models\Product;
-use App\Models\Region;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -31,7 +30,11 @@ class GuestOrderResource extends Resource
                     ->schema([
                         Forms\Components\Select::make('product_id')
                             ->label('Product')
-                            ->options(Product::all()->pluck('name', 'id'))
+                            ->options(function () {
+                                return Product::all()->mapWithKeys(function ($product) {
+                                    return [$product->id => $product->name . ' - ' . $product->sku];
+                                });
+                            })
                             ->required()
                             ->searchable(),
 
@@ -83,10 +86,15 @@ class GuestOrderResource extends Resource
                             ->email()
                             ->maxLength(255),
 
-                        Forms\Components\Select::make('region_id')
-                            ->label('Region')
-                            ->options(Region::all()->pluck('name', 'id'))
-                            ->searchable(),
+                        Forms\Components\TextInput::make('country')
+                            ->label('Country')
+                            ->required()
+                            ->maxLength(100),
+
+                        Forms\Components\TextInput::make('city')
+                            ->label('City')
+                            ->required()
+                            ->maxLength(100),
 
                         Forms\Components\Textarea::make('address')
                             ->required()

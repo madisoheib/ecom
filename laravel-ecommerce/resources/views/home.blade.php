@@ -276,6 +276,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const nextBtn = document.getElementById('nextSlide');
     let currentSlide = 0;
     let autoSlideInterval;
+    let isInitialPhase = true;
+    let cycleCount = 0;
 
     function showSlide(index) {
         slides.forEach((slide, i) => {
@@ -306,6 +308,16 @@ document.addEventListener('DOMContentLoaded', function() {
     function nextSlide() {
         const next = (currentSlide + 1) % slides.length;
         showSlide(next);
+        
+        if (isInitialPhase) {
+            cycleCount++;
+            // Complete initial fast cycle after going through all slides twice
+            if (cycleCount >= slides.length * 2) {
+                isInitialPhase = false;
+                stopAutoSlide();
+                startAutoSlide(); // Restart with normal speed
+            }
+        }
     }
 
     function prevSlide() {
@@ -314,7 +326,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function startAutoSlide() {
-        autoSlideInterval = setInterval(nextSlide, 6000);
+        const interval = isInitialPhase ? 800 : 6000; // 800ms for fast initial phase, 6s for normal
+        autoSlideInterval = setInterval(nextSlide, interval);
     }
 
     function stopAutoSlide() {
@@ -323,6 +336,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (nextBtn) {
         nextBtn.addEventListener('click', () => {
+            isInitialPhase = false; // Stop fast cycling on user interaction
             stopAutoSlide();
             nextSlide();
             startAutoSlide();
@@ -331,6 +345,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (prevBtn) {
         prevBtn.addEventListener('click', () => {
+            isInitialPhase = false; // Stop fast cycling on user interaction
             stopAutoSlide();
             prevSlide();
             startAutoSlide();
@@ -339,6 +354,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     dots.forEach((dot, index) => {
         dot.addEventListener('click', () => {
+            isInitialPhase = false; // Stop fast cycling on user interaction
             stopAutoSlide();
             showSlide(index);
             startAutoSlide();
@@ -347,7 +363,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const slider = document.getElementById('modernSlider');
     if (slider) {
-        slider.addEventListener('mouseenter', stopAutoSlide);
+        slider.addEventListener('mouseenter', () => {
+            isInitialPhase = false; // Stop fast cycling on hover
+            stopAutoSlide();
+        });
         slider.addEventListener('mouseleave', startAutoSlide);
     }
 
